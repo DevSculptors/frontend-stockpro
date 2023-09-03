@@ -19,22 +19,22 @@ const sidebarItems = [{
 },
 {
   name: "Estadisticas",
-  href: "/stats",
+  href: "/dashboard/stats",
   icon: BsFillBarChartFill,
 },
 {
   name: "Inventario Plus",
-  href: "/inventory_plus",
+  href: "/dashboard/inventory_plus",
   icon: LuMousePointerClick,
 },
 {
   name: "Usuarios",
-  href: "/users",
+  href: "/dashboard/users",
   icon: TiContacts,
 },
 {
   name: "Inventario",
-  href: "/inventory",
+  href: "/dashboard/inventory",
   icon: BsBox,
 },
 ];
@@ -47,6 +47,9 @@ export default function SideBar() {
   
 
   const { isCollapsed, toggleSidebarcollapse } = useSidebarContext();
+
+  console.log(isCollapsed);
+  
   
   return (
     <div className={styles.sidebar__wrapper}>
@@ -69,12 +72,11 @@ export default function SideBar() {
           {sidebarItems.map(({ name, href, icon: Icon }) => (
             <li className={styles.sidebar__item} key={name}>
               <Link
-                className={`${styles.sidebar__link} 
-                ${
-                  pathname === href ? "styles.sidebar__link--active" : ""}`}
+                className={ pathname === href ? styles.
+                sidebar__link_active : styles.sidebar__link 
+                }
                 href={href}
-                >
-                
+                >    
                 <div className={styles.sidebar__icon}>
                   <Icon />
                 </div>
