@@ -1,30 +1,29 @@
 'use client'
-import { Form } from "@/components/Form"
-
+import {Form} from "@/components/Form";
 function Test() {
+    const onSubmit = (values) => {
+        console.log(values)
+    }
+    return (
+        <Form
+            title="Añadir Usuario"
+            onSubmit={onSubmit}
+        ><div className='my-[10px] flex flex-col gap-4'>
+            <Form.Input
+                name="name"
+                label="Nombre"
+                placeholder="Ingresa tu nombre"
+                />
+            <Form.Input
+                name="lastName"
+                label="Apellido"
+                placeholder="Ingresa tu apellido"
+            />
+        </div>
 
-  const handleSubmit = (formData: any) => {
-    console.log(formData);
-    
-  }
-  return (
-    <>
-    <Form
-    onSubmit={handleSubmit}
-    title="Test"
-    description="Test seda"
-    >
-      <div className='my-[10px] flex flex-col gap-4'>
-        <Form.Input 
-        label="Nombre"
-        name="name"
-        placeholder="Ingresa tu nombre..."
-        />
 
-        </div>  
-    </Form>
-    </>
-  )
+        </Form>
+    )
 }
 
 export default Test

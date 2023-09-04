@@ -1,6 +1,6 @@
 'use client'
 
-import { Footer, Input, SubmitButton } from './components'
+import { Footer, Input, SubmitButton, CancelButton, ListBox, CheckBox } from './components'
 import { createContext, useState, useContext } from 'react'
 import styles from './styles.module.scss'
 
@@ -38,6 +38,7 @@ export function Form ({ title, children, onSubmit, description }: FormProps) {
           {description && <p>{description}</p>}
         </div>
         {children}
+
       </form>
     </FormContext.Provider>
   )
@@ -46,3 +47,6 @@ export function Form ({ title, children, onSubmit, description }: FormProps) {
 Form.Input = Input
 Form.Footer = Footer
 Form.SubmitButton = SubmitButton
+Form.ListBox = ListBox
+Form.CheckBox = CheckBox
+Form.CancelButton = CancelButton
