@@ -12,6 +12,7 @@ function DashboardLayout({ children }: Props) {
   return (
     <div className={styles.layout}>
       <SidebarProvider>
+        
         <SideBar />
         <main className={styles.layout__main}>{children}</main>
       </SidebarProvider>

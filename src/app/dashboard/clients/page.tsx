@@ -1,9 +1,21 @@
+import { getQueryClient } from "@/helpers/get-query-client";
 
-function Clients() {
+import { getAllPersons } from "@/api/Person";
+
+import { Persons } from "./Persons";
+
+import { dehydrate,Hydrate } from "@tanstack/react-query";
+
+async function Clients() {
+
+  const queryClient = getQueryClient();
+  await  queryClient.prefetchQuery(['persons'], () => getAllPersons());
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <div>
-      <h1>Clients</h1>
-    </div>
+    <Hydrate state={dehydratedState}>
+      <Persons/>
+    </Hydrate>
   );
 }
 

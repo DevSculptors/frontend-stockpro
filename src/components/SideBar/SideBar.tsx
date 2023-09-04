@@ -1,24 +1,25 @@
-'use client';
-import styles from './style.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import { MdDashboard } from 'react-icons/md';
+"use client";
+import styles from "./style.module.css";
+import Image from "next/image";
+import Link from "next/link";
+import { MdDashboard } from "react-icons/md";
 import { LuMousePointerClick } from "react-icons/lu";
-import { BsBox } from 'react-icons/bs';
-import {BsFillBarChartFill} from 'react-icons/bs';
+import { BsBox } from "react-icons/bs";
+import { BsFillBarChartFill } from "react-icons/bs";
 import { TiContacts } from "react-icons/ti";
-import { MdKeyboardArrowRight,MdKeyboardArrowLeft } from 'react-icons/md';
-import {FiUsers} from 'react-icons/fi';
-import {FiTag } from 'react-icons/fi';
-import {FiSettings} from 'react-icons/fi';
-import {BiCart} from 'react-icons/bi';
-import {BiFileBlank} from 'react-icons/bi';
-import {CiLogout} from 'react-icons/ci';
-import { useSidebarContext } from '@/context/SidebarContext';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { FiUsers } from "react-icons/fi";
+import { FiTag } from "react-icons/fi";
+import { FiSettings } from "react-icons/fi";
+import { BiCart } from "react-icons/bi";
+import { BiFileBlank } from "react-icons/bi";
+import { CiLogout } from "react-icons/ci";
+import { useSidebarContext } from "@/context/SidebarContext";
 
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
-const sidebarItems = [{
+const sidebarItems = [
+  {
     name: "Dashboard",
     href: "/dashboard",
     icon: MdDashboard,
@@ -70,10 +71,15 @@ const sidebarItems = [{
     name: "Configuracion",
     href: "/dashboard/settings",
     icon: FiSettings,
-    text: (<>
-           <br />
-           <br />
-        </>
+    text: (
+      <>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1>Settings</h1>
+      </>
     ),
   },
   {
@@ -83,25 +89,19 @@ const sidebarItems = [{
   },
 ];
 
-
-
 export default function SideBar() {
-
   const pathname = usePathname();
-  
 
   const { isCollapsed, toggleSidebarcollapse } = useSidebarContext();
 
   console.log(isCollapsed);
 
-
   return (
     <div className={styles.sidebar__wrapper}>
-      <button className={styles.btn}
-      onClick={toggleSidebarcollapse}>
+      <button className={styles.btn} onClick={toggleSidebarcollapse}>
         {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
       </button>
-      <aside className={styles.sidebar}  data-collapse={isCollapsed}>
+      <aside className={styles.sidebar} data-collapse={isCollapsed}>
         <div className={styles.sidebar__top}>
           <Image
             src="/logo.png"
@@ -114,27 +114,24 @@ export default function SideBar() {
         </div>
         <br />
         <ul className={styles.sidebar__list}>
-          {sidebarItems.map(({ name, href, icon: Icon, text}) => (
+          {sidebarItems.map(({ name, href, icon: Icon, text }) => (
             <li className={styles.sidebar__item} key={name}>
-              <span className={styles.sidebar__text}>
-                  {text}
-              </span>
+              <span className={styles.sidebar__text}>{text}</span>
               <Link
-                className={ pathname === href ? styles.
-                sidebar__link_active : styles.sidebar__link
+                className={
+                  pathname === href
+                    ? styles.sidebar__link_active
+                    : styles.sidebar__link
                 }
                 href={href}
-                >
+              >
                 <div className={styles.sidebar__icon}>
                   <Icon />
                 </div>
-                <span className={styles.sidebar__name}>
-                  {name}
-                </span>
+                <span className={styles.sidebar__name}>{name}</span>
               </Link>
             </li>
           ))}
-
         </ul>
       </aside>
     </div>

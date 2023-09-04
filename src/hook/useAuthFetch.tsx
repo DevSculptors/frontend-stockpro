@@ -31,11 +31,6 @@ export function useAuthFetch() {
       
       const { data } = await axios.post(`${endpoint}`, formData, options);
       
-      console.log(data);
-
-      const cookie = Cookies.get();
-      console.log("cookie",cookie); 
-      
       showNotification({
         open: true,
         msj: data.message,
