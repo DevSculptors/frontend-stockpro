@@ -1,10 +1,11 @@
 .form {
-background: #fefefe;
+  background: #fefefe;
   width: fit-content;
   padding: 2rem;
   border: 3px solid #fff;
   border-radius: 10px;
   min-width: 450px;
+
 
   .descriptionContainer {
       text-align: left;
@@ -18,5 +19,17 @@ background: #fefefe;
           font-weight: 400;
           font-size: 16px;
       }
+  }
+  .containerInput{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 35px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
   }
 }
