@@ -2,7 +2,6 @@
 import { Form } from "@/components/Form"
 import { useAuthFetch } from "@/hook/useAuthFetch"
 import { useLoading } from "@/hook/useLoading"
-
 function LoginPage() {
 
   const {finishLoading,isLoading,startLoading}= useLoading()
@@ -17,6 +16,7 @@ function LoginPage() {
       redirectRoute: "/dashboard",
     });
     finishLoading()
+
   }
 
   return (
@@ -28,7 +28,7 @@ function LoginPage() {
    >
     <div className='my-[10px] flex flex-col gap-4'>
       <Form.Input
-        name="username"
+        name="email"
         label="Correo electrónico"
         placeholder="Ingresa tu correo electrónico..."
       />
