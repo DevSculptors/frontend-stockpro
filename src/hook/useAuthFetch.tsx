@@ -1,9 +1,11 @@
 import { useNotificationContext } from "@/context/NotificationContext";
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
+
+import axios from '@/api/config'
 
 import { useRouter } from "next/navigation";
 
-import { API_URL } from "@/api/config";
+import Cookies from "js-cookie";
 
 interface AuthFetchProps {
   endpoint: string;
@@ -11,6 +13,7 @@ interface AuthFetchProps {
   formData: any;
   options?: AxiosRequestConfig;
 }
+
 
 export function useAuthFetch() {
   const { showNotification } = useNotificationContext();
@@ -23,13 +26,16 @@ export function useAuthFetch() {
     options,
   }: AuthFetchProps) => {
     console.log("useAuthFetch Login");
+    
     try {
-      console.log(formData);
       
-      const { data } = await axios.post(`${API_URL}/${endpoint}`, formData, options);
+      const { data } = await axios.post(`${endpoint}`, formData, options);
       
       console.log(data);
 
+      const cookie = Cookies.get();
+      console.log("cookie",cookie); 
+      
       showNotification({
         open: true,
         msj: data.message,
@@ -40,6 +46,7 @@ export function useAuthFetch() {
         router.push(redirectRoute);
       }
     } catch (error: any) {
+      console.log(error);
       showNotification({
         open: true,
         status: "error",
