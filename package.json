@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.33.0",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
-    "@types/js-cookie": "^3.0.3"
+    "@types/js-cookie": "^3.0.3",
+    "cypress": "^13.1.0"
   }
 }
