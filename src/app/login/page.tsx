@@ -2,6 +2,8 @@
 import { Form } from "@/components/Form"
 import { useAuthFetch } from "@/hook/useAuthFetch"
 import { useLoading } from "@/hook/useLoading"
+import { getLogin } from "@/api/Test"
+
 function LoginPage() {
 
   const {finishLoading,isLoading,startLoading}= useLoading()
@@ -15,6 +17,7 @@ function LoginPage() {
       formData,
       redirectRoute: "/dashboard",
     });
+
     finishLoading()
 
   }

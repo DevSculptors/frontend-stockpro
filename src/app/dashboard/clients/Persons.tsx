@@ -1,19 +1,20 @@
 'use client'
-import { useQuery } from "@tanstack/react-query";
-import { getAllPersons } from "@/api/Person";
 import { Person } from "@/interfaces/Person";
 
+import { usePerson } from "@/context/PersonContext";
+
 export function Persons() {
-  const {data} = useQuery({
-    queryKey: ['persons'],
-    queryFn: () => getAllPersons()
-  });
+  
+  const { persons } = usePerson();  
+
+  console.log(persons);
+  
   
   return (
     <>
       <h1>Persons</h1>
       {
-        data?.map((person:Person) => {
+        persons?.map((person:Person) => {
           return (
             <div key={person.id}>
               {/* <p>{person.id}</p> */}

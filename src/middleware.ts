@@ -14,14 +14,16 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url)) 
     }
 
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-token`, {
       method: "GET",
       headers: {
-        token: token.value,
+        authorization: `Bearer ${token.value}`,
       },
     });
 
     const data = await res.json();
+
 
     const isAuthorizaded = data?.isAuthorizaded;
 
@@ -29,6 +31,8 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url))
     }
 
+    console.log("isAuthorizaded", isAuthorizaded);
+    
     return NextResponse.next();
 
  */
