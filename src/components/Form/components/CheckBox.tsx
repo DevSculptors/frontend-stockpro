@@ -18,27 +18,30 @@ export function CheckBox ({label, options, name }: CheckBoxProps) {
     const { formValues, setFormValues } = useContext(FormContext)!
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target
-        setFormValues(prevValues => ({
+        const { value, checked} = event.target
+        setFormValues((prevValues) => ({
             ...prevValues,
-            [name]: value
-        }))
+            [name]: {
+                ...prevValues[name],
+                [value]: checked,
+            },
+        }));
     }
 
     return (
-        <div className={styles.inputContainer}>
+        <div className={styles.checkBox}>
             <label className={styles.label} htmlFor={name}>
                 {label}
             </label>
-            <div>
+            <div className={styles.checks} >
                 {options.map((option) => (
                     <div key={option.value}>
                         <input
-                            type="radio"
+                            type="checkbox"
                             id={option.value}
                             name={name}
                             value={option.value}
-                            checked={formValues[name] === option.value}
+                            checked={formValues[name]?.[option.value] || false}
                             onChange={handleChange}
                         />
                         <label htmlFor={option.value}>{option.label}</label>
