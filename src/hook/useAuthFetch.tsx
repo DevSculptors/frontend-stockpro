@@ -1,7 +1,7 @@
 import { useNotificationContext } from "@/context/NotificationContext";
 import { AxiosRequestConfig } from "axios";
 
-import axios from '@/api/config'
+import axios from "@/api/config";
 
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,6 @@ interface AuthFetchProps {
   options?: AxiosRequestConfig;
 }
 
-
 export function useAuthFetch() {
   const { showNotification } = useNotificationContext();
   const router = useRouter();
@@ -26,11 +25,18 @@ export function useAuthFetch() {
     options,
   }: AuthFetchProps) => {
     console.log("useAuthFetch Login");
-    
+
     try {
-      
       const { data } = await axios.post(`${endpoint}`, formData, options);
+
+      Cookies.set("token", data.token, {
+        expires: 1,
+      });
+
+      // console.log(data);
       
+      // sessionStorage.setItem("user", JSON.stringify(data.user));
+
       showNotification({
         open: true,
         msj: data.message,

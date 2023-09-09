@@ -94,7 +94,7 @@ export default function SideBar() {
 
   const { isCollapsed, toggleSidebarcollapse } = useSidebarContext();
 
-  console.log(isCollapsed);
+  // console.log(isCollapsed);
 
   return (
     <div className={styles.sidebar__wrapper}>
