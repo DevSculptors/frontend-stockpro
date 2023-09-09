@@ -19,7 +19,7 @@ function EditUser({title}:EditProps) {
         setIsModalOpen(false);
     };
 
-    const onSubmit = (values) => {
+    const onSubmit = (values:any) => {
         console.log(values);
         closeModal();
     };
