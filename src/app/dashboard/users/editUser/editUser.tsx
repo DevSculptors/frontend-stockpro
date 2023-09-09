@@ -3,8 +3,14 @@ import {Form} from "@/components/Form";
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styles from "../style.module.css";
-function AddUser() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+interface EditProps {
+    title: string
+}
+
+
+function EditUser({title}:EditProps) {
+    const [isModalOpen, setIsModalOpen] = useState(true);
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -18,10 +24,6 @@ function AddUser() {
         closeModal();
     };
     return (
-        <div>
-            <button className={styles.buttonCreateUser} onClick={openModal}>
-                Registrar Cliente
-            </button>
         <Modal
             isOpen={isModalOpen}
             onRequestClose={closeModal}
@@ -30,7 +32,7 @@ function AddUser() {
             overlayClassName={styles.overlay}
         >
         <Form
-            title="Añadir Usuario"
+            title={title}
             onSubmit={onSubmit}
         ><div>
             <div className='my-[10px] grid grid-cols-2 gap-4'>
@@ -47,7 +49,7 @@ function AddUser() {
                 <Form.Input
                     name="document"
                     label="Número de documento"
-                    placeholder="Ingresa tu número de documento"
+                    placeholder="Número de documento"
                 />
                 <Form.Input
                     name="name"
@@ -90,21 +92,29 @@ function AddUser() {
                         { value: 'superAdmin', label: 'Super Administrador' }
                     ]}
                 />
+                <Form.CheckBox
+                    //Toca cambiarlo
+                    name="status"
+                    label="Estado"
+                    options={[
+                        { value: 'active', label: 'Activo' },
+                        { value: 'inactive', label: 'Inactivo' }
+                    ]}
+                />
             </div>
             <div className='my-[10px] grid grid-cols-2 gap-4'>
                 <Form.CancelButton
                     buttonText="Cancelar"
                 />
                 <Form.SubmitButton
-                    buttonText="Aceptar"
+                    buttonText="Editar"
                 />
             </div>
 
         </div>
         </Form>
         </Modal>
-        </div>
     )
 }
 
-export default AddUser
+export default EditUser

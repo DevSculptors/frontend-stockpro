@@ -1,0 +1,73 @@
+.containerUser{
+  background: #fefefe;
+  padding: 2rem;
+  border: 3px solid #fff;
+  border-radius: 10px;
+}
+.tittleList{
+  font-style: normal;
+  color: #16161D;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 140%;
+  white-space: nowrap;
+}
+.buttonCreateUser{
+  margin-top: 1rem;
+  background: #1E9189;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: .6rem 0.4rem;
+  border: 1px solid #1E9189;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconSearch{
+  display: flex;
+  width: 15px;
+  height: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.divSearch{
+  display: flex;
+  width: 400px;
+  padding: 5px 5px;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: #F1F1F4;
+}
+.inputSearch{
+  background: #F1F1F4;
+  font-size: 14px;
+  font-style: normal;
+}
+.containerTittle{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modalAddUsers {
+  width: fit-content;
+  height: 200px;
+  margin: 0 auto;
+  position: center;
+  border-radius: 10px;
+}
+.overlay {
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
