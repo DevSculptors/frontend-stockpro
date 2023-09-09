@@ -75,9 +75,9 @@ const sidebarItems = [
       <>
         <br />
         <br />
-        <br />
-        <br />
-        <br />
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
         <h1>Settings</h1>
       </>
     ),

@@ -1,7 +1,7 @@
 'use client'
 import {Form} from "@/components/Form";
 function Test() {
-    const onSubmit = (values) => {
+    const onSubmit = (values: any) => {
         console.log(values)
     }
     return (
