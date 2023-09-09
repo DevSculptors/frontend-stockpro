@@ -1,5 +1,6 @@
 import { useEffect, createContext, useContext, useState } from "react";
 
+// @ts-ignore
 import { loginRequest,logoutRequest } from "@/api/Authentication";
 
 import { LoginUser } from "@/interfaces/User";

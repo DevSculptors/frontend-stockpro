@@ -1,0 +1,49 @@
+.iconSearch{
+    display: flex;
+    width: 15px;
+    height: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.divSearch{
+    display: flex;
+    width: 400px;
+    padding: 5px 5px;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: lightgray;
+}
+.inputSearch{
+    background: #d2d0d0;
+
+    /* B2/Regular */
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    width: 400px;
+
+}
+.divButtomEnd{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.nameUser{
+    color: var(--grey-900, #16161D);
+    /* B1/Bold */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+.roleUser{
+    color: var(--grey-500, #6E6E91);
+    /* B3/Regular */
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 16.8px */
+}

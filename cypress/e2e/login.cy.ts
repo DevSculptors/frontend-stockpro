@@ -24,6 +24,7 @@ describe('template spec', () => {
     cy.get('#email').type('sebastian.martinez07@uptc.edu.co');
     cy.get('#password').type('sebastian');
     cy.get('.styles_submitButton__WMndn').click();
+    cy.wait(5000);
     cy.get('.style_sidebar__link_active__xw7MM > .style_sidebar__name__bQJni').should('have.text', 'Dashboard');
     /* ==== End Cypress Studio ==== */
   });

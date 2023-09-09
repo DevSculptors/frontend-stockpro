@@ -1,7 +1,7 @@
 'use client'
 import {Form} from "@/components/Form";
 function AddUser() {
-    const onSubmit = (values) => {
+    const onSubmit = (values: any) => {
         console.log(values)
     }
     return (
@@ -46,4 +46,4 @@ function AddUser() {
     )
 }
 
-export default Test
+export default test

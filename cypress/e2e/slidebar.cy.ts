@@ -1,8 +1,4 @@
 describe('template spec', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
-  })
-
   /* ==== Test Created with Cypress Studio ==== */
   it('slidebar', function() {
     /* ==== Generated with Cypress Studio ==== */

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   try {
-
+/*
     const token = request.cookies.get("token");
 
     // console.log("token", token);
@@ -30,8 +30,13 @@ export async function middleware(request: NextRequest) {
     }
 
     return NextResponse.next();
+
+ */
   } catch (error) {
+  /*
     return NextResponse.redirect(new URL('/', request.url))
+
+   */
   }
 }
 

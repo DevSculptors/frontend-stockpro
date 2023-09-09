@@ -115,9 +115,3 @@
   transform: translateX(50%);
   font-size: 1.1rem;
 }
-
-.sidebar__item.specialStyles {
-  background-color: white; /* Fondo blanco */
-  color: blue; /* Color de texto azul (ajusta el color según tu preferencia) */
-  /* Otros estilos personalizados */
-}
