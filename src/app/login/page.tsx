@@ -2,7 +2,6 @@
 import { Form } from "@/components/Form"
 import { useAuthFetch } from "@/hook/useAuthFetch"
 import { useLoading } from "@/hook/useLoading"
-import { getLogin } from "@/api/Test"
 
 function LoginPage() {
 
@@ -11,6 +10,7 @@ function LoginPage() {
   const {authRouter} = useAuthFetch()
 
   const loginSubmit = async (formData: any) => {
+    
     startLoading()
     await authRouter({
       endpoint: "login",

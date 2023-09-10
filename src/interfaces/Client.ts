@@ -1,4 +1,4 @@
-export interface Person {
+export interface Client {
   id: number;
   id_document: string;
   type_document: any;
@@ -8,7 +8,7 @@ export interface Person {
 }
 
 //Persona sin ID, para crear
-export type CreatePerson = Omit<Person, "id">;
+export type CreateClient = Omit<Client, "id">;
 
 //Persona sin ID, para actualizar
-export type UpdatePerson = Partial<CreatePerson>;
+export type UpdatePerson = Partial<CreateClient>;

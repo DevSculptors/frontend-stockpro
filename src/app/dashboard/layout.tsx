@@ -1,25 +1,41 @@
 "use client";
-import SideBar from "@/components/SideBar/SideBar";
+import { ReactNode, useMemo, useState } from "react";
 import styles from "./style.module.css";
+
+import SideBar from "@/components/SideBar/SideBar";
 import NavBar from "@/components/NavBar/NavBar";
-import { SidebarProvider } from "@/context/SidebarContext";
-import { PersonProvider } from "@/context/ClientContext";
-import { ModalContext } from "@/context/ModalContext";
+
+import CreateUserDialog from "./users/Dialogs/CreateUser/CreateUser";
+
 import ModalBase from "@/app/components/Modal/Modal";
 import CreateUserDialog from "./users/Dialogs/CreateUserDialog";
 import { ReactNode, useMemo, useState } from "react";
 import EditUserDialog from "./users/Dialogs/EditUserDialog";
+import { ClientContext } from "@/context/ClientContext";
+import { ModalContext } from "@/context/ModalContext";
+
+import { Client } from "@/interfaces/Client";
 
 interface Props {
   children: ReactNode | ReactNode[];
 }
 
 function DashboardLayout({ children }: Props) {
-
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
 
+  const [selectedClient, setSelectedClient] = useState<Client>();
+  const [clients, setClients] = useState<Client[] | undefined>([]);
 
+  const clientContext = useMemo(
+    () => ({
+      selectedClient,
+      setSelectedClient,
+      clients,
+      setClients,
+    }),
+    [selectedClient, clients]
+  );
 
   const modalContext = useMemo(
     () => ({
@@ -35,8 +51,10 @@ function DashboardLayout({ children }: Props) {
     switch (id) {
       case "addUser":
         return <CreateUserDialog />;
+
         case "editUser":
           return <EditUserDialog />;
+
       default:
         break;
     }
@@ -46,17 +64,15 @@ function DashboardLayout({ children }: Props) {
     <>
       <NavBar />
       <div className={styles.layout}>
-        <SidebarProvider>
-          <PersonProvider>
-            <ModalContext.Provider value={modalContext}>
-              <ModalBase isOpen={open} id={id}>
-                {SelectModal()}
-              </ModalBase>
-              <SideBar />
-              <main className={styles.layout__main}>{children}</main>
-            </ModalContext.Provider>
-          </PersonProvider>
-        </SidebarProvider>
+        <ClientContext.Provider value={clientContext}>
+          <ModalContext.Provider value={modalContext}>
+            <ModalBase isOpen={open} id={id}>
+              {SelectModal()}
+            </ModalBase>
+            <SideBar />
+            <main className={styles.layout__main}>{children}</main>
+          </ModalContext.Provider>
+        </ClientContext.Provider>
       </div>
     </>
   );

@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { TableContext } from '..';
+import { useState} from 'react';
 import styles from './styles.module.scss';
 
 
@@ -10,11 +9,12 @@ interface RowProps {
 }
 
 export function Row({ indexRow, rowData, functionEdit}: RowProps) {
-    const { tableValues, setTableValues } = useContext(TableContext)!;
+    let [tdKeyCounter, setTdKeyCounter] = useState(0);
+
     return (
-        <tr key={indexRow} onClick={() => functionEdit()} className={styles.rowContainer}>
+        <tr  onClick={() => functionEdit()} className={styles.rowContainer}>
             {rowData.map((rowName) => (
-                <td key={indexRow}>{rowName}</td>
+                <td key={`${indexRow}-td-${tdKeyCounter++}`}>{rowName}</td>
             ))}
         </tr>
     );

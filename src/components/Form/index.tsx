@@ -1,5 +1,4 @@
 'use client'
-
 import { Footer, Input, SubmitButton, CancelButton, ListBox, CheckBox } from './components'
 import { createContext, useState, useContext } from 'react'
 import styles from './styles.module.scss'

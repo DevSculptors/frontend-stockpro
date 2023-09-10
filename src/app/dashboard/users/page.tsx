@@ -2,14 +2,16 @@
 import { Table } from "@/components/Table";
 import styles from "./style.module.css";
 import { LuSearch } from "react-icons/lu";
-import React, { useState, useContext } from "react";
-import EditUser from "./editUser/editUser";
+import React, { useContext } from "react";
+
+import { useQuery } from "@tanstack/react-query";
 
 import { ModalContext } from "@/context/ModalContext";
 
-function User() {
+import { getAllUsersAPI } from "@/api/Users";
 
-  const { open, setOpen, id, setId } = useContext(ModalContext);
+import { User } from "@/interfaces/User";
+
 
   const EditUser = () => {
       if (setId) {
@@ -17,6 +19,12 @@ function User() {
       setId("editUser");
       console.log(id, "id modal", open, "open modal");}
   };
+
+function User() {
+  const { open, setOpen, id, setId } = useContext(ModalContext);
+
+  const { data, isLoading, error } = useQuery(["users"], getAllUsersAPI);
+
 
   return (
     <div className={styles.containerUser}>
@@ -37,12 +45,10 @@ function User() {
               if (setId) {
                 setOpen(true);
                 setId("addUser");
-
-                // console.log(id, "id modal", open, "open modal");
               }
             }}
           >
-            Registrar Cliente
+            Registrar Usuario
           </button>
         </div>
       </div>
@@ -57,16 +63,23 @@ function User() {
           "Estado",
         ]}
       >
-        <Table.Row
-          indexRow="1"
-          rowData={["1", "12345", "Sebastian", "sebas10", "345678", "Activo"]}
-          functionEdit={EditUser}
-        />
-        <Table.Row
-          indexRow="2"
-          rowData={["2", "12345", "Sebastian", "sebas10", "345678", "Activo"]}
-          functionEdit={EditUser}
-        />
+
+        {data?.map((user: User) => (
+          <Table.Row
+          key={user.id}
+            indexRow={user.id}
+            rowData={[
+              user.id,
+              user.person.id_document,
+              user.person.name,
+              user.username,
+              user.person.phone,
+              String(user.isActive),
+            ]}
+              functionEdit={EditUser}
+          />
+        ))}
+
       </Table>
     </div>
   );
