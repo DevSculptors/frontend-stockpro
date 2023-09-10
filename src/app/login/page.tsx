@@ -30,12 +30,13 @@ function LoginPage() {
     description="Ingresa tus datos para iniciar sesión"
    >
     <div className='my-[10px] flex flex-col gap-4'>
-      <Form.Input
+      <Form.InputRequired
         name="email"
         label="Correo electrónico"
+        type="email"
         placeholder="Ingresa tu correo electrónico..."
       />
-      <Form.Input
+      <Form.InputRequired
             placeholder='Ingresa tu contraseña...'
             label='Contraseña'
             name='password'

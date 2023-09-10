@@ -11,11 +11,13 @@ import { createUserAPI } from "@/api/Users";
 
 import { CreateUser } from "@/interfaces/User";
 
+import { toast } from "sonner";
+
 
 
 function CreateUserDialog() {
   const { setOpen } = useContext(ModalContext);
-  
+
   const queryClient = useQueryClient();
 
 
@@ -25,7 +27,13 @@ function CreateUserDialog() {
     onSuccess: () => {
       queryClient.invalidateQueries(["users"]);
       setOpen(false);
-      console.log("Usuario creado con éxito");
+    },
+    onError: (error: any) => {
+     // Corregir los errores porque llega un Array de errores
+     // Pienso crear un helper para Sonner, Coming Soon
+     // The winter is coming 
+      console.log(error.response.data);
+      toast.error(error.response.data.message)
     }
   })
 
@@ -73,37 +81,43 @@ function CreateUserDialog() {
           placeholder="Selecciona tu tipo de documento"
           options={documentTypes}
         />
-        <Form.Input
+        <Form.InputRequired
           name="id_document"
           label="Número de documento"
           placeholder="Ingresa tu número de documento"
+          type="number"
         />
-        <Form.Input
+        <Form.InputRequired
           name="name"
           label="Nombre"
           placeholder="Ingresa tu nombre"
+          type="text"
         />
-        <Form.Input
+        <Form.InputRequired
           name="last_name"
           label="Apellido"
           placeholder="Ingresa tu apellido"
+          type="text"
         />
-        <Form.Input
+        <Form.InputRequired
           name="phone"
           label="Número de celular"
           placeholder="Ingresa tu número de celular"
+          type="number"
         />
-        <Form.Input
+        <Form.InputRequired
           name="email"
           label="Correo electrónico"
           placeholder="Ingresa tu correo electrónico"
+          type="email"
         />
-        <Form.Input
+        <Form.InputRequired
           name="username"
           label="Usuario"
           placeholder="Ingresa tu usuario"
+          type="text"
         />
-        <Form.Input
+        <Form.InputRequired
           name="password"
           type="password"
           label="Contraseña"

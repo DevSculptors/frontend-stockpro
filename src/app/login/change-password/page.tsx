@@ -38,13 +38,13 @@ export default function ChangePasswordPage() {
       onSubmit={changePassword}
     >
       <div className='my-[10px] flex flex-col gap-4'>
-        <Form.Input
+        <Form.InputRequired
           placeholder='Ingresa tu nueva contraseña...'
           label='Contraseña'
           name='newPassword'
           type='password'
         />
-        <Form.Input
+        <Form.InputRequired
           placeholder='Repite tu contraseña...'
           label='Confirmar contraseña'
           name='confirmPassword'

@@ -14,6 +14,14 @@ export const getAllUsersAPI = async () => {
 
 export const createUserAPI = async (user: CreateUser) => {
   const response = await axios.post<RegisterUser>("/register", user);
-  console.log(response.data);
+  return response.data;
+};
+
+export const getUserByIdAPI = async (id: string) => {
+  const response = await axios.get<User>(`/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
   return response.data;
 };

@@ -3,9 +3,15 @@ import {Form} from "@/components/Form";
 import React, { useContext } from 'react';
 import { ModalContext } from "@/context/ModalContext";
 
+import { UserContext } from "@/context/UserContext";
 
 function EditUserDialog() {
     const { setOpen } = useContext(ModalContext);
+    const { selectedUser } = useContext(UserContext);
+
+    console.log("selectedUser", selectedUser);
+    
+    
     const onSubmit = (values: any) => {
         console.log("click en editar usuario");
         setOpen(false);
