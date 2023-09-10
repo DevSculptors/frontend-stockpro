@@ -5,11 +5,11 @@ import styles from "./style.module.css";
 import SideBar from "@/components/SideBar/SideBar";
 import NavBar from "@/components/NavBar/NavBar";
 
-import CreateUserDialog from "./users/Dialogs/CreateUser/CreateUser";
 
 import ModalBase from "@/app/components/Modal/Modal";
-import CreateUserDialog from "./users/Dialogs/CreateUserDialog";
-import { ReactNode, useMemo, useState } from "react";
+
+import CreateUserDialog from "./users/Dialogs/CreateUser/CreateUser";
+
 import EditUserDialog from "./users/Dialogs/EditUserDialog";
 import { ClientContext } from "@/context/ClientContext";
 import { ModalContext } from "@/context/ModalContext";
