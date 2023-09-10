@@ -13,10 +13,12 @@ import { getAllUsersAPI } from "@/api/Users";
 import { User } from "@/interfaces/User";
 
 function User() {
+
   const { open, setOpen, id, setId } = useContext(ModalContext);
 
   const { data, isLoading, error } = useQuery(["users"], getAllUsersAPI);
 
+  
   const EditUser = () => {
     if (setId) {
       setOpen(true);

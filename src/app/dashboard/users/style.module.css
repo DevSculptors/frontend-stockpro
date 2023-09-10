@@ -52,21 +52,5 @@
   font-size: 14px;
   font-style: normal;
 }
-.modalAddUsers {
-  width: fit-content;
-  height: 200px;
-  margin: 0 auto;
-  position: center;
-  border-radius: 10px;
-}
-.overlay {
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
+
 

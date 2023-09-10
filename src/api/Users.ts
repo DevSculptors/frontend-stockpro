@@ -13,6 +13,7 @@ export const getAllUsersAPI = async () => {
 };
 
 export const createUserAPI = async (user: CreateUser) => {
-  const response = await axios.post<RegisterUser>("/users");
+  const response = await axios.post<RegisterUser>("/register", user);
+  console.log(response.data);
   return response.data;
 };

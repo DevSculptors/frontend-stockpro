@@ -7,7 +7,7 @@ function Test() {
 
     <>
     <h1>Test</h1>
-    <button onClick={() => toast('My first toast')}>Give me a toast</button>
+    <button onClick={() => toast.success('My first toast')}>Give me a toast</button>
     </>
   )
 }

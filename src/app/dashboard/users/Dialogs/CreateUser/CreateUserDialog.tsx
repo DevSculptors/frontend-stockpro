@@ -1,43 +1,80 @@
+
 import { Form } from "@/components/Form";
 import styles from "./style.module.css";
 
 import React, { useContext } from "react";
 import { ModalContext } from "@/context/ModalContext";
 
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+
+import { createUserAPI } from "@/api/Users";
+
+import { CreateUser } from "@/interfaces/User";
 
 
-export default function RegisterForm() {
 
+function CreateUserDialog() {
   const { setOpen } = useContext(ModalContext);
+  
+  const queryClient = useQueryClient();
 
 
-  const onSubmit = (values: any) => {
-    
-    console.log("click en crear usuario");
-    setOpen(false);
-    console.log(values);
+
+  const addUserMutation = useMutation({
+    mutationFn: createUserAPI,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+      setOpen(false);
+      console.log("Usuario creado con éxito");
+    }
+  })
+
+  const onSubmit = (formData: any) => {
+    addUserMutation.mutate({
+      ...formData,
+      isActive: true,
+    });
+    // setOpen(false);
   };
 
   const onCancel = () => {
-    console.log("click en cancelar");
     setOpen(false);
   };
+
+  const documentTypes = [
+    {
+      value: 'CC',
+      label: 'Cedula de Ciudadania',
+    },
+    {
+      value: 'PP',
+      label: 'Pasaporte',
+    },
+    {
+      value: 'CE',
+      label: 'Cedula de Extranjeria',
+    },
+    {
+      value: 'TI',
+      label: 'Tarjeta de Identidad',
+    },
+    {
+      value: 'NIT',
+      label: 'NIT',
+    }]
+
 
   return (
     <Form title="Añadir Usuario" onSubmit={onSubmit}>
       <div className="my-[10px] grid grid-cols-2 gap-4">
         <Form.ListBox
-          name="typeDoc"
+          name="type_document"
           label="Tipo de documento"
           placeholder="Selecciona tu tipo de documento"
-          options={[
-            { value: "CC", label: "Cédula de Ciudadanía" },
-            { value: "CE", label: "Cédula de Extranjería" },
-            { value: "TI", label: "Tarjeta de Identidad" },
-          ]}
+          options={documentTypes}
         />
         <Form.Input
-          name="document"
+          name="id_document"
           label="Número de documento"
           placeholder="Ingresa tu número de documento"
         />
@@ -47,12 +84,12 @@ export default function RegisterForm() {
           placeholder="Ingresa tu nombre"
         />
         <Form.Input
-          name="lastName"
+          name="last_name"
           label="Apellido"
           placeholder="Ingresa tu apellido"
         />
         <Form.Input
-          name="cellphone"
+          name="phone"
           label="Número de celular"
           placeholder="Ingresa tu número de celular"
         />
@@ -62,7 +99,7 @@ export default function RegisterForm() {
           placeholder="Ingresa tu correo electrónico"
         />
         <Form.Input
-          name="user"
+          name="username"
           label="Usuario"
           placeholder="Ingresa tu usuario"
         />
@@ -72,7 +109,7 @@ export default function RegisterForm() {
           label="Contraseña"
           placeholder="Ingresa tu contraseña"
         />
-        <Form.CheckBox
+        {/* <Form.CheckBox
           //Toca cambiarlo
           name="rol"
           label="Rol"
@@ -81,7 +118,7 @@ export default function RegisterForm() {
             { value: "admin", label: "Administrador" },
             { value: "superAdmin", label: "Super Administrador" },
           ]}
-        />
+        /> */}
       </div>
       <div className="my-[10px] grid grid-cols-2 gap-4">
         <Form.CancelButton buttonText="Cancelar" onClick={onCancel} />
@@ -90,3 +127,16 @@ export default function RegisterForm() {
     </Form>
   );
 }
+
+interface RegisterFields {
+  type_document?: string;
+  id_document?: string;
+  name?: string;
+  last_name?: string;
+  phone?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+}
+
+export default CreateUserDialog;
