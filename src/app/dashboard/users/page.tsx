@@ -1,21 +1,81 @@
-import { getQueryClient } from "@/helpers/get-query-client";
+"use client";
+import { Table } from "@/components/Table";
+import styles from "./style.module.css";
+import { LuSearch } from "react-icons/lu";
+import React, { useContext } from "react";
 
-import { getAllPersons } from "@/api/Person";
+import { useQuery } from "@tanstack/react-query";
 
-import { Users } from "./Users";
+import { ModalContext } from "@/context/ModalContext";
 
-import { dehydrate,Hydrate } from "@tanstack/react-query";
+import { getAllUsersAPI } from "@/api/Users";
 
-async function User() {
+import { User } from "@/interfaces/User";
 
-    const queryClient = getQueryClient();
-    await  queryClient.prefetchQuery(['persons'], () => getAllPersons());
-    const dehydratedState = dehydrate(queryClient);
+function User() {
+  const { open, setOpen, id, setId } = useContext(ModalContext);
 
-    return (
-        <Hydrate state={dehydratedState}>
-            <Users/>
-        </Hydrate>
-    );
+  const { data, isLoading, error } = useQuery(["users"], getAllUsersAPI);
+
+  return (
+    <div className={styles.containerUser}>
+      <div className={styles.containerTittle}>
+        <p className={styles.tittleList}>Lista Usuarios</p>
+        <div className={styles.divSearch}>
+          <LuSearch className={styles.iconSearch} />
+          <input
+            type="text"
+            placeholder="Buscar usuario"
+            className={styles.inputSearch}
+          />
+        </div>
+        <div>
+          <button
+            className={styles.buttonCreateUser}
+            onClick={() => {
+              if (setId) {
+                setOpen(true);
+                setId("addUser");
+              }
+            }}
+          >
+            Registrar Usuario
+          </button>
+        </div>
+      </div>
+      <Table
+        name="users"
+        columnNames={[
+          "#",
+          "Documento",
+          "Nombre",
+          "Username",
+          "Celular",
+          "Estado",
+        ]}
+      >
+        {data?.map((user: User) => (
+          <Table.Row
+          key={user.id}
+            indexRow={user.id}
+            rowData={[
+              user.id,
+              user.person.id_document,
+              user.person.name,
+              user.username,
+              user.person.phone,
+              String(user.isActive),
+            ]}
+            functionEdit={() => {
+              if (setId) {
+                setOpen(true);
+                setId("editUser");
+              }
+            }}
+          />
+        ))}
+      </Table>
+    </div>
+  );
 }
-export default User
+export default User;

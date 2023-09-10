@@ -1,48 +1,36 @@
-'use client'
+"use client";
 
-import { Row} from './components'
-import { createContext, useState, useContext } from 'react'
-import styles from './styles.module.scss'
+import { Row } from "./components";
+import { createContext } from "react";
+import styles from "./styles.module.scss";
 
-type TableValues = Record<string, string>
+type TableValues = Record<string, string>;
 
 interface TableContextType {
-    tableValues: TableValues
-    setTableValues: React.Dispatch<React.SetStateAction<TableValues>>
+  tableValues: TableValues;
+  setTableValues: React.Dispatch<React.SetStateAction<TableValues>>;
 }
 
 interface TableProps {
-    name: String
-    columnNames: string[];
-    children: React.ReactNode
+  name: String;
+  columnNames: string[];
+  children: React.ReactNode;
 }
 
-export const TableContext = createContext<TableContextType | undefined>(undefined)
-
-
-
-export function Table ({ name, columnNames, children}: TableProps) {
-    const [tableValues, setTableValues] = useState<TableValues>({})
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault()
-    }
-
-    return (
-        <TableContext.Provider value={{ tableValues, setTableValues }}>
-            <table className={styles.table} >
-                <thead>
-                <tr>
-                    {columnNames.map((columnName, index) => (
-                        <th key={index}>{columnName}</th>
-                    ))}
-                </tr>
-                </thead>
-                <tbody>
-                    {children}
-                </tbody>
-            </table>
-        </TableContext.Provider>
-    )
+export function Table({  columnNames, children }: TableProps) {
+  return (
+    <table className={styles.table}>
+      <thead>
+        <tr>
+          {columnNames.map((columnName, index) => (
+            
+            <th key={index}>{columnName}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>{children}</tbody>
+    </table>
+  );
 }
-Table.Row =Row
+
+Table.Row = Row;
