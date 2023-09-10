@@ -12,10 +12,19 @@ import { getAllUsersAPI } from "@/api/Users";
 
 import { User } from "@/interfaces/User";
 
+
+  const EditUser = () => {
+      if (setId) {
+      setOpen(true);
+      setId("editUser");
+      console.log(id, "id modal", open, "open modal");}
+  };
+
 function User() {
   const { open, setOpen, id, setId } = useContext(ModalContext);
 
   const { data, isLoading, error } = useQuery(["users"], getAllUsersAPI);
+
 
   return (
     <div className={styles.containerUser}>
@@ -54,6 +63,7 @@ function User() {
           "Estado",
         ]}
       >
+
         {data?.map((user: User) => (
           <Table.Row
           key={user.id}
@@ -66,14 +76,10 @@ function User() {
               user.person.phone,
               String(user.isActive),
             ]}
-            functionEdit={() => {
-              if (setId) {
-                setOpen(true);
-                setId("editUser");
-              }
-            }}
+              functionEdit={EditUser}
           />
         ))}
+
       </Table>
     </div>
   );

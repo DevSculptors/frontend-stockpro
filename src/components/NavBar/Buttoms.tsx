@@ -23,7 +23,7 @@ const searchItems = [
 ];
 export default function Buttoms() {
   return (
-    <ul>
+    <ul className={styles.buttonsNav}>
       {searchItems.map(({ name, href, icon: Icon }, index) => (
         <li key={index}>
           <Link

@@ -8,6 +8,9 @@ import NavBar from "@/components/NavBar/NavBar";
 import CreateUserDialog from "./users/Dialogs/CreateUser/CreateUser";
 
 import ModalBase from "@/app/components/Modal/Modal";
+import CreateUserDialog from "./users/Dialogs/CreateUserDialog";
+import { ReactNode, useMemo, useState } from "react";
+import EditUserDialog from "./users/Dialogs/EditUserDialog";
 import { ClientContext } from "@/context/ClientContext";
 import { ModalContext } from "@/context/ModalContext";
 
@@ -48,8 +51,10 @@ function DashboardLayout({ children }: Props) {
     switch (id) {
       case "addUser":
         return <CreateUserDialog />;
-      case "editUser":
-        return <CreateUserDialog />;
+
+        case "editUser":
+          return <EditUserDialog />;
+
       default:
         break;
     }
