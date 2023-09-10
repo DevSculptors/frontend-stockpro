@@ -18,15 +18,12 @@ export function CheckBox ({label, options, name }: CheckBoxProps) {
     const { formValues, setFormValues } = useContext(FormContext)!
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked} = event.target
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [name]: {
-                ...prevValues[name],
-                [value]: checked,
-            },
+        const { checked } = event.target;
+        setFormValues((prevFormValues) => ({
+            ...prevFormValues,
+            [name]: checked,
         }));
-    }
+    };
 
     return (
         <div className={styles.checkBox}>
@@ -41,7 +38,7 @@ export function CheckBox ({label, options, name }: CheckBoxProps) {
                             id={option.value}
                             name={name}
                             value={option.value}
-                            checked={formValues[name]?.[option.value] || false}
+                            checked={formValues[name] || false}
                             onChange={handleChange}
                         />
                         <label htmlFor={option.value}>{option.label}</label>

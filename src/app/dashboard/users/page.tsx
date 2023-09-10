@@ -11,9 +11,12 @@ function User() {
 
   const { open, setOpen, id, setId } = useContext(ModalContext);
 
-  const openModalEdit = () => {};
-
-  const EditUser = () => {};
+  const EditUser = () => {
+      if (setId) {
+      setOpen(true);
+      setId("editUser");
+      console.log(id, "id modal", open, "open modal");}
+  };
 
   return (
     <div className={styles.containerUser}>
@@ -57,13 +60,7 @@ function User() {
         <Table.Row
           indexRow="1"
           rowData={["1", "12345", "Sebastian", "sebas10", "345678", "Activo"]}
-          functionEdit={() => {
-            if (setId) {
-              setOpen(true);
-              setId("editUser");
-              console.log(id, "id modal", open, "open modal");
-            }
-          }}
+          functionEdit={EditUser}
         />
         <Table.Row
           indexRow="2"

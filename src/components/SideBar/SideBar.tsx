@@ -102,17 +102,7 @@ export default function SideBar() {
         {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
       </button>
       <aside className={styles.sidebar} data-collapse={isCollapsed}>
-        <div className={styles.sidebar__top}>
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={80}
-            height={80}
-            className={styles.sidebar__logo}
-          />
-          <p className={styles.sidebar__logo_name}>Stock-Pro</p>
-        </div>
-        <br />
+
         <ul className={styles.sidebar__list}>
           {sidebarItems.map(({ name, href, icon: Icon, text }) => (
             <li className={styles.sidebar__item} key={name}>

@@ -4,6 +4,12 @@
   border: 3px solid #fff;
   border-radius: 10px;
 }
+.containerTittle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
 .tittleList{
   font-style: normal;
   color: #16161D;
@@ -13,13 +19,11 @@
   white-space: nowrap;
 }
 .buttonCreateUser{
-  margin-top: 1rem;
   background: #1E9189;
   color: white;
   text-align: center;
   border-radius: 10px;
   padding: .6rem 0.4rem;
-  border: 1px solid #1E9189;
   transition-duration: .3s;
   display: flex;
   align-items: center;
@@ -36,22 +40,17 @@
 .divSearch{
   display: flex;
   width: 400px;
-  padding: 5px 5px;
   align-items: center;
   gap: 14px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 10px;
   background: #F1F1F4;
+  padding: .6rem 0.4rem;
 }
 .inputSearch{
   background: #F1F1F4;
   font-size: 14px;
   font-style: normal;
-}
-.containerTittle{
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 .modalAddUsers {
   width: fit-content;

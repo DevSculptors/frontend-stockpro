@@ -8,6 +8,7 @@ import { ModalContext } from "@/context/ModalContext";
 import ModalBase from "@/app/components/Modal/Modal";
 import CreateUserDialog from "./users/Dialogs/CreateUserDialog";
 import { ReactNode, useMemo, useState } from "react";
+import EditUserDialog from "./users/Dialogs/EditUserDialog";
 
 interface Props {
   children: ReactNode | ReactNode[];
@@ -35,7 +36,7 @@ function DashboardLayout({ children }: Props) {
       case "addUser":
         return <CreateUserDialog />;
         case "editUser":
-          return <CreateUserDialog />;
+          return <EditUserDialog />;
       default:
         break;
     }

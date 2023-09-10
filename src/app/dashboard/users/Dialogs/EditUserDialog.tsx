@@ -1,38 +1,25 @@
 'use client'
 import {Form} from "@/components/Form";
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-import styles from "../style.module.css";
-
-interface EditProps {
-    title: string
-}
+import React, { useContext } from 'react';
+import { ModalContext } from "@/context/ModalContext";
 
 
-function EditUser({title}:EditProps) {
-    const [isModalOpen, setIsModalOpen] = useState(true);
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const onSubmit = (values:any) => {
+function EditUserDialog() {
+    const { setOpen } = useContext(ModalContext);
+    const onSubmit = (values: any) => {
+        console.log("click en editar usuario");
+        setOpen(false);
         console.log(values);
-        closeModal();
     };
+
+    const onCancel = () => {
+        console.log("click en cancelar");
+        setOpen(false);
+
+    }
     return (
-        <Modal
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            contentLabel="Add User Modal"
-            className={styles.modalAddUsers}
-            overlayClassName={styles.overlay}
-        >
         <Form
-            title={title}
+            title={"Editar Usuario"}
             onSubmit={onSubmit}
         ><div>
             <div className='my-[10px] grid grid-cols-2 gap-4'>
@@ -105,6 +92,7 @@ function EditUser({title}:EditProps) {
             <div className='my-[10px] grid grid-cols-2 gap-4'>
                 <Form.CancelButton
                     buttonText="Cancelar"
+                    onClick={onCancel}
                 />
                 <Form.SubmitButton
                     buttonText="Editar"
@@ -113,8 +101,7 @@ function EditUser({title}:EditProps) {
 
         </div>
         </Form>
-        </Modal>
     )
 }
 
-export default EditUser
+export default EditUserDialog
