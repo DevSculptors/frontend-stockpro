@@ -10,7 +10,7 @@ export default function ModalBase({ children, isOpen,name }: ModalProps) {
     <Modal
       isOpen={isOpen}
       contentLabel={name}
-      className={styles.modalAddUsers}
+      className={styles.modal__on}
       overlayClassName={styles.overlay}
     >
    {children}
@@ -21,7 +21,6 @@ export default function ModalBase({ children, isOpen,name }: ModalProps) {
 interface ModalProps {
   children?: React.ReactNode;
   isOpen: boolean;
-  onClose?: () => void;
   id?: string;
   name?: string;
 }

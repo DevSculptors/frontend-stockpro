@@ -8,6 +8,7 @@ import EditUser from "./editUser/editUser";
 import { ModalContext } from "@/context/ModalContext";
 
 function User() {
+
   const { open, setOpen, id, setId } = useContext(ModalContext);
 
   const openModalEdit = () => {};
@@ -34,7 +35,7 @@ function User() {
                 setOpen(true);
                 setId("addUser");
 
-                console.log(id, "id modal", open, "open modal");
+                // console.log(id, "id modal", open, "open modal");
               }
             }}
           >
@@ -56,7 +57,13 @@ function User() {
         <Table.Row
           indexRow="1"
           rowData={["1", "12345", "Sebastian", "sebas10", "345678", "Activo"]}
-          functionEdit={openModalEdit}
+          functionEdit={() => {
+            if (setId) {
+              setOpen(true);
+              setId("editUser");
+              console.log(id, "id modal", open, "open modal");
+            }
+          }}
         />
         <Table.Row
           indexRow="2"

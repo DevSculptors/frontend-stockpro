@@ -1,7 +1,7 @@
 'use client'
 import { Person } from "@/interfaces/Person";
 
-import { usePerson } from "@/context/PersonContext";
+import { usePerson } from "@/context/ClientContext";
 
 export function Persons() {
   
