@@ -1,22 +1,8 @@
-import { getQueryClient } from "@/helpers/get-query-client";
 
-import { getAllPersons } from "@/api/Person";
-
-import { Persons } from "./Persons";
-
-import { dehydrate,Hydrate } from "@tanstack/react-query";
-
-async function Clients() {
-
-  const queryClient = getQueryClient();
-  await  queryClient.prefetchQuery(['persons'], () => getAllPersons());
-  const dehydratedState = dehydrate(queryClient);
-
+function page() {
   return (
-    <Hydrate state={dehydratedState}>
-      <Persons/>
-    </Hydrate>
-  );
+    <div>page</div>
+  )
 }
 
-export default Clients
+export default page

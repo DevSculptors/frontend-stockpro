@@ -7,14 +7,12 @@ import { LuMousePointerClick } from "react-icons/lu";
 import { BsBox } from "react-icons/bs";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { TiContacts } from "react-icons/ti";
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { FiTag } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
 import { BiCart } from "react-icons/bi";
 import { BiFileBlank } from "react-icons/bi";
 import { CiLogout } from "react-icons/ci";
-import { useSidebarContext } from "@/context/SidebarContext";
 
 import { usePathname } from "next/navigation";
 
@@ -75,9 +73,6 @@ const sidebarItems = [
       <>
         <br />
         <br />
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
         <h1>Settings</h1>
       </>
     ),
@@ -92,16 +87,10 @@ const sidebarItems = [
 export default function SideBar() {
   const pathname = usePathname();
 
-  const { isCollapsed, toggleSidebarcollapse } = useSidebarContext();
-
-  // console.log(isCollapsed);
-
   return (
     <div className={styles.sidebar__wrapper}>
-      <button className={styles.btn} onClick={toggleSidebarcollapse}>
-        {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
-      </button>
-      <aside className={styles.sidebar} data-collapse={isCollapsed}>
+      
+      <aside className={styles.sidebar} >
         <div className={styles.sidebar__top}>
           <Image
             src="/logo.png"
