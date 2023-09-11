@@ -17,6 +17,7 @@ function ClientPage() {
 
   const { data, isLoading } = useQuery(["client"], getAllPersons, {
     onSuccess: (data) => {
+      // Cuand secree uno actualiza el setClients
       setClients(data);
     },
   });
@@ -63,7 +64,6 @@ function ClientPage() {
         <Table
             name="client"
             columnNames={[
-              "Id",  
               "Documento",
               "Tipo Documento",
               "Nombre",
@@ -76,7 +76,6 @@ function ClientPage() {
                   key={client.id}
                   indexRow={client.id}
                   rowData={[
-                    client.id,  
                     client.id_document,
                     client.type_document,
                     client.name,

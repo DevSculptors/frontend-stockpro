@@ -12,6 +12,7 @@ interface SwitchProps {
 }
 
 export function SwitchForm({label, name }: SwitchProps) {
+    
     const { formValues, setFormValues } = useContext(FormContext)!
     const [checked, setChecked] = useState(false);
 

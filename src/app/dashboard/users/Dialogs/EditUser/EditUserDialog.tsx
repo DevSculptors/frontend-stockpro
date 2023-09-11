@@ -61,6 +61,7 @@ function EditUserDialog() {
             value: 'NIT',
             label: 'NIT',
         }]
+        
     const roles =[
         { value: 'cashier', label: 'Cajero' },
         { value: 'admin', label: 'Administrador' },
@@ -121,12 +122,12 @@ function EditUserDialog() {
                     type="text"
                     defaultValue={selectedUser.username}
                 />
-                <Form.ListBox
+                {/* <Form.ListBox
                     name="rol"
                     label="Rol"
                     options={roles}
                     defaultValue={selectedUser.roles_user[0].name}
-                />
+                /> */}
                 <Form.ListBox
                     name="isActive"
                     label="Estado"
