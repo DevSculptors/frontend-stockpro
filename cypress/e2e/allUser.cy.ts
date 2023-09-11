@@ -9,9 +9,11 @@ describe('template spec', () => {
     cy.get('.submitButton__styles__d7f7d906').should('be.visible');
     cy.get('.form__styles__c32fe43b').click();
     cy.get('.submitButton__styles__d7f7d906').click();
+    cy.wait(5000);
     cy.get(':nth-child(4) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').should('have.text', 'Usuarios');
     cy.get(':nth-child(4) > .sidebar__link__style__828ccd69').click();
     cy.get('.tittleList__style__90eefaa6').click();
+    cy.wait(5000);
     cy.get('.tittleList__style__90eefaa6').should('be.visible');
     cy.get('.tittleList__style__90eefaa6').should('have.text', 'Lista Usuarios');
     cy.get('thead > tr > :nth-child(2)').click();

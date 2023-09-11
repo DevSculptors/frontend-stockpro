@@ -9,6 +9,7 @@ describe('template spec', () => {
     cy.wait(5000);
     cy.get('div > h1').should('be.visible');
     cy.get('div > h1').should('have.text', 'DashBoard');
+    cy.wait(5000);
     cy.get('.iconSearch__style__24973ee0').should('have.class', 'iconSearch__style__24973ee0');
     cy.get(':nth-child(2) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').should('be.visible');
     cy.get(':nth-child(2) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').should('have.text', 'Estadisticas');

@@ -6,6 +6,7 @@ describe('template spec', () => {
     cy.get('#email').type('jhon.doe@example.com');
     cy.get('#password').type('stringPassword123');
     cy.get('.submitButton__styles__d7f7d906').click();
+    cy.wait(5000);
     cy.get('.iconSearch__style__24973ee0').should('be.visible');
     cy.get('.iconSearch__style__24973ee0').should('have.class', 'iconSearch__style__24973ee0');
     cy.get('.inputSearch__style__24973ee0').should('be.visible');
