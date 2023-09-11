@@ -3,18 +3,30 @@ describe('template spec', () => {
   it('slidebar', function() {
     /* ==== Generated with Cypress Studio ==== */
     cy.visit('http://localhost:3000');
-    cy.get('#email').type('sebastian.martinez07@uptc.edu.co');
-    cy.get('#password').type('sebastian');
-    cy.get('.styles_submitButton__WMndn').click();
+    cy.get('#email').type('jhon.doe@example.com');
+    cy.get('#password').type('stringPassword123');
+    cy.get('.submitButton__styles__d7f7d906').should('be.visible').click();
     cy.wait(5000);
-    cy.get('.style_sidebar__link_active__xw7MM').click();
     cy.get('div > h1').should('be.visible');
-    cy.get(':nth-child(2) > .style_sidebar__link__k9NH_').click();
+    cy.get('div > h1').should('have.text', 'DashBoard');
+    cy.wait(5000);
+    cy.get('.iconSearch__style__24973ee0').should('have.class', 'iconSearch__style__24973ee0');
+    cy.get(':nth-child(2) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').should('be.visible');
+    cy.get(':nth-child(2) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').should('have.text', 'Estadisticas');
+    cy.get(':nth-child(2) > .sidebar__link__style__828ccd69').click();
     cy.get('div > h1').should('be.visible');
     cy.get('div > h1').should('have.text', 'Stats');
-    cy.get(':nth-child(7) > .style_sidebar__link__k9NH_').click();
-    cy.get('.style_sidebar__link_active__xw7MM').should('have.class', 'style_sidebar__link_active__xw7MM');
-    cy.get('main > div').should('have.text', 'Providers');
+    cy.get(':nth-child(6) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').click();
+    cy.get('.sidebar__link_active__style__828ccd69 > .sidebar__name__style__828ccd69').should('be.visible');
+    cy.get('.sidebar__link_active__style__828ccd69 > .sidebar__name__style__828ccd69').should('have.text', 'Inventario');
+    cy.get('div > h1').should('be.visible');
+    cy.get('div > h1').should('have.text', 'Inventory');
+    cy.get(':nth-child(7) > .sidebar__link__style__828ccd69 > .sidebar__name__style__828ccd69').click();
+    cy.get('.sidebar__link_active__style__828ccd69 > .sidebar__name__style__828ccd69').should('be.visible');
+    cy.get('.sidebar__link_active__style__828ccd69 > .sidebar__name__style__828ccd69').should('have.text', 'Proveedores');
+    cy.get('.layout__main__style__c0076f95 > div').click();
+    cy.get('.layout__main__style__c0076f95 > div').should('be.visible');
+    cy.get('.layout__main__style__c0076f95 > div').should('have.text', 'Providers');
     /* ==== End Cypress Studio ==== */
   });
 })

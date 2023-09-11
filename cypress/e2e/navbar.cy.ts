@@ -1,18 +1,18 @@
 describe('template spec', () => {
-
   /* ==== Test Created with Cypress Studio ==== */
-  it('NavBar', function() {
+  it('navBar', function() {
     /* ==== Generated with Cypress Studio ==== */
     cy.visit('http://localhost:3000');
-    cy.get('#email').type('sebastian.martinez07@uptc.edu.co');
-    cy.get('#password').type('sebastian');
-    cy.get('.styles_submitButton__WMndn').click();
-    cy.wait(5000)
-    cy.get('.style_iconSearch__de22b').should('be.visible');
-    cy.get('.style_nameUser__iJpX5 > span').click();
-    cy.get('.style_nameUser__iJpX5 > span').should('have.text', 'Andres Nausan ');
-    cy.get('.style_inputSearch__Gk34D').click();
-    cy.get('.style_inputSearch__Gk34D').should('have.attr', 'placeholder', 'Buscar, producto,usuario,cliente ');
+    cy.get('#email').type('jhon.doe@example.com');
+    cy.get('#password').type('stringPassword123');
+    cy.get('.submitButton__styles__d7f7d906').click();
+    cy.wait(5000);
+    cy.get('.iconSearch__style__24973ee0').should('be.visible');
+    cy.get('.iconSearch__style__24973ee0').should('have.class', 'iconSearch__style__24973ee0');
+    cy.get('.inputSearch__style__24973ee0').should('be.visible');
+    cy.get('.inputSearch__style__24973ee0').should('have.attr', 'placeholder', 'Buscar, producto,usuario,cliente ');
+    cy.get('.divRole__style__24973ee0 > .nameUser__style__24973ee0').should('be.visible');
+    cy.get('.roleUser__style__24973ee0').should('be.visible');
     /* ==== End Cypress Studio ==== */
   });
 })
