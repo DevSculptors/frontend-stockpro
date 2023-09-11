@@ -13,10 +13,19 @@ interface ListBoxProps {
     label: string;
     name: string;
     placeholder: string;
+    defaultValue?: string;
 }
 
-export function ListBox({ label, name, options, placeholder}: ListBoxProps) {
+export function ListBox({ label, name, options, defaultValue}: ListBoxProps) {
     const { formValues, setFormValues } = useContext(FormContext)!;
+
+    const setDefault = (defaultValue) => {
+        setFormValues(prevValues => ({
+            ...prevValues,
+            [name]: defaultValue
+        }))
+        return defaultValue;
+    }
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
@@ -33,10 +42,8 @@ export function ListBox({ label, name, options, placeholder}: ListBoxProps) {
             </label>
             <select
                 name={name}
-                value={formValues[name] || ''}
-                onChange={handleChange}
-            >
-                <option value="">{placeholder}</option>
+                value={formValues[name] || '' || defaultValue}
+                onChange={handleChange}>
                 {options.map((type) => (
                     <option key={type.value} value={type.value}>
                         {type.label}

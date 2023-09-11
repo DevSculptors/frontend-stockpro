@@ -78,7 +78,6 @@ function CreateUserDialog() {
         <Form.ListBox
           name="type_document"
           label="Tipo de documento"
-          placeholder="Selecciona tu tipo de documento"
           options={documentTypes}
         />
         <Form.InputRequired
@@ -123,8 +122,7 @@ function CreateUserDialog() {
           label="Contraseña"
           placeholder="Ingresa tu contraseña"
         />
-        {/* <Form.CheckBox
-          //Toca cambiarlo
+        <Form.ListBox
           name="rol"
           label="Rol"
           options={[
@@ -132,7 +130,7 @@ function CreateUserDialog() {
             { value: "admin", label: "Administrador" },
             { value: "superAdmin", label: "Super Administrador" },
           ]}
-        /> */}
+        />
       </div>
       <div className="my-[10px] grid grid-cols-2 gap-4">
         <Form.CancelButton buttonText="Cancelar" onClick={onCancel} />
@@ -151,6 +149,7 @@ interface RegisterFields {
   email?: string;
   username?: string;
   password?: string;
+  rol?: string;
 }
 
 export default CreateUserDialog;

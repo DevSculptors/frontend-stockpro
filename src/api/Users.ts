@@ -25,3 +25,13 @@ export const getUserByIdAPI = async (id: string) => {
   });
   return response.data;
 };
+
+export const updateUser = async (id: string) => {
+
+  const response = await axios.put<User[]>(`/users/${id}`,{
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
+  return response.data;
+}

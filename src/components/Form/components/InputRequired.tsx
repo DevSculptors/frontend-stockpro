@@ -7,11 +7,18 @@ interface InputProps {
   name: string;
   label: string;
   placeholder?: string;
+  defaultValue?: string;
 }
 
-export function InputRequired({label, name, placeholder, type}: InputProps){
+export function InputRequired({label, name, placeholder, type, defaultValue}: InputProps){
   const {formValues, setFormValues} = useContext(FormContext)!;
 
+  const setDefault = (defaultValue) => {
+      setFormValues(prevValues => ({
+          ...prevValues,
+          [name]: defaultValue
+      }))
+  }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {value} = event.target;
     setFormValues(prevValues => ({
@@ -29,7 +36,7 @@ export function InputRequired({label, name, placeholder, type}: InputProps){
         type={type}
         id={name}
         name={name}
-        value={formValues[name] || ''}
+        value={formValues[name] || '' || defaultValue}
         onChange={handleChange}
         placeholder={placeholder}
         required

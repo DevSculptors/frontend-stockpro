@@ -4,18 +4,35 @@ import React, { useContext } from 'react';
 import { ModalContext } from "@/context/ModalContext";
 
 import { UserContext } from "@/context/UserContext";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {toast} from "sonner";
+
+import { updateUser } from "@/api/Users";
 
 function EditUserDialog() {
     const { setOpen } = useContext(ModalContext);
     const { selectedUser } = useContext(UserContext);
 
-    console.log("selectedUser", selectedUser);
-    
-    
+    const queryClient = useQueryClient();
+
+    const updateUserMutation = useMutation({
+        mutationFn: updateUser,
+        onSuccess: () => {
+            queryClient.invalidateQueries(["users"]);
+            setOpen(false);
+        },
+        onError: (error: any) => {
+            console.log(error.response.data);
+            toast.error(error.response.data.message)
+        }
+    })
+
     const onSubmit = (values: any) => {
-        console.log("click en editar usuario");
-        setOpen(false);
-        console.log(values);
+        console.log(values)
+        {/*updateUserMutation.mutate({
+            ...values,
+            isActive: true
+        });*/}
     };
 
     const onCancel = () => {
@@ -23,6 +40,39 @@ function EditUserDialog() {
         setOpen(false);
 
     }
+    const documentTypes = [
+        {
+            value: 'CC',
+            label: 'Cedula de Ciudadania',
+        },
+        {
+            value: 'PP',
+            label: 'Pasaporte',
+        },
+        {
+            value: 'CE',
+            label: 'Cedula de Extranjeria',
+        },
+        {
+            value: 'TI',
+            label: 'Tarjeta de Identidad',
+        },
+        {
+            value: 'NIT',
+            label: 'NIT',
+        }]
+    const roles =[
+        { value: 'cashier', label: 'Cajero' },
+        { value: 'admin', label: 'Administrador' },
+        { value: 'superAdmin', label: 'Super Administrador' }
+    ]
+    const status = [
+        { value: 'active', label: 'Activo' },
+        { value: 'inactive', label: 'Inactivo' }
+    ]
+    const typeStatus = (status) => {
+        return status ? 'active' : 'inactive';
+    };
     return (
         <Form
             title={"Editar Usuario"}
@@ -30,70 +80,60 @@ function EditUserDialog() {
         ><div>
             <div className='my-[10px] grid grid-cols-2 gap-4'>
                 <Form.ListBox
-                    name="typeDoc"
+                    name="type_document"
                     label="Tipo de documento"
-                    placeholder="Selecciona tu tipo de documento"
-                    options={[
-                        { value: 'CC', label: 'Cédula de Ciudadanía' },
-                        { value: 'CE', label: 'Cédula de Extranjería' },
-                        { value: 'TI', label: 'Tarjeta de Identidad' }
-                    ]}
+                    options={documentTypes}
+                    defaultValue={selectedUser.person.type_document}
                 />
-                <Form.Input
-                    name="document"
+                <Form.InputRequired
+                    name="id_document"
                     label="Número de documento"
-                    placeholder="Número de documento"
+                    type="number"
+                    defaultValue={selectedUser.person.id_document}
                 />
-                <Form.Input
+                <Form.InputRequired
                     name="name"
                     label="Nombre"
-                    placeholder="Ingresa tu nombre"
+                    type="text"
+                    defaultValue={selectedUser.person.name}
                 />
-                <Form.Input
-                    name="lastName"
+                <Form.InputRequired
+                    name="last_name"
                     label="Apellido"
-                    placeholder="Ingresa tu apellido"
+                    type="text"
+                    defaultValue={selectedUser.person.last_name}
                 />
-                <Form.Input
-                    name="cellphone"
+                <Form.InputRequired
+                    name="phone"
                     label="Número de celular"
-                    placeholder="Ingresa tu número de celular"
+                    type="number"
+                    defaultValue={selectedUser.person.phone}
                 />
-                <Form.Input
+                <Form.InputRequired
                     name="email"
                     label="Correo electrónico"
-                    placeholder="Ingresa tu correo electrónico"
+                    type="email"
+                    defaultValue={selectedUser.email}
                 />
-                <Form.Input
-                    name="user"
-                    label="Usuarior"
-                    placeholder="Ingresa tu usuario"
+                <Form.InputRequired
+                    name="username"
+                    label="Usuario"
+                    type="text"
+                    defaultValue={selectedUser.username}
                 />
-                <Form.Input
-                    name="password"
-                    type="password"
-                    label="Contraseña"
-                    placeholder="Ingresa tu contraseña"
-                />
-                <Form.CheckBox
-                    //Toca cambiarlo
+                <Form.ListBox
                     name="rol"
                     label="Rol"
-                    options={[
-                        { value: 'cashier', label: 'Cajero' },
-                        { value: 'admin', label: 'Administrador' },
-                        { value: 'superAdmin', label: 'Super Administrador' }
-                    ]}
+                    options={roles}
+                    defaultValue={selectedUser.roles_user[0].name}
                 />
-                <Form.CheckBox
-                    //Toca cambiarlo
-                    name="status"
+                <Form.ListBox
+                    name="isActive"
                     label="Estado"
-                    options={[
-                        { value: 'active', label: 'Activo' },
-                        { value: 'inactive', label: 'Inactivo' }
-                    ]}
+                    options={status}
+                    defaultValue={typeStatus(selectedUser.isActive)}
                 />
+
             </div>
             <div className='my-[10px] grid grid-cols-2 gap-4'>
                 <Form.CancelButton
@@ -109,5 +149,4 @@ function EditUserDialog() {
         </Form>
     )
 }
-
 export default EditUserDialog

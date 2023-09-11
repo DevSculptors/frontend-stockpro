@@ -24,6 +24,9 @@ function UserPage() {
       setUsers(data);
     },
   });
+    const typeStatus = (status) => {
+        return status ? 'Activo' : 'Inactivo';
+    };
 
   const handleRow = (id: string) => {
     const user = data?.find((user) => user.id === id);
@@ -87,7 +90,7 @@ function UserPage() {
               user.person.last_name,
               user.email,
               user.person.phone,
-              String(user.isActive),
+              typeStatus(user.isActive),
             ]}
             handleRow={() => handleRow(user.id)}
           />

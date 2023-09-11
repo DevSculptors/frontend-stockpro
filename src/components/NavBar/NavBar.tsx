@@ -11,7 +11,7 @@ import Image from "next/image";
 const Navbar = () => {
     return (
         <>
-            <div className="w-full h-20  sticky top-0 bg-white">
+            <div className="fixed w-full z-10 top-0 left-0 w-full h-20  sticky top-0 bg-white">
                 <nav className="container mx-auto px-4 h-full">
                     <div className="flex justify-between items-center h-full">
                         <div className={styles.sidebar__top}>
