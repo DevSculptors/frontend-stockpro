@@ -10,6 +10,10 @@ import ModalBase from "@/app/components/Modal/Modal";
 import CreateUserDialog from "./users/Dialogs/CreateUser/CreateUserDialog";
 
 import EditUserDialog from "./users/Dialogs/EditUser/EditUserDialog";
+
+import CreateClientDialog from "./clients/Dialogs/CreateClient/CreateClientDialog";
+import EditClientDialog from "./clients/Dialogs/EditClient/EditClientDialog";
+
 import { ClientContext } from "@/context/ClientContext";
 import { ModalContext } from "@/context/ModalContext";
 import { UserContext } from "@/context/UserContext";
@@ -68,6 +72,12 @@ function DashboardLayout({ children }: Props) {
 
       case "editUser":
         return <EditUserDialog />;
+
+        case "addClient":
+            return <CreateClientDialog />;
+
+        case "editClient":
+            return <EditClientDialog />;
 
       default:
         break;
