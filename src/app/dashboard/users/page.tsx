@@ -8,20 +8,36 @@ import { useQuery } from "@tanstack/react-query";
 
 import { ModalContext } from "@/context/ModalContext";
 
+import { UserContext } from "@/context/UserContext";
+
 import { getAllUsersAPI } from "@/api/Users";
 
 import { User } from "@/interfaces/User";
 
-function User() {
-  const { open, setOpen, id, setId } = useContext(ModalContext);
+function UserPage() {
+  const { setOpen, setId } = useContext(ModalContext);
 
-  const { data, isLoading, error } = useQuery(["users"], getAllUsersAPI);
+  const { setSelectedUser, setUsers } = useContext(UserContext);
 
-  const EditUser = () => {
+  const { data, isLoading } = useQuery(["users"], getAllUsersAPI, {
+    onSuccess: (data) => {
+      setUsers(data);
+    },
+  });
+    const typeStatus = (status) => {
+        return status ? 'Activo' : 'Inactivo';
+    };
+
+  const handleRow = (id: string) => {
+    const user = data?.find((user) => user.id === id);
+
+    if (user) {
+      setSelectedUser(user);
+    }
+
     if (setId) {
       setOpen(true);
       setId("editUser");
-      console.log(id, "id modal", open, "open modal");
     }
   };
 
@@ -54,10 +70,11 @@ function User() {
       <Table
         name="users"
         columnNames={[
-          "#",
           "Documento",
+          "Tipo Documento",
           "Nombre",
-          "Username",
+          "Apellido",
+          "Email",
           "Celular",
           "Estado",
         ]}
@@ -67,18 +84,19 @@ function User() {
             key={user.id}
             indexRow={user.id}
             rowData={[
-              user.id,
               user.person.id_document,
+              user.person.type_document,
               user.person.name,
-              user.username,
+              user.person.last_name,
+              user.email,
               user.person.phone,
-              String(user.isActive),
+              typeStatus(user.isActive),
             ]}
-            functionEdit={EditUser}
+            handleRow={() => handleRow(user.id)}
           />
         ))}
       </Table>
     </div>
   );
 }
-export default User;
+export default UserPage;

@@ -1,18 +1,19 @@
 import { useState} from 'react';
 import styles from './styles.module.scss';
-
+import { User } from '@/interfaces/User';
 
 interface RowProps {
     indexRow: string
-    rowData: string[]
-    functionEdit: () => void;
+    rowData: string[] 
+    handleRow: (id: string) => void;
 }
 
-export function Row({ indexRow, rowData, functionEdit}: RowProps) {
+export function Row({ indexRow, rowData, handleRow}: RowProps) {
     let [tdKeyCounter, setTdKeyCounter] = useState(0);
-
+    
     return (
-        <tr  onClick={() => functionEdit()} className={styles.rowContainer}>
+        <tr  onClick={() => handleRow(indexRow)} className={styles.rowContainer}>
+
             {rowData.map((rowName) => (
                 <td key={`${indexRow}-td-${tdKeyCounter++}`}>{rowName}</td>
             ))}

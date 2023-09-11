@@ -4,6 +4,8 @@ import { useContext } from 'react'
 import { FormContext } from '..'
 import styles from './styles.module.scss'
 
+
+
 interface CheckBoxOption {
     value: string;
     label: string;
@@ -12,17 +14,14 @@ interface CheckBoxProps {
     options: CheckBoxOption[]
     name: string
     label: string
+    defaultValue?: string
 }
 
-export function CheckBox ({label, options, name }: CheckBoxProps) {
+export function CheckBox ({label, options, name,defaultValue }: CheckBoxProps) {
     const { formValues, setFormValues } = useContext(FormContext)!
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { checked } = event.target;
-        setFormValues((prevFormValues) => ({
-            ...prevFormValues,
-            [name]: checked,
-        }));
+        //console.log(event.target.value)
     };
 
     return (
@@ -34,11 +33,11 @@ export function CheckBox ({label, options, name }: CheckBoxProps) {
                 {options.map((option) => (
                     <div key={option.value}>
                         <input
-                            type="checkbox"
+                            type="radio"
                             id={option.value}
                             name={name}
                             value={option.value}
-                            checked={formValues[name] || false}
+                            checked={formValues[name]}
                             onChange={handleChange}
                         />
                         <label htmlFor={option.value}>{option.label}</label>

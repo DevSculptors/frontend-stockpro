@@ -1,4 +1,3 @@
-import { useNotificationContext } from "@/context/NotificationContext";
 import { AxiosRequestConfig } from "axios";
 
 import axios from "@/api/config";
@@ -7,8 +6,7 @@ import { useRouter } from "next/navigation";
 
 import Cookies from "js-cookie";
 
-import {toast} from "sonner";
-
+import { toast } from "sonner";
 
 interface AuthFetchProps {
   endpoint: string;
@@ -18,7 +16,6 @@ interface AuthFetchProps {
 }
 
 export function useAuthFetch() {
-  const { showNotification } = useNotificationContext();
   const router = useRouter();
 
   const authRouter = async ({
@@ -36,26 +33,15 @@ export function useAuthFetch() {
         expires: 1,
       });
 
-      // console.log(data);
-      
-      // sessionStorage.setItem("user", JSON.stringify(data.user));
-
-      showNotification({
-        open: true,
-        msj: data.message,
-        status: "success",
-      });
+      // Nuevo Toast uwu
+      toast.success("Bienvenido");
 
       if (redirectRoute) {
         router.push(redirectRoute);
       }
     } catch (error: any) {
       console.log(error);
-      showNotification({
-        open: true,
-        status: "error",
-        msj: error.response.data.message as string,
-      });
+      toast.error(error.response.data.message);
     }
   };
   return { authRouter };
