@@ -4,43 +4,42 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   try {
-/*
-    const token = request.cookies.get("token");
 
-    // console.log("token", token);
+    // const token = request.cookies.get("token");
 
-    if (!token) {
-      console.log("no token"); 
-      return NextResponse.redirect(new URL('/', request.url)) 
-    }
+    // // console.log("token", token);
 
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-token`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${token.value}`,
-      },
-    });
-
-    const data = await res.json();
+    // if (!token) {
+    //   console.log("no token"); 
+    //   return NextResponse.redirect(new URL('/', request.url)) 
+    // }
 
 
-    const isAuthorizaded = data?.isAuthorizaded;
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-token`, {
+    //   method: "GET",
+    //   headers: {
+    //     authorization: `Bearer ${token.value}`,
+    //   },
+    // });
 
-    if (!isAuthorizaded) {  
-      return NextResponse.redirect(new URL('/', request.url))
-    }
+    // const data = await res.json();
 
-    console.log("isAuthorizaded", isAuthorizaded);
+
+    // const isAuthorizaded = data?.isAuthorizaded;
+
+    // if (!isAuthorizaded) {  
+    //   return NextResponse.redirect(new URL('/', request.url))
+    // }
+
+    // console.log("isAuthorizaded", isAuthorizaded);
     
-    return NextResponse.next();
+    // return NextResponse.next();
 
- */
+ 
   } catch (error) {
-  /*
+
     return NextResponse.redirect(new URL('/', request.url))
 
-   */
   }
 }
 
