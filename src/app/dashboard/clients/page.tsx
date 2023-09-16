@@ -10,6 +10,8 @@ import { ClientContext } from "@/context/ClientContext";
 import { getAllPersons } from "@/api/Clients";
 import { Client } from "@/interfaces/Client";
 
+import { ToasterDefault} from "@/helpers/useToaster";
+
 function ClientPage() {
   const { setOpen, setId } = useContext(ModalContext);
 
@@ -17,9 +19,9 @@ function ClientPage() {
 
   const { data, isLoading } = useQuery(["client"], getAllPersons, {
     onSuccess: (data) => {
-      // Cuand secree uno actualiza el setClients
       setClients(data);
     },
+    
   });
 
   const handleRow = (id: string) => {

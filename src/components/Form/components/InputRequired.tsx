@@ -7,25 +7,18 @@ interface InputProps {
   name: string;
   label: string;
   placeholder?: string;
-  defaultValue?: string;
 }
 
-export function InputRequired({label, name, placeholder, type, defaultValue}: InputProps){
-  const {formValues, setFormValues} = useContext(FormContext)!;
+export function InputRequired({ label, name, placeholder, type }: InputProps) {
+  const { formValues, setFormValues } = useContext(FormContext)!;
 
-  const setDefault = (defaultValue) => {
-      setFormValues(prevValues => ({
-          ...prevValues,
-          [name]: defaultValue
-      }))
-  }
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {value} = event.target;
-    setFormValues(prevValues => ({
+    const { value } = event.target;
+    setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   return (
     <div className={styles.inputContainer}>
@@ -36,12 +29,14 @@ export function InputRequired({label, name, placeholder, type, defaultValue}: In
         type={type}
         id={name}
         name={name}
-        value={formValues[name] || '' || defaultValue}
+        value={formValues[name] || ""}
         onChange={handleChange}
         placeholder={placeholder}
         required
       />
-      {formValues[name] === '' && <p className='text-red-500 text-xs'>Este campo es requerido</p>}
+      {formValues[name] === "" && (
+        <p className="text-red-500 text-xs">Este campo es requerido</p>
+      )}
     </div>
-  )
+  );
 }

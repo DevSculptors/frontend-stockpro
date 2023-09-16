@@ -37,7 +37,7 @@ export function CheckBox ({label, options, name,defaultValue }: CheckBoxProps) {
                             id={option.value}
                             name={name}
                             value={option.value}
-                            checked={formValues[name]}
+                            checked={formValues[name] }
                             onChange={handleChange}
                         />
                         <label htmlFor={option.value}>{option.label}</label>
