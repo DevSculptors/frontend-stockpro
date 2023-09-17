@@ -55,11 +55,11 @@ function EditClientDialog() {
         <h2>Editar Clientes</h2>
       </div>
       <div className="my-[10px] grid grid-cols-2 gap-4">
-        <div className={styles.inputContainer}>
+        <div className={styles.listBox}>
           <label htmlFor="type_document">Tipo de documento</label>
           <select name="type_document" id="type_document" onChange={handleChange}
           value={selectedClient?.type_document}
-          >    
+          >
             {documentTypes.map((type) => (
               <option key={type.value} value={type.value}>
                 {type.label}
@@ -67,6 +67,20 @@ function EditClientDialog() {
             ))}
           </select>
         </div>
+          <div className={styles.inputContainer}>
+              <label htmlFor="id_document" className={styles.label}>
+                  Documento
+              </label>
+              <input
+                  type="text"
+                  id="id_document"
+                  name="id_document"
+                  placeholder="Escribe tu Documento..."
+                  value={selectedClient?.id_document}
+                  onChange={handleChange}
+                  required
+              />
+          </div>
         <div className={styles.inputContainer}>
           <label htmlFor="name" className={styles.label}>
             Nombre
@@ -95,20 +109,6 @@ function EditClientDialog() {
                 required
             />
         </div>
-        <div className={styles.inputContainer}>
-            <label htmlFor="id_document" className={styles.label}>
-                Documento
-            </label>
-            <input
-                type="text"
-                id="id_document"
-                name="id_document"
-                placeholder="Escribe tu Documento..."
-                value={selectedClient?.id_document}
-                onChange={handleChange}
-                required
-            />
-            </div>
         <div className={styles.inputContainer}>
             <label htmlFor="email" className={styles.label}>
                 Celular

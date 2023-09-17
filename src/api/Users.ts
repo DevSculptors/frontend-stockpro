@@ -1,6 +1,6 @@
 import axios from "./config";
 
-import { User, CreateUser, RegisterUser } from "@/interfaces/User";
+import { User, CreateUser, RegisterUser, UpdateUser } from "@/interfaces/User";
 import Cookies from "js-cookie";
 
 export const getAllUsersAPI = async () => {
@@ -26,12 +26,13 @@ export const getUserByIdAPI = async (id: string) => {
   return response.data;
 };
 
-export const updateUser = async (id: string) => {
-
-  const response = await axios.put<User[]>(`/users/${id}`,{
-    headers: {
-      Authorization: `Bearer ${Cookies.get("token")}`,
-    },
+export const updateUserAPI = async (user : UpdateUser) => {
+  const response = await axios.put<UpdateUser>(
+      `/users/${user.id}`,
+      user,{
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
   });
   return response.data;
 }

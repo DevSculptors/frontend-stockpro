@@ -8,17 +8,26 @@ import NavBar from "@/components/NavBar/NavBar";
 import ModalBase from "@/app/components/Modal/Modal";
 
 import CreateUserDialog from "./users/Dialogs/CreateUser/CreateUserDialog";
-
 import EditUserDialog from "./users/Dialogs/EditUser/EditUserDialog";
 
 import CreateClientDialog from "./clients/Dialogs/CreateClient/CreateClientDialog";
 import EditClientDialog from "./clients/Dialogs/EditClient/EditClientDialog";
 
+import CreateCategoryDialog from "./category/Category/Dialogs/CreateCategory/CreateCategoryDialog";
+import EditCategoryDialog from "./category/Category/Dialogs/EditCategory/EditCategoryDialog";
+
+import CreateBrandDialog from "./category/Brand/Dialogs/CreateBrand/CreateBrandDialog";
+import EditBrandDialog from "./category/Brand/Dialogs/EditBrand/EditBrandDialog";
+
 import { ClientContext } from "@/context/ClientContext";
 import { ModalContext } from "@/context/ModalContext";
 import { UserContext } from "@/context/UserContext";
+import { CategoryContext } from "@/context/CategoryContext";
+import { BrandContext } from "@/context/BrandContext";
 
 import { Client } from "@/interfaces/Client";
+import { Category } from "@/interfaces/Category";
+import { Brand } from "@/interfaces/Brand";
 import { User } from "@/interfaces/User";
 
 interface Props {
@@ -34,6 +43,12 @@ function DashboardLayout({ children }: Props) {
 
   const [selectedUser, setSelectedUser] = useState<User>();
   const [users, setUsers] = useState<User[] | undefined>([]);
+
+  const [selectedCategory, setSelectedCategory] = useState<Category>();
+  const [category, setCategories] = useState<Category[] | undefined>([]);
+
+  const [selectedBrand, setSelectedBrand] = useState<Brand>();
+  const [brands, setBrands] = useState<Brand[] | undefined>([]);
 
   const userContext = useMemo(
     () => ({
@@ -53,6 +68,26 @@ function DashboardLayout({ children }: Props) {
       setClients,
     }),
     [selectedClient, clients]
+  );
+
+  const categoryContext = useMemo(
+      () => ({
+          selectedCategory,
+          setSelectedCategory,
+          category,
+          setCategories,
+        }),
+        [selectedCategory, category]
+  );
+
+  const brandContext = useMemo(
+      () => ({
+          selectedBrand,
+          setSelectedBrand,
+          brands,
+          setBrands,
+        }),
+        [selectedBrand, brands]
   );
 
   const modalContext = useMemo(
@@ -79,6 +114,18 @@ function DashboardLayout({ children }: Props) {
         case "editClient":
             return <EditClientDialog />;
 
+        case "addCategory":
+            return <CreateCategoryDialog />;
+
+        case "editCategory":
+            return <EditCategoryDialog />;
+
+        case "addBrand":
+            return <CreateBrandDialog />;
+
+        case "editBrand":
+            return <EditBrandDialog />;
+
       default:
         break;
     }
@@ -90,13 +137,17 @@ function DashboardLayout({ children }: Props) {
       <div className={styles.layout}>
         <UserContext.Provider value={userContext}>
           <ClientContext.Provider value={clientContext}>
-            <ModalContext.Provider value={modalContext}>
-              <ModalBase isOpen={open} id={id}>
-                {SelectModal()}
-              </ModalBase>
-              <SideBar />
-              <main className={styles.layout__main}>{children}</main>
-            </ModalContext.Provider>
+              <CategoryContext.Provider value={categoryContext}>
+                  <BrandContext.Provider value={brandContext}>
+                      <ModalContext.Provider value={modalContext}>
+                          <ModalBase isOpen={open} id={id}>
+                              {SelectModal()}
+                          </ModalBase>
+                          <SideBar />
+                          <main className={styles.layout__main}>{children}</main>
+                      </ModalContext.Provider>
+                  </BrandContext.Provider>
+              </CategoryContext.Provider>
           </ClientContext.Provider>
         </UserContext.Provider>
       </div>

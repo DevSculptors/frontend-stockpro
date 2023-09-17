@@ -16,7 +16,7 @@ interface ListBoxProps {
     defaultValue?: string;
 }
 
-export function ListBox({ label, name, options, defaultValue}: ListBoxProps) {
+export function ListBox({ label, name, options, placeholder}: ListBoxProps) {
     const { formValues, setFormValues } = useContext(FormContext)!;
 
 
@@ -37,12 +37,12 @@ export function ListBox({ label, name, options, defaultValue}: ListBoxProps) {
                 name={name}
                 value={formValues[name] || '' }
                 onChange={handleChange}>
-
+                <option>{placeholder}</option>
                 {options.map((type) => (
                     <option key={type.value} value={type.value}>
                         {type.label}
                     </option>
-                ))}
+                ))} 
             </select>
         </div>
     );

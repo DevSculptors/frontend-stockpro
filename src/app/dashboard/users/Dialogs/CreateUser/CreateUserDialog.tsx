@@ -71,12 +71,17 @@ function CreateUserDialog() {
       label: 'NIT',
     }]
 
-
+    const roles =[
+      { value: 'cashier', label: 'Cajero' },
+      { value: 'admin', label: 'Administrador' },
+      { value: 'superAdmin', label: 'Super Administrador' }
+  ]
   return (
     <Form title="Añadir Usuario" onSubmit={onSubmit}>
       <div className="my-[10px] grid grid-cols-2 gap-4">
         <Form.ListBox
           name="type_document"
+          placeholder="Seleccione su tipo de documento"
           label="Tipo de documento"
           options={documentTypes}
         />
@@ -125,11 +130,8 @@ function CreateUserDialog() {
         <Form.ListBox
           name="rol"
           label="Rol"
-          options={[
-            { value: "cashier", label: "Cajero" },
-            { value: "admin", label: "Administrador" },
-            { value: "superAdmin", label: "Super Administrador" },
-          ]}
+          placeholder="Seleccione el rol del usuario"
+          options={roles}
         />
       </div>
       <div className="my-[10px] grid grid-cols-2 gap-4">

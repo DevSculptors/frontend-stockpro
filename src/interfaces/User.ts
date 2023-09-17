@@ -28,6 +28,20 @@ export interface User {
         last_name: string;
         phone: string;
     }
+    role: string;
+}
+
+export interface UpdateUser{
+    id: string;
+    username: string;
+    email: string;
+    isActive: boolean;
+    personId: string;
+    id_document: string;
+    type_document: string;
+    name: string;
+    last_name: string;
+    phone: string;
 }
 
 export interface CreateUser {
