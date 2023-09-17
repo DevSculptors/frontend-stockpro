@@ -24,7 +24,7 @@ function UserPage() {
       setUsers(data);
     },
   });
-    const typeStatus = (status) => {
+    const typeStatus = (status: boolean) => {
         return status ? 'Activo' : 'Inactivo';
     };
 
