@@ -5,8 +5,6 @@ import {
   SubmitButton,
   CancelButton,
   ListBox,
-  CheckBox,
-  SwitchForm,
   InputRequired,
 } from "./components";
 import { createContext, useState, useContext } from "react";
@@ -55,7 +53,5 @@ Form.Input = Input;
 Form.Footer = Footer;
 Form.SubmitButton = SubmitButton;
 Form.ListBox = ListBox;
-Form.CheckBox = CheckBox;
 Form.CancelButton = CancelButton;
 Form.InputRequired = InputRequired;
-Form.SwitchForm = SwitchForm;
