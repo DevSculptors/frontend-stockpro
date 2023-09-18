@@ -17,11 +17,12 @@ function ClientPage() {
 
   const { setSelectedClient, setClients } = useContext(ClientContext);
 
+
+
   const { data, isLoading } = useQuery(["client"], getAllPersons, {
     onSuccess: (data) => {
       setClients(data);
     },
-    
   });
 
   const handleRow = (id: string) => {
