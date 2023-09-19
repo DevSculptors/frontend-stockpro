@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./login.module.css";
+import styles from "./login.module.scss";
 
 export default function LogoLogin({ width = 800, height = 800 }: IProps) {
   return (

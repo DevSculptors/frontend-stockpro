@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { AiOutlineSetting } from "react-icons/ai";
 import { IoNotificationsOutline } from "react-icons/io5";

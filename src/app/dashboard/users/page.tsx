@@ -1,6 +1,6 @@
 "use client";
 import { Table } from "@/components/Table";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { LuSearch } from "react-icons/lu";
 import React, { useContext } from "react";
 

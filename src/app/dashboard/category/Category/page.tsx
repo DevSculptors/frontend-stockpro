@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ModalContext } from "@/context/ModalContext";
 import {getAllCategoriesAPI} from "@/api/Category";
 import {CategoryContext} from "@/context/CategoryContext";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { Category } from "@/interfaces/Category";
 
 

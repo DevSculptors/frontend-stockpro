@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useMemo, useState } from "react";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 import SideBar from "@/components/SideBar/SideBar";
 import NavBar from "@/components/NavBar/NavBar";

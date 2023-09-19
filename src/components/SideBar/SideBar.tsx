@@ -1,5 +1,5 @@
 "use client";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { MdDashboard } from "react-icons/md";

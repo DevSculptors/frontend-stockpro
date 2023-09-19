@@ -1,6 +1,6 @@
 "use client";
 import { Table } from "@/components/Table";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { LuSearch } from "react-icons/lu";
 import React, { useContext } from "react";
 
@@ -9,8 +9,6 @@ import { ModalContext } from "@/context/ModalContext";
 import { ClientContext } from "@/context/ClientContext";
 import { getAllPersons } from "@/api/Clients";
 import { Client } from "@/interfaces/Client";
-
-import { ToasterDefault} from "@/helpers/useToaster";
 
 function ClientPage() {
   const { setOpen, setId } = useContext(ModalContext);
@@ -89,6 +87,7 @@ function ClientPage() {
               />
           ))}
         </Table>
+        
       </div>
   );
 }

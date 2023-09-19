@@ -1,4 +1,4 @@
-import styles from "./login.module.css";
+import styles from "./login.module.scss";
 import LogoLogin from "./LogoLogin";
 
 function LoginLayout({ children }: { children: React.ReactNode }) {
