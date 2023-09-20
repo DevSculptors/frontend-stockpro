@@ -36,7 +36,6 @@ interface Props {
 }
 
 function DashboardLayout({ children }: Props) {
-  
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
 
@@ -134,26 +133,30 @@ function DashboardLayout({ children }: Props) {
   }
 
   return (
-    <>
+    <div className={styles.main}>
       <NavBar />
-      <div className={styles.layout}>
-        <UserContext.Provider value={userContext}>
-          <ClientContext.Provider value={clientContext}>
-            <CategoryContext.Provider value={categoryContext}>
-              <BrandContext.Provider value={brandContext}>
-                <ModalContext.Provider value={modalContext}>
-                  <ModalBase isOpen={open} id={id}>
-                    {SelectModal()}
-                  </ModalBase>
-                  <SideBar />
-                  <main className={styles.layout__main}>{children}</main>
-                </ModalContext.Provider>
-              </BrandContext.Provider>
-            </CategoryContext.Provider>
-          </ClientContext.Provider>
-        </UserContext.Provider>
+      <div className={styles.container}>
+        <div className={styles.menuContainer}>
+          <SideBar />
+        </div>
+        <div className={styles.contentContainer}>
+          <UserContext.Provider value={userContext}>
+            <ClientContext.Provider value={clientContext}>
+              <CategoryContext.Provider value={categoryContext}>
+                <BrandContext.Provider value={brandContext}>
+                  <ModalContext.Provider value={modalContext}>
+                    <ModalBase isOpen={open} id={id}>
+                      {SelectModal()}
+                    </ModalBase>
+                    <main className={styles.layout__main}>{children}</main>
+                  </ModalContext.Provider>
+                </BrandContext.Provider>
+              </CategoryContext.Provider>
+            </ClientContext.Provider>
+          </UserContext.Provider>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

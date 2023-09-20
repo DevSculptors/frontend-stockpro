@@ -1,13 +1,28 @@
-.layout {
+@import '../../styles/responsive.scss';
+@import '../../styles/variables.scss';
+
+
+.main {
+  font-family: "Inter", sans-serif;
+  background-color: $background_dash;
+  color: $main-text;
+}
+
+.container {
   display: flex;
-  height: 95vh;
-  position: relative;
-  gap: 1.2rem;
 }
 
-.layout__main {
-  flex-grow: 1;
-  padding-top: 0.8rem;
+.menuContainer {
+  width: 200px;
+  padding: 5px 10px;
+  border-right: 2px solid $background_dash;
 
+  @include lg{
+    width: max-content;
+  }
 }
 
+.contentContainer {
+  padding: 5px 10px;
+  width: 100%;
+}
