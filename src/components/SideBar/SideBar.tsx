@@ -1,6 +1,5 @@
 "use client";
 import styles from "./style.module.scss";
-import Image from "next/image";
 import Link from "next/link";
 import { MdDashboard } from "react-icons/md";
 import { LuMousePointerClick } from "react-icons/lu";
@@ -13,106 +12,124 @@ import { FiSettings } from "react-icons/fi";
 import { BiCart } from "react-icons/bi";
 import { BiFileBlank } from "react-icons/bi";
 import { CiLogout } from "react-icons/ci";
+import {AiOutlineUser} from "react-icons/ai";
+import {FaClipboardList} from "react-icons/fa";
+import {HiOutlineUserCircle} from "react-icons/hi";
 
 import { usePathname } from "next/navigation";
 
-const sidebarItems = [
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-    icon: MdDashboard,
-  },
-  {
-    name: "Estadisticas",
-    href: "/dashboard/stats",
-    icon: BsFillBarChartFill,
-    text: "ANALITICA",
-  },
-  {
-    name: "Inventario Plus",
-    href: "/dashboard/inventory_plus",
-    icon: LuMousePointerClick,
-  },
-  {
-    name: "Usuarios",
-    href: "/dashboard/users",
-    icon: TiContacts,
-    text: "Administracion",
-  },
-  {
-    name: "Clientes",
-    href: "/dashboard/clients",
-    icon: FiUsers,
-  },
-  {
-    name: "Inventario",
-    href: "/dashboard/inventory",
-    icon: BsBox,
-    text: "INVENTARIO",
-  },
-  {
-    name: "Proveedores",
-    href: "/dashboard/providers",
-    icon: BiCart,
-  },
-  {
-    name: "Reportes",
-    href: "/dashboard/reports",
-    icon: BiFileBlank,
-  },
-  {
-    name: "Marcas y Categorias",
-    href: "/dashboard/category",
-    icon: FiTag,
-  },
-  {
-    name: "Configuracion",
-    href: "/dashboard/settings",
-    icon: FiSettings,
-    text: (
-      <>
-        <br />
-        <br />
-        <h1>Settings</h1>
-      </>
-    ),
-  },
-  {
-    name: "Salir",
-    href: "/logout",
-    icon: CiLogout,
-  },
-];
+const Side = () => {
 
-export default function SideBar() {
   const pathname = usePathname();
 
-  return (
-    <div className={styles.sidebar__wrapper}>
+  const menu = [
+    {
+      id: 1,
+      title: "Principal",
+      listItems: [
+        {
+          id: 1,
+          title: "Dashboard",
+          url: "/dashboard",
+          icon: MdDashboard,
+        },
+        {
+          id: 2,
+          title: "Perfil",
+          url: "/dashboard/user",
+          icon: AiOutlineUser,
+        },
+      ],
+    },
+    {
+      id: 2,
+      title: "Analitica",
+      listItems: [
+        {
+          id: 1,
+          title: "Inventario Plus",
+          url: "/dashboard/inventory_plus",
+          icon: LuMousePointerClick,
+        },
+        {
+          id: 2,
+          title: "Estadisticas",
+          url: "/dashboard/stats",
+          icon: BsFillBarChartFill,
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: "Listas",
+      listItems: [
+        {
+          id: 1,
+          title: "Usuarios",
+          url: "/dashboard/users",
+          icon: FiUsers,
+        },
+        {
+          id: 2,
+          title: "Clientes",
+          url: "/dashboard/clients",
+          icon: HiOutlineUserCircle,
+        },
+        {
+          id: 3,
+          title: "Marcas y Categorias",
+          url: "/dashboard/category",
+          icon: FiTag,
+        },
+        {
+          id: 4,
+          title: "Ventas",
+          url: "/dashboard/sales",
+          icon: FaClipboardList,
+        },
+      ],
+    },
+    {
+      id: 4,
+      title: "Mantenimiento",
+      listItems: [
+        {
+          id: 1,
+          title: "Configuracion",
+          url: "/dashboard/settings",
+          icon: FiSettings,
+        },
+        {
+          id: 2,
+          title: "Salir",
+          url: "/logout",
+          icon: CiLogout,
+        },
+      ],
+    },
+  ];
 
-      
-      <aside className={styles.sidebar} >
-        <ul className={styles.sidebar__list}>
-          {sidebarItems.map(({ name, href, icon: Icon, text }) => (
-            <li className={styles.sidebar__item} key={name}>
-              <span className={styles.sidebar__text}>{text}</span>
-              <Link
-                className={
-                  pathname === href
-                    ? styles.sidebar__link_active
-                    : styles.sidebar__link
-                }
-                href={href}
-              >
-                <div className={styles.sidebar__icon}>
-                  <Icon />
-                </div>
-                <span className={styles.sidebar__name}>{name}</span>
-              </Link>
-            </li>
+  return (
+    <div className={styles.menu}>
+      {menu.map((item) => (
+        <div className={styles.item} key={item.id}>
+          <span className={styles.title}>{item.title}</span>
+          {item.listItems.map((listItem) => (
+            <Link href={listItem.url} className={
+              pathname === listItem.url
+                ? styles.listItem_active
+                : styles.listItem
+            } key={listItem.id}>
+              <div>
+                <listItem.icon />
+              </div>
+              <span className={styles.listItemTitle}>{listItem.title}</span>
+            </Link>
           ))}
-        </ul>
-      </aside>
+        </div>
+      ))}
     </div>
   );
-}
+};
+
+export default Side;

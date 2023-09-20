@@ -12,7 +12,7 @@ function Images(props: Props) {
 
   const [itemOffset, setItemOffset] = useState(0);
 
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
 
   const endOffset = itemOffset + itemsPerPage;
 

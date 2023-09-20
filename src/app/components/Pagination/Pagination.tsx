@@ -1,13 +1,15 @@
+'use client'
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import { Table } from "@/components/Table";
+import { Client } from "@/interfaces/Client";
 
-import styles from "./styles.module.css";
-
+import styles from "./style.module.scss";
 interface Props {
-  items: any;
+  items: any | undefined;
 }
 
-function Images(props: Props) {
+function Pagination(props: Props) {
   const { items } = props;
 
   const [itemOffset, setItemOffset] = useState(0);
@@ -16,7 +18,7 @@ function Images(props: Props) {
 
   const endOffset = itemOffset + itemsPerPage;
 
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
   const currentItems = items.slice(itemOffset, endOffset);
 
@@ -25,25 +27,17 @@ function Images(props: Props) {
   // Invoke when user click to request another page.
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
+  
+
   return (
     <>
-    <div className={styles.images}>
-      {
-       currentItems.map((item: any) => {
-         return (
-            <div className={styles.image} key={item.id}>
-              <img src={item.url} alt={item.title} />
-            </div>
-         );
-        })
-      }
-    </div>
+      
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
@@ -62,4 +56,4 @@ function Images(props: Props) {
   );
 }
 
-export default Images;
+export default Pagination;

@@ -30,6 +30,8 @@ export const updateClientAPI = async (client: Client) => {
       },
     }
   );
+  console.log(response.data);
+  
   return response.data;
 }
 

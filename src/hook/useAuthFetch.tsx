@@ -32,6 +32,8 @@ export function useAuthFetch() {
     try {
       const { data } = await axios.post(`${endpoint}`, formData, options);
 
+      console.log("data", data);
+      
       Cookies.set("token", data.token, {
         path: "/",
         expires: 1,
@@ -39,6 +41,7 @@ export function useAuthFetch() {
 
       // Guardar datos del usuario en el sessionStorage
       sessionStorage.setItem("user", JSON.stringify(data.userFound));
+      sessionStorage.setItem("role", JSON.stringify(data.userFound.roleUser));
       
       ToasterSucess("Inicio de sesión exitoso");
 
