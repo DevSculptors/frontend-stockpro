@@ -4,7 +4,7 @@ import { Client,  UpdateClient } from "@/interfaces/Client";
 import Cookies from "js-cookie";
 
 export const getAllPersons = async () => {
-  const response = await axios.get<Client[]>("/person", {
+  const response = await axios.get<Client[]>("/client", {
     headers: {
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
@@ -30,6 +30,8 @@ export const updateClientAPI = async (client: Client) => {
       },
     }
   );
+  console.log(response.data);
+  
   return response.data;
 }
 

@@ -46,7 +46,7 @@ function EditClientDialog() {
   };
 
   const onCancel = () => {
-    console.log("click en cancelar");
+    // console.log("click en cancelar");
     setOpen(false);
   };
   return (

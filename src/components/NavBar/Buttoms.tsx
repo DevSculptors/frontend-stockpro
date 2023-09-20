@@ -1,18 +1,13 @@
 "use client";
 import Link from "next/link";
-import styles from "./style.module.css";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
+import styles from "./style.module.scss";
 import { AiOutlineSetting } from "react-icons/ai";
 import { IoNotificationsOutline } from "react-icons/io5";
 const searchItems = [
+
   {
     name: "",
-    href: "/dashboard",
-    icon: AiOutlineQuestionCircle,
-  },
-  {
-    name: "",
-    href: "/dashboard",
+    href: "/dashboard/settings",
     icon: AiOutlineSetting,
   },
   {

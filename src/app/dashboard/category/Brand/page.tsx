@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ModalContext } from "@/context/ModalContext";
 import {getAllBrandsAPI} from "@/api/Brand";
 import {BrandContext} from "@/context/BrandContext";
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 import { Brand } from "@/interfaces/Brand";
 
 
