@@ -1,0 +1,16 @@
+.table{
+
+  .info{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+
+    button{
+      padding: 5px;
+      background-color: aqua;
+      border-radius: 10px solid black;
+      cursor: pointer;
+    }
+  }
+}

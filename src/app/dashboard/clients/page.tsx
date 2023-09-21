@@ -11,6 +11,8 @@ import { ClientContext } from "@/context/ClientContext";
 import { getAllPersons } from "@/api/Clients";
 import { Client } from "@/interfaces/Client";
 
+import { GridLoader } from "react-spinners";
+
 function ClientPage() {
   const { setOpen, setId } = useContext(ModalContext);
   const { setSelectedClient, setClients, clients } = useContext(ClientContext);
@@ -33,7 +35,6 @@ function ClientPage() {
     }
   };
 
-
   // Pagination
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 5;
@@ -43,80 +44,92 @@ function ClientPage() {
   const size = data ? data.length : clients ? clients.length : 0;
 
   const pageCount = Math.ceil(size / itemsPerPage);
-  
+
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % size;
- 
+
     setItemOffset(newOffset);
   };
 
   return (
     <div className={styles.containerClient}>
-      <div className={styles.containerTittle}>
-        <p className={styles.tittleList}>Lista Clientes</p>
-        <div className={styles.divSearch}>
-          <LuSearch className={styles.iconSearch} />
-          <input
-            type="text"
-            placeholder="Buscar cliente"
-            className={styles.inputSearch}
-          />
+      {isLoading ? (
+        <div className={styles.loading}>
+          <GridLoader color="#1E9189" 
+          
+          loading={isLoading}
+          size={180} />
         </div>
+      ) : (
         <div>
-          <button
-            className={styles.buttonCreateClient}
-            onClick={() => {
-              if (setId) {
-                setOpen(true);
-                setId("addClient");
-              }
-            }}
-          >
-            Registrar Cliente
-          </button>
-        </div>
-      </div>
-      <div>
-        <Table
-          name="client"
-          columnNames={[
-            "Documento",
-            "Tipo Documento",
-            "Nombre",
-            "Apellido",
-            "Celular",
-          ]}
-        >
-          {currentItems?.map((client: Client) => (
-            <Table.Row
-              key={client.id}
-              indexRow={client.id}
-              rowData={[
-                client.id_document,
-                client.type_document,
-                client.name,
-                client.last_name,
-                client.phone,
+          <div className={styles.containerTittle}>
+            <p className={styles.tittleList}>Lista Clientes</p>
+            <div className={styles.divSearch}>
+              <LuSearch className={styles.iconSearch} />
+              <input
+                type="text"
+                placeholder="Buscar cliente"
+                className={styles.inputSearch}
+              />
+            </div>
+            <div>
+              <button
+                className={styles.buttonCreateClient}
+                onClick={() => {
+                  if (setId) {
+                    setOpen(true);
+                    setId("addClient");
+                  }
+                }}
+              >
+                Registrar Cliente
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <Table
+              name="client"
+              columnNames={[
+                "Documento",
+                "Tipo Documento",
+                "Nombre",
+                "Apellido",
+                "Celular",
               ]}
-              handleRow={() => handleRow(client.id)}
+            >
+              {currentItems?.map((client: Client) => (
+                <Table.Row
+                  key={client.id}
+                  indexRow={client.id}
+                  rowData={[
+                    client.id_document,
+                    client.type_document,
+                    client.name,
+                    client.last_name,
+                    client.phone,
+                  ]}
+                  handleRow={() => handleRow(client.id)}
+                />
+              ))}
+            </Table>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Siguiente >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={2}
+              pageCount={pageCount}
+              previousLabel="< Anterior"
+              renderOnZeroPageCount={null}
+              containerClassName={styles.pagination}
+              pageLinkClassName={styles.page_num}
+              previousClassName={styles.page_num}
+              nextClassName={styles.page_num}
+              activeClassName={styles.active}
             />
-          ))}
-        </Table>
-        <ReactPaginate
-        breakLabel="..."
-        nextLabel="Siguiente >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={2}
-        pageCount={pageCount}
-        previousLabel="< Anterior"
-        renderOnZeroPageCount={null}
-        containerClassName={styles.pagination}
-        pageLinkClassName={styles.page_num}
-        previousClassName={styles.page_num}
-        nextClassName={styles.page_num}
-        activeClassName={styles.active}
-      />
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
