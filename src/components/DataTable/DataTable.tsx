@@ -1,75 +1,82 @@
-
 import {
   DataGrid,
   GridColDef,
   GridToolbar,
+  gridPageCountSelector,
+  GridPagination,
+  useGridApiContext,
+  useGridSelector,
+  GridRowParams,
+  GridToolbarFilterButton,
 } from "@mui/x-data-grid";
-import Link from "next/link";
-import {AiFillEdit} from "react-icons/ai";
-import {BsFillTrashFill } from "react-icons/bs";
 
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
+import MuiPagination from "@mui/material/Pagination";
+import { TablePaginationProps } from "@mui/material/TablePagination";
 
-import styles from './style.module.scss'
+import "./dataTable.scss";
+
+
+
+function Pagination({
+  page,
+  onPageChange,
+  className,
+}: Pick<TablePaginationProps, "page" | "onPageChange" | "className">) {
+  const apiRef = useGridApiContext();
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+  return (
+    <MuiPagination
+      color="standard"
+      className={className}
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, newPage) => {
+        onPageChange(event as any, newPage - 1);
+      }}
+    />
+  );
+}
+
+function CustomPagination(props: any) {
+  return <GridPagination ActionsComponent={Pagination} {...props} />;
+}
+
+function getRowClassName(params: GridRowParams) {
+  return "rowContainer";
+}
 
 type Props = {
   columns: GridColDef[];
   rows: object[];
   slug: string;
+  pagination: number;
 };
 
 const DataTable = (props: Props) => {
-
-  // TEST THE API
-
-  // const queryClient = useQueryClient();
-  // const mutation = useMutation({
-  //   mutationFn: (id: number) => {
-  //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
-  //       method: "delete",
-  //     });
-  //   },
-  //   onSuccess: ()=>{
-  //     queryClient.invalidateQueries([`all${props.slug}`]);
-  //   }
-  // });
-
-  const handleDelete = (id: number) => {
+  const handleEdit = (id: number) => {
     console.log(id);
   };
 
-  const actionColumn: GridColDef = {
-    field: "action",
-    headerName: "Action",
-    width: 200,
-    renderCell: (params) => {
-      return (
-        <div className={styles.action}>
-          <Link href={`/${props.slug}/${params.row.id}`}>
-            <AiFillEdit/>
-          </Link>
-          <div className={styles.delete} onClick={() => handleDelete(params.row.id)}>
-            <BsFillTrashFill/>
-          </div>
-        </div>
-      );
-    },
-  };
-
   return (
-    <div className={styles.dataTable}>
+    <div className="dataTable">
       <DataGrid
-        className={styles.dataGrid}
+        className="dataGrid"
+        getRowClassName={getRowClassName}
         rows={props.rows}
-        columns={[...props.columns, actionColumn]}
+        columns={props.columns.map((column) => ({
+          ...column,
+          headerClassName: "header",
+        }))}
+        pagination
+        slots={{ toolbar: GridToolbar, pagination: CustomPagination }}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 10,
+              pageSize: props.pagination,
             },
           },
         }}
-        slots={{ toolbar: GridToolbar }}
         slotProps={{
           toolbar: {
             showQuickFilter: true,
@@ -77,11 +84,11 @@ const DataTable = (props: Props) => {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
+        disableRowSelectionOnClick={true}
         disableColumnFilter
-        disableDensitySelector
-        disableColumnSelector
+        // disableDensitySelector
+        // disableColumnSelector
+        onRowClick={(params) => handleEdit(params.row.id)}
       />
     </div>
   );

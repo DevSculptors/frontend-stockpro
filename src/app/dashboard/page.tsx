@@ -12,6 +12,8 @@ import {
   chartBoxProduct,
   chartBoxRevenue,
   chartBoxUser,
+  bigChart,
+  topDealUsers
 } from "@/api/dataTest";
 
 import styles from "./style.module.scss";
@@ -20,7 +22,7 @@ function Dashboard() {
   return (
     <div className={styles.home}>
       <div className={styles.box2}>
-        <TopBox />
+        <TopBox {...topDealUsers}/>
       </div>
       <div className={styles.box}>
       <ChartBox {...chartBoxUser} />
@@ -38,7 +40,7 @@ function Dashboard() {
       <ChartBox {...chartBoxConversion} />
       </div>
       <div className={styles.box7}>
-        <BigChartBox />
+        <BigChartBox {...bigChart}/>
       </div>
       <div className={styles.box}>
         <BarChartBox {...barChartBoxVisit} />

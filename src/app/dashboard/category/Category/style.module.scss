@@ -1,6 +1,13 @@
 $color_1: #16161D;
 $color_2: white;
 
+
+.loading{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .containerCategory {
 	background: #fefefe;
 	padding: 1.2rem;

@@ -1,7 +1,8 @@
-'use client'
+"use client";
 import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "@/components/DataTable/DataTable";
 import { userRows } from "@/api/dataTest";
+import { BsFillTrashFill } from "react-icons/bs";
 
 import styles from "./style.module.scss";
 
@@ -43,13 +44,26 @@ const columns: GridColDef[] = [
     width: 150,
     type: "boolean",
   },
+  {
+    field: "action",
+    headerName: "Action",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className="action">
+          <div className="delete">
+            <BsFillTrashFill />
+          </div>
+        </div>
+      );
+    },
+  },
 ];
 
 function TestTable() {
-
   const handle = () => {
-    console.log('handle');
-  }
+    console.log("handle");
+  };
 
   return (
     <div className={styles.table}>
@@ -57,7 +71,13 @@ function TestTable() {
         <h1>Table</h1>
         <button onClick={handle}>Botton</button>
       </div>
-      <DataTable slug="users" columns={columns} rows={userRows} />
+      <DataTable
+        slug="users"
+        columns={columns}
+        rows={userRows}
+        pagination={5}
+        
+      />
       {/* TEST THE API */}
 
       {/* {isLoading ? (
@@ -66,7 +86,7 @@ function TestTable() {
         <DataTable slug="users" columns={columns} rows={data} />
       )} */}
     </div>
-  )
+  );
 }
 
-export default TestTable
+export default TestTable;

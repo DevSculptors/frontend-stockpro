@@ -34,50 +34,57 @@ export const barChartBoxRevenue = {
   ],
 };
 
-export const bigChart = [
-  {
-    name: "Dom",
-    books: 4000,
-    clothes: 2400,
-    electronic: 2400,
-  },
-  {
-    name: "Lun",
-    books: 3000,
-    clothes: 1398,
-    electronic: 2210,
-  },
-  {
-    name: "Mar",
-    books: 2000,
-    clothes: 9800,
-    electronic: 2290,
-  },
-  {
-    name: "Mie",
-    books: 2780,
-    clothes: 3908,
-    electronic: 2000,
-  },
-  {
-    name: "Jue",
-    books: 1890,
-    clothes: 4800,
-    electronic: 2181,
-  },
-  {
-    name: "Vie",
-    books: 2390,
-    clothes: 3800,
-    electronic: 2500,
-  },
-  {
-    name: "Sab",
-    books: 3490,
-    clothes: 4300,
-    electronic: 2100,
-  },
-];
+export const bigChart = {
+  title: "Analisis de Ingresos",
+  dataKey: "ingresos",
+  color1: "#8884d8",
+  color2: "#82ca9d",
+  color3: "#ffc658",
+  chartData: [
+    {
+      name: "Dom",
+      books: 4000,
+      clothes: 2400,
+      electronic: 2400,
+    },
+    {
+      name: "Lun",
+      books: 3000,
+      clothes: 1398,
+      electronic: 2210,
+    },
+    {
+      name: "Mar",
+      books: 2000,
+      clothes: 9800,
+      electronic: 2290,
+    },
+    {
+      name: "Mie",
+      books: 2780,
+      clothes: 3908,
+      electronic: 2000,
+    },
+    {
+      name: "Jue",
+      books: 1890,
+      clothes: 4800,
+      electronic: 2181,
+    },
+    {
+      name: "Vie",
+      books: 2390,
+      clothes: 3800,
+      electronic: 2500,
+    },
+    {
+      name: "Sab",
+      books: 3490,
+      clothes: 4300,
+      electronic: 2100,
+    },
+  ],
+};
 
 export const barChartBoxVisit = {
   title: "Ventas Totales",
@@ -115,50 +122,54 @@ export const barChartBoxVisit = {
   ],
 };
 
-export const topDealUsers = [
-  {
-    id: 1,
-    username: "Elva McDonald",
-    email: "elva@gmail.com",
-    amount: "3.668",
-  },
-  {
-    id: 2,
-    username: "Linnie Nelson",
-    email: "linnie@gmail.com",
-    amount: "3.256",
-  },
-  {
-    id: 3,
-    username: "Brent Reeves",
-    email: "brent@gmail.com",
-    amount: "2.998",
-  },
-  {
-    id: 4,
-    username: "Adeline Watson",
-    email: "adeline@gmail.com",
-    amount: "2.512",
-  },
-  {
-    id: 5,
-    username: "Juan Harrington",
-    email: "juan@gmail.com",
-    amount: "2.134",
-  },
-  {
-    id: 6,
-    username: "Augusta McGee",
-    email: "augusta@gmail.com",
-    amount: "1.932",
-  },
-  {
-    id: 7,
-    username: "Angel Thomas",
-    email: "angel@gmail.com",
-    amount: "1.560",
-  },
-];
+export const topDealUsers = {
+  title: "Top 5 Usuarios con mas Ventas",
+  dataKey: "sales",
+  chartData: [
+    {
+      id: 1,
+      username: "Elva McDonald",
+      email: "elva@gmail.com",
+      amount: "3.668",
+    },
+    {
+      id: 2,
+      username: "Linnie Nelson",
+      email: "linnie@gmail.com",
+      amount: "3.256",
+    },
+    {
+      id: 3,
+      username: "Brent Reeves",
+      email: "brent@gmail.com",
+      amount: "2.998",
+    },
+    {
+      id: 4,
+      username: "Adeline Watson",
+      email: "adeline@gmail.com",
+      amount: "2.512",
+    },
+    {
+      id: 5,
+      username: "Juan Harrington",
+      email: "juan@gmail.com",
+      amount: "2.134",
+    },
+    {
+      id: 6,
+      username: "Augusta McGee",
+      email: "augusta@gmail.com",
+      amount: "1.932",
+    },
+    {
+      id: 7,
+      username: "Angel Thomas",
+      email: "angel@gmail.com",
+      amount: "1.560",
+    },
+  ]
+}
 
 export const chartBoxRevenue = {
   color: "teal",
@@ -227,7 +238,6 @@ export const chartBoxUser = {
     { name: "Sat", users: 450 },
   ],
 };
-
 
 //Test Fot DataTable
 export const userRows = [

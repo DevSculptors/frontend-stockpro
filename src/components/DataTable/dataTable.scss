@@ -1,0 +1,51 @@
+.dataTable {
+  .header {
+    padding: 2rem;
+    font-weight: 600;
+    font-style: normal;
+    color: #838396;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .dataGrid {
+    background: white;
+    padding: 20px;
+
+    .rowContainer {
+      color: var(--grey-900, #16161d);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+      cursor: pointer;
+    }
+
+    // .MuiDataGrid-toolbarContainer {
+    //   flex-direction: row-reverse;
+     
+    // }
+
+    .MuiDataGrid-footerContainer {
+      background: white;
+      justify-content: center;
+    }
+
+    .css-levciy-MuiTablePagination-displayedRows {
+      display: none;
+    }
+
+    .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+      background: #26968e;
+    }
+
+    .css-v4u5dn-MuiInputBase-root-MuiInput-root:after {
+      border-bottom: 2px solid #26968e;
+    }
+
+    .action {
+      display: flex;
+      gap: 15px;
+    }
+  }
+}
