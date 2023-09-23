@@ -83,6 +83,12 @@ const Side = () => {
         },
         {
           id: 4,
+          title: "Inventario",
+          url: "/dashboard/inventory",
+          icon: BsBox,
+        },
+        {
+          id: 5,
           title: "Ventas",
           url: "/dashboard/sales",
           icon: FaClipboardList,

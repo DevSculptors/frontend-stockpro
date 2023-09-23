@@ -1,7 +1,14 @@
 $color_1: #16161D;
 $color_2: white;
 
+.loading{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .containerBrand {
+	margin-bottom: 1rem;
 	background: #fefefe;
 	padding: 1.2rem;
 	border: 3px solid #fff;
@@ -9,6 +16,7 @@ $color_2: white;
 }
 .containerTittle {
 	display: flex;
+	margin-bottom: 1rem;
 	justify-content: space-between;
 	align-items: center;
 	gap: 10px;

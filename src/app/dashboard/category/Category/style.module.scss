@@ -1,7 +1,7 @@
 $color_1: #16161D;
 $color_2: white;
 
-
+@import '../../../../styles/responsive.scss';
 .loading{
   align-items: center;
   display: flex;
@@ -9,13 +9,16 @@ $color_2: white;
 }
 
 .containerCategory {
+	margin-bottom: 1rem;
 	background: #fefefe;
 	padding: 1.2rem;
 	border: 3px solid #fff;
 	border-radius: 10px;
+
 }
 .containerTittle {
 	display: flex;
+	margin-bottom: 1rem;
 	justify-content: space-between;
 	align-items: center;
 	gap: 10px;

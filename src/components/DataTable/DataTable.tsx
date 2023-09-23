@@ -15,8 +15,6 @@ import { TablePaginationProps } from "@mui/material/TablePagination";
 
 import "./dataTable.scss";
 
-
-
 function Pagination({
   page,
   onPageChange,
@@ -51,12 +49,11 @@ type Props = {
   rows: object[];
   slug: string;
   pagination: number;
+  handleRow: (id: string) => void;
 };
 
 const DataTable = (props: Props) => {
-  const handleEdit = (id: number) => {
-    console.log(id);
-  };
+
 
   return (
     <div className="dataTable">
@@ -67,8 +64,10 @@ const DataTable = (props: Props) => {
         columns={props.columns.map((column) => ({
           ...column,
           headerClassName: "header",
+          cellClassName: "cell",
         }))}
         pagination
+
         slots={{ toolbar: GridToolbar, pagination: CustomPagination }}
         initialState={{
           pagination: {
@@ -83,12 +82,13 @@ const DataTable = (props: Props) => {
             quickFilterProps: { debounceMs: 500 },
           },
         }}
-        pageSizeOptions={[5]}
+       
+        pageSizeOptions={[5,10,25,50]}
         disableRowSelectionOnClick={true}
         disableColumnFilter
         // disableDensitySelector
         // disableColumnSelector
-        onRowClick={(params) => handleEdit(params.row.id)}
+        onRowClick={(params) => props.handleRow(params.row.id)}
       />
     </div>
   );

@@ -9,12 +9,14 @@ $background-color_1: #1E9189;;
 }
 
 .containerClient{
+  margin-bottom: 1rem;
   background: #fefefe;
   padding: 2rem;
   border: 3px solid #fff;
   border-radius: 10px;
 }
 .containerTittle{
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -5,7 +5,7 @@ function Category() {
   return (
     <div>
         <CategoryPage/>
-        {/* <BrandPage/> */}
+        <BrandPage/>
     </div>
   );
 }
