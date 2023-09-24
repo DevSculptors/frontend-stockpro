@@ -7,8 +7,8 @@ type Props = {
   dataKey: string;
   chartData: {
     id: number;
-    username: string;
-    email: string;
+    name: string;
+    phone: string;
     amount: string;
   }[];
 };
@@ -22,8 +22,8 @@ const TopBox = (props: Props) => {
           <div className={styles.listItem} key={user.id}>
             <div className={styles.user}>
               <div className={styles.userTexts}>
-                <span className={styles.username}>{user.username}</span>
-                <span className={styles.email}>{user.email}</span>
+                <span className={styles.username}>{user.name}</span>
+                <span className={styles.email}>{user.phone}</span>
               </div>
             </div>
             <span className={styles.amount}>${user.amount}</span>

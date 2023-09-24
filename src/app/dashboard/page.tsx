@@ -19,6 +19,7 @@ import {
 import styles from "./style.module.scss";
 
 function Dashboard() {
+  
   return (
     <div className={styles.home}>
       <div className={styles.box2}>

@@ -1,61 +1,38 @@
-// BG
-$main-bg: #2a3447;
-$soft-bg: #384256;
-$dark-bg: #222b3c;
-//TEXT
-$main-color: white;
-$soft-color: #ddd;
-$dark-color: #2a3447;
 
-$sm: 480px;
-$md: 768px;
-$lg: 1024px;
-$xl: 1200px;
-$xxl: 1400px;
+@import "../../styles/responsive.scss";
 
-@mixin md {
-  @media screen and (max-width: ($md)) {
-    @content;
-  }
-}
-@mixin lg {
-  @media screen and (max-width: ($lg)) {
-    @content;
-  }
-}
-@mixin xl {
-  @media screen and (max-width: ($xl)) {
-    @content;
+.submitButton {
+
+  margin-top: 1rem;
+  width: 25%;
+  background: rgba(0, 106, 255, 0.80);
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: .4rem 0;
+  border: 1px solid transparent;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+      background-color: rgba(0, 106, 255, 0.90);
+      color: #fff;
+      border: 1px solid rgba(0, 106, 255, 0.90);
   }
 }
 
 .single {
+  background: #fefefe;
+  padding: 1.2rem;
+  border: 3px solid #fff;
+  border-radius: 10px;
   display: flex;
 
   @include xl{
     flex-direction: column;
     gap: 50px;
-  }
-
-  .submitButton {
-    margin-top: 1rem;
-    width: 15%;
-    background: rgba(0, 106, 255, 0.80);
-    color: white;
-    text-align: center;
-    border-radius: 10px;
-    padding: .4rem 0;
-    border: 1px solid transparent;
-    transition-duration: .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    &:hover {
-        background-color: rgba(0, 106, 255, 0.90);
-        color: #fff;
-        border: 1px solid rgba(0, 106, 255, 0.90);
-    }
   }
 
   .view {
@@ -75,22 +52,17 @@ $xxl: 1400px;
         }
 
         h1 {
-          font-weight: 500;
-          font-size: 30px;
+          font-weight: 600;
+          font-size: 20px;
         }
       }
       .details {
         font-size: 18px;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
 
         .item {
-          padding: 5px 10px;
           margin: 30px 0px;
 
           .itemTitle {
-            font-size: 20px;
             font-weight: 600;
             margin-right: 10px;
             text-transform: capitalize;
@@ -125,6 +97,8 @@ $xxl: 1400px;
 
     h2 {
       margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 500;
     }
 
     ul {
@@ -133,7 +107,7 @@ $xxl: 1400px;
         position: relative;
         width: 1px;
         padding-top: 50px;
-        background-color: #f45b69;
+        background-color: #1E9189;
 
         &::after {
           content: "";
@@ -143,14 +117,16 @@ $xxl: 1400px;
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background-color: #f45b69;
+          background-color: #1E9189;
           transform: translateX(-50%);
         }
 
         div {
           min-width: 480px;
           padding: 15px;
-          background-color: #f45b6810;
+          border-radius: 10px;
+          border: 0.2px solid #1E9189;
+          background-color: #EAF6F6;
 
           @include md{
             min-width: 250px;

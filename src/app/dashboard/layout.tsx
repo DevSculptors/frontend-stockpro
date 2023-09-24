@@ -31,6 +31,14 @@ import { Category } from "@/interfaces/Category";
 import { Brand } from "@/interfaces/Brand";
 import { User } from "@/interfaces/User";
 
+import { menuData } from "@/helpers/Headers";
+
+const NavBarData = {
+  logoHref: "/dashboard",
+  settingsHref: "/dashboard/settings",
+  notificationsHref: "/dashboard",
+};
+
 interface Props {
   children: ReactNode | ReactNode[];
 }
@@ -134,10 +142,10 @@ function DashboardLayout({ children }: Props) {
 
   return (
     <div className={styles.main}>
-      <NavBar />
+      <NavBar {...NavBarData}/>
       <div className={styles.container}>
         <div className={styles.menuContainer}>
-          <SideBar />
+          <SideBar {...menuData}/>
         </div>
         <div className={styles.contentContainer}>
           <UserContext.Provider value={userContext}>

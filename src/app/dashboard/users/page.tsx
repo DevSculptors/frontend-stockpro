@@ -134,7 +134,7 @@ function UserPage() {
             slug="users"
             columns={columns}
             rows={rows}
-            pagination={8}
+            pagination={10}
             handleRow={(params) => handleRow(params)}
           />
         </div>

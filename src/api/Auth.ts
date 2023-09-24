@@ -1,7 +1,6 @@
 import axios from "./config";
 
 import { User, CreateUser, RegisterUser } from "@/interfaces/User";
-import Cookies from "js-cookie";
 
 export const LoginAPI = async (username: string, password: string) => {
   const response = await axios.post<RegisterUser>("/login", {
@@ -9,5 +8,10 @@ export const LoginAPI = async (username: string, password: string) => {
     password,
   });
 
+  return response.data;
+}
+
+export const LogoutAPI = async () => {
+  const response = await axios.get("/logout");
   return response.data;
 }
