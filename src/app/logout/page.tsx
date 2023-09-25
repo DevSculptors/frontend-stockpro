@@ -1,20 +1,26 @@
-'use client'
-import {useEffect, useMemo} from "react";
-import {useRouter} from "next/navigation";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-function Logout() {
-  const router = useRouter()
+import { LogoutAPI } from "@/api/Auth";
+import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 
+function Logout() {
+  const router = useRouter();
+
+  const logout = LogoutAPI();
+  
   useEffect(() => {
-    console.log('logout')
-    Cookies.remove('token')
-    sessionStorage.removeItem('user')
-    sessionStorage.removeItem('role')
-    router.push('/')
-  }, [router])
-  return (
-    <div>Logout...</div>
-  )
+    logout;
+    Cookies.remove("token");
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("userData");
+    sessionStorage.removeItem("role");
+    router.push("/");
+  }, [router, logout]);
+  ToasterSucess("Cierre de sesión exitoso");
+
+  return <div>Logout...</div>;
 }
 
-export default Logout
+export default Logout;

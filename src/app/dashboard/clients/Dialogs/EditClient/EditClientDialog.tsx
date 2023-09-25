@@ -46,9 +46,9 @@ function EditClientDialog() {
   };
 
   const onCancel = () => {
-    // console.log("click en cancelar");
     setOpen(false);
   };
+
   return (
     <form onSubmit={onSubmit} className={styles.form}>
       <div className={styles.descriptionContainer}>

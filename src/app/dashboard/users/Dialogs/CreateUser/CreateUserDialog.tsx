@@ -1,48 +1,39 @@
-
 import { Form } from "@/components/Form";
-import styles from "./style.module.css";
-
 import React, { useContext } from "react";
 import { ModalContext } from "@/context/ModalContext";
 
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { createUserAPI } from "@/api/Users";
-
-import { CreateUser } from "@/interfaces/User";
-
-import { toast } from "sonner";
-
-
+import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 
 function CreateUserDialog() {
   const { setOpen } = useContext(ModalContext);
 
   const queryClient = useQueryClient();
 
-
-
   const addUserMutation = useMutation({
     mutationFn: createUserAPI,
     onSuccess: () => {
       queryClient.invalidateQueries(["users"]);
       setOpen(false);
+      ToasterSucess("Usuario creado exitosamente");
     },
     onError: (error: any) => {
-     // Corregir los errores porque llega un Array de errores
-     // Pienso crear un helper para Sonner, Coming Soon
-     // The winter is coming 
       console.log(error.response.data);
-      toast.error(error.response.data.message)
-    }
-  })
+      error.response.data.forEach((error: any) => {
+        ToasterError(error.message);
+      });
+    },
+  });
 
   const onSubmit = (formData: any) => {
+    console.log("formData", formData);
+  
     addUserMutation.mutate({
       ...formData,
       isActive: true,
     });
-    // setOpen(false);
   };
 
   const onCancel = () => {
@@ -51,31 +42,32 @@ function CreateUserDialog() {
 
   const documentTypes = [
     {
-      value: 'CC',
-      label: 'Cedula de Ciudadania',
+      value: "CC",
+      label: "Cedula de Ciudadania",
     },
     {
-      value: 'PP',
-      label: 'Pasaporte',
+      value: "PP",
+      label: "Pasaporte",
     },
     {
-      value: 'CE',
-      label: 'Cedula de Extranjeria',
+      value: "CE",
+      label: "Cedula de Extranjeria",
     },
     {
-      value: 'TI',
-      label: 'Tarjeta de Identidad',
+      value: "TI",
+      label: "Tarjeta de Identidad",
     },
     {
-      value: 'NIT',
-      label: 'NIT',
-    }]
+      value: "NIT",
+      label: "NIT",
+    },
+  ];
 
-    const roles =[
-      { value: 'cashier', label: 'Cajero' },
-      { value: 'admin', label: 'Administrador' },
-      { value: 'superAdmin', label: 'Super Administrador' }
-  ]
+  const roles = [
+    { value: "cashier", label: "Cajero" },
+    { value: "admin", label: "Administrador" },
+    { value: "superAdmin", label: "Super Administrador" },
+  ];
   return (
     <Form title="Añadir Usuario" onSubmit={onSubmit}>
       <div className="my-[10px] grid grid-cols-2 gap-4">

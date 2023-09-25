@@ -2,13 +2,21 @@ $color_1: #eee;
 $color_2: #fff;
 $background-color_1: #1E9189;;
 
+.loading{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .containerClient{
+  margin-bottom: 1rem;
   background: #fefefe;
   padding: 2rem;
   border: 3px solid #fff;
   border-radius: 10px;
 }
 .containerTittle{
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;

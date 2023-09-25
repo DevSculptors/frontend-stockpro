@@ -1,0 +1,91 @@
+$color_1: #eee;
+$color_2: #fff;
+$background-color_1: #1E9189;;
+
+.loading{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.containerClient{
+  background: #fefefe;
+  padding: 2rem;
+  border: 3px solid #fff;
+  border-radius: 10px;
+}
+.containerTittle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.tittleList{
+  font-style: normal;
+  color: #16161D;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 140%;
+  white-space: nowrap;
+}
+.buttonCreateClient{
+  background: #1E9189;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: .6rem 0.4rem;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconSearch{
+  display: flex;
+  width: 15px;
+  height: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.divSearch{
+  display: flex;
+  width: 400px;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #F1F1F4;
+  padding: .6rem 0.4rem;
+}
+.inputSearch{
+  background: #F1F1F4;
+  font-size: 14px;
+  font-style: normal;
+}
+
+.pagination {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5rem;
+	font-size: 1.2rem;
+	gap: 5px;
+	.page_num {
+		padding: 8px 15px;
+		cursor: pointer;
+		border-radius: 3px;
+		font-weight: 400;
+		&:hover {
+			background-color: $background-color_1;
+			color: $color_2;
+		}
+	}
+	.active {
+		background-color: $background-color_1;
+		color: $color_2;
+		border-radius: 3px;
+	}
+}
+
+

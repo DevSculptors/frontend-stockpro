@@ -4,8 +4,8 @@ import BrandPage from "./Brand/page";
 function Category() {
   return (
     <div>
-        <CategoryPage></CategoryPage>
-        <BrandPage></BrandPage>
+        <CategoryPage/>
+        <BrandPage/>
     </div>
   );
 }

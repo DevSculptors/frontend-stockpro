@@ -1,7 +1,7 @@
 
 function Cash() {
   return (
-    <div>Cash</div>
+    <div>Caja UWU</div>
   )
 }
 

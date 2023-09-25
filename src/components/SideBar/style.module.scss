@@ -1,21 +1,6 @@
-$lg: 1024px;
-// BG
-$main-bg: #fff;
-$soft-bg: #1e9189;
-$dark-bg: #1e9189;
-$background-color_2: #f1f1f4;
+@import '../../styles/responsive.scss';
+@import '../../styles/variables.scss';
 
-//TEXT
-
-$main-color: white;
-$soft-color: #8b8ba7;
-$dark-color: #1e9189;
-
-@mixin lg {
-  @media screen and (max-width: #{$lg}) {
-    @content;
-  }
-}
 
 .listItem_active {
   background-color: $soft-bg;
@@ -38,6 +23,7 @@ $dark-color: #1e9189;
   padding: 1rem;
   background-color: $main-bg;
   color: $main-color;
+  border-radius: 0.8rem;
 
   .item {
     display: flex;

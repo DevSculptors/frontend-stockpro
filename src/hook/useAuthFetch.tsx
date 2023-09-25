@@ -2,13 +2,11 @@ import { AxiosRequestConfig } from "axios";
 
 import axios from "@/api/config";
 
-import { useMemo } from "react";
-
 import { useRouter } from "next/navigation";
 
 import Cookies from "js-cookie";
 
-import { ToasterSucess,ToasterError } from "../helpers/useToaster";
+import { ToasterSucess, ToasterError } from "../helpers/useToaster";
 
 interface AuthFetchProps {
   endpoint: string;
@@ -18,7 +16,6 @@ interface AuthFetchProps {
 }
 
 export function useAuthFetch() {
-
   const router = useRouter();
 
   const authRouter = async ({
@@ -32,17 +29,19 @@ export function useAuthFetch() {
     try {
       const { data } = await axios.post(`${endpoint}`, formData, options);
 
-      console.log("data", data);
-      
       Cookies.set("token", data.token, {
         path: "/",
         expires: 1,
       });
 
-      // Guardar datos del usuario en el sessionStorage
-      sessionStorage.setItem("user", JSON.stringify(data.userFound));
-      sessionStorage.setItem("role", JSON.stringify(data.userFound.roleUser));
+      console.log("data", data);
       
+
+      // Guardar datos del usuario en el sessionStorage
+      sessionStorage.setItem("userData", JSON.stringify(data.userFound));
+      sessionStorage.setItem("username", data.userFound.username);
+      sessionStorage.setItem("role", data.userFound.roleUser);
+
       ToasterSucess("Inicio de sesión exitoso");
 
       if (redirectRoute) {
