@@ -61,6 +61,7 @@
     line-height: 100%;
     letter-spacing: 0.6px;
     color: black;
+    margin-bottom: 0.8rem ;
   }
   .infoCard{
     font-size: 1rem;
@@ -68,13 +69,13 @@
     line-height: 100%;
     letter-spacing: 0.6px;
     color: black;
+    margin-top: 0.6rem ;
   }
   .descriptionCard{
-    overflow: hidden;
     color: var(--carbon-500, #828282);
-    text-overflow: ellipsis;
     font-size: 1rem;
     font-style: normal;
+    line-height: 1; 
   }
   .divider{
     margin: 16px 0;
@@ -89,6 +90,9 @@
     .categoryIcon{
       display: flex;
       align-items: center;
+    }
+    .icons{
+      margin-right: 1rem;
     }
   }
 }

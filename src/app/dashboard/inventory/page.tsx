@@ -29,7 +29,28 @@ function Inventory() {
         }
     };
 
+    const measureTypes = [
+        {
+          value: 'KG',
+          label: 'Kilogramos',
+        },
+        {
+          value: 'UNITS',
+          label: 'Unidades',
+        },
+        {
+          value: 'LITERS',
+          label: 'Litros',
+        },
+        {
+          value: 'POUNDS',
+          label: 'Libras',
+        }]
 
+    const getUnitLabel = (value: string) => {
+        const found = measureTypes.find((type) => type.value === value);
+        return found ? found.label : 'Unknown';
+    };
     return (
         <div className={styles.container}>
             <div className={styles.containerTittle}>
@@ -49,13 +70,14 @@ function Inventory() {
                     </button>
                 </div>
             </div>
+            <div className="my-[10px] grid grid-cols-3 gap-4">
                 {data?.map((product: Product) => (
                     <Card
                         key={product.id}
                         index={product.id}
                         name={product.name_product}
                         description={product.description}
-                        units={product.stock + product.measure_unit}
+                        units={product.stock +" "+ getUnitLabel(product.measure_unit)}
                         price={product.sale_price}
                         category={product.category.name}
                         brand={product.brand.name}
@@ -63,6 +85,7 @@ function Inventory() {
                         handleClick={(params) => handleClick(params)}
                     />
                 ))}
+            </div>
         </div>
 
     )

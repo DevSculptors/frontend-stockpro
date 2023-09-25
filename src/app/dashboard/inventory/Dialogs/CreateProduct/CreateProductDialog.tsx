@@ -48,10 +48,11 @@ function CreateProductDialog() {
   });
 
   const onSubmit = (formData: any) => {
-    console.log("formData", formData);
     addProductMutation.mutate({
       ...formData,
-      isActive: true,
+      is_active: true,
+      stock: 0,
+      sale_price: Number(formData.sale_price)
     });
   };
 
@@ -102,13 +103,13 @@ function CreateProductDialog() {
             name="brand_id"
             placeholder="Seleccione la marca"
             label="Marca"
-            options={brands}
+            optionsId={brands}
         />
         <Form.ListBox
             name="category_id"
             placeholder="Seleccione la categoria"
             label="Categoria"
-            options={category}
+            optionsId={category}
         />
         <Form.InputRequired
           name="description"
@@ -125,16 +126,5 @@ function CreateProductDialog() {
   );
 }
 
-interface RegisterFields {
-  type_document?: string;
-  id_document?: string;
-  name?: string;
-  last_name?: string;
-  phone?: string;
-  email?: string;
-  username?: string;
-  password?: string;
-  rol?: string;
-}
 
 export default CreateProductDialog;
