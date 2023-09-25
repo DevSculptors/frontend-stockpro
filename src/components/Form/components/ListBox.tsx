@@ -8,13 +8,17 @@ interface ListBoxOptions {
     value: string;
     label: string;
 }
+interface ListIdOptions {
+    id: string;
+    name: string;
+}
 interface ListBoxProps {
     options?: ListBoxOptions[]
     label: string;
     name: string;
     placeholder: string;
     defaultValue?: string;
-    optionsId?: ListBoxOptions[];
+    optionsId?: ListIdOptions[];
 }
 
 export function ListBox({ label, name, options, placeholder, optionsId}: ListBoxProps) {
