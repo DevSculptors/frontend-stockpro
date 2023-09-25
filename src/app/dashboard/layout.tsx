@@ -20,16 +20,21 @@ import EditCategoryDialog from "./category/Category/Dialogs/EditCategory/EditCat
 import CreateBrandDialog from "./category/Brand/Dialogs/CreateBrand/CreateBrandDialog";
 import EditBrandDialog from "./category/Brand/Dialogs/EditBrand/EditBrandDialog";
 
+import EditProductDialog from "./inventory/Dialogs/EditProduct/EditProductDialog";
+import CreateProductDialog from "./inventory/Dialogs/CreateProduct/CreateProductDialog";
+
 import { ClientContext } from "@/context/ClientContext";
 import { ModalContext } from "@/context/ModalContext";
 import { UserContext } from "@/context/UserContext";
 import { CategoryContext } from "@/context/CategoryContext";
 import { BrandContext } from "@/context/BrandContext";
+import { ProductContext } from "@/context/ProductContext";
 
 import { Client } from "@/interfaces/Client";
 import { Category } from "@/interfaces/Category";
 import { Brand } from "@/interfaces/Brand";
 import { User } from "@/interfaces/User";
+import {Product} from "@/interfaces/Product";
 
 import { menuData } from "@/helpers/Headers";
 
@@ -58,6 +63,9 @@ function DashboardLayout({ children }: Props) {
 
   const [selectedBrand, setSelectedBrand] = useState<Brand>();
   const [brands, setBrands] = useState<Brand[] | undefined>([]);
+
+  const [selectedProduct, setSelectedProduct] = useState<Product>();
+  const [products, setProducts] = useState<Product[] | undefined>([]);
 
   const userContext = useMemo(
     () => ({
@@ -98,6 +106,15 @@ function DashboardLayout({ children }: Props) {
     }),
     [selectedBrand, brands]
   );
+  const productContext = useMemo(
+      () => ({
+          selectedProduct,
+          setSelectedProduct,
+          products,
+          setProducts,
+        }),
+      [selectedProduct, products]
+    );
 
   const modalContext = useMemo(
     () => ({
@@ -111,6 +128,7 @@ function DashboardLayout({ children }: Props) {
 
   function SelectModal() {
     switch (id) {
+
       case "addUser":
         return <CreateUserDialog />;
 
@@ -135,6 +153,12 @@ function DashboardLayout({ children }: Props) {
       case "editBrand":
         return <EditBrandDialog />;
 
+        case "editProduct":
+            return <EditProductDialog />;
+
+        case "addProduct":
+            return <CreateProductDialog />;
+
       default:
         break;
     }
@@ -150,16 +174,18 @@ function DashboardLayout({ children }: Props) {
         <div className={styles.contentContainer}>
           <UserContext.Provider value={userContext}>
             <ClientContext.Provider value={clientContext}>
-              <CategoryContext.Provider value={categoryContext}>
-                <BrandContext.Provider value={brandContext}>
-                  <ModalContext.Provider value={modalContext}>
-                    <ModalBase isOpen={open} id={id}>
-                      {SelectModal()}
-                    </ModalBase>
-                    <main className={styles.layout__main}>{children}</main>
-                  </ModalContext.Provider>
-                </BrandContext.Provider>
-              </CategoryContext.Provider>
+                <ProductContext.Provider value={productContext}>
+                    <CategoryContext.Provider value={categoryContext}>
+                        <BrandContext.Provider value={brandContext}>
+                            <ModalContext.Provider value={modalContext}>
+                                <ModalBase isOpen={open} id={id}>
+                                    {SelectModal()}
+                                </ModalBase>
+                                <main className={styles.layout__main}>{children}</main>
+                            </ModalContext.Provider>
+                        </BrandContext.Provider>
+                    </CategoryContext.Provider>
+                </ProductContext.Provider>
             </ClientContext.Provider>
           </UserContext.Provider>
         </div>

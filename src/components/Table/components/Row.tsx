@@ -1,6 +1,5 @@
 import { useState} from 'react';
 import styles from './styles.module.scss';
-import { User } from '@/interfaces/User';
 
 interface RowProps {
     indexRow: string
