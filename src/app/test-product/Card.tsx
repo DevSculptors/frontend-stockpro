@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
-import styles from "./styles.module.scss";
+import styles from "./styles.module.css";
 
 interface Props {
   items: any;
 }
 
-function Images(props: Props) {
+function Card(props: Props) {
   const { items } = props;
 
   const [itemOffset, setItemOffset] = useState(0);
@@ -33,11 +33,12 @@ function Images(props: Props) {
 
   return (
     <>
-    <div className={styles.images}>
+    <div className={styles.cards}>
       {
        currentItems.map((item: any) => {
          return (
-            <div className={styles.image} key={item.id}>
+            <div className={styles.productCard} key={item.id} onClick={}>
+              <h2 className={}></h2>
               <img src={item.url} alt={item.title} />
             </div>
          );
@@ -46,11 +47,11 @@ function Images(props: Props) {
     </div>
       <ReactPaginate
         breakLabel="..."
-        nextLabel="next >"
+        nextLabel=">"
         onPageChange={handlePageClick}
         pageRangeDisplayed={2}
         pageCount={pageCount}
-        previousLabel="< previous"
+        previousLabel="<"
         renderOnZeroPageCount={null}
         containerClassName={styles.pagination}
         pageLinkClassName={styles.page_num}
@@ -62,4 +63,4 @@ function Images(props: Props) {
   );
 }
 
-export default Images;
+export default Card;
