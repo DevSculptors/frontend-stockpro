@@ -49,6 +49,7 @@ function Inventory() {
                     </button>
                 </div>
             </div>
+            <div className="my-[10px] grid grid-cols-3 gap-4">
                 {data?.map((product: Product) => (
                     <Card
                         key={product.id}
@@ -63,6 +64,7 @@ function Inventory() {
                         handleClick={(params) => handleClick(params)}
                     />
                 ))}
+            </div>
         </div>
 
     )

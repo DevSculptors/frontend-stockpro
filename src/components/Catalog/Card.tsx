@@ -25,11 +25,11 @@ export function Card({ name, description, units, price, category, brand, index, 
             <div className={styles.divider} />
             <div className={styles.categoryInfo}>
                 <div className={styles.categoryIcon}>
-                    <MdOutlineLocalShipping/>
+                    <MdOutlineLocalShipping className={styles.icons}/>
                     {category}
                 </div>
                 <div className={styles.categoryIcon}>
-                    <MdOutlineLocalOffer/>
+                    <MdOutlineLocalOffer className={styles.icons}/>
                     {brand}
                 </div>
             </div>
