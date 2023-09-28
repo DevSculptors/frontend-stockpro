@@ -77,6 +77,7 @@ function Inventory() {
       {isLoading ? (
         <div className={styles.loading}>
           <GridLoader color="#1E9189" loading={isLoading} size={180} />
+
         </div>
       ) : (
         <div>

@@ -47,7 +47,9 @@ function CreateProductDialog() {
     },
   });
 
+
   const handleSubmit = (formData: any) => {
+
     addProductMutation.mutate({
       ...formData,
       is_active: true,
@@ -111,6 +113,7 @@ function CreateProductDialog() {
           placeholder="Seleccione la categoria"
           label="Categoria"
           optionsId={category}
+
         />
         <Form.InputRequired
           name="description"
@@ -127,16 +130,5 @@ function CreateProductDialog() {
   );
 }
 
-interface RegisterFields {
-  type_document?: string;
-  id_document?: string;
-  name?: string;
-  last_name?: string;
-  phone?: string;
-  email?: string;
-  username?: string;
-  password?: string;
-  rol?: string;
-}
 
 export default CreateProductDialog;
