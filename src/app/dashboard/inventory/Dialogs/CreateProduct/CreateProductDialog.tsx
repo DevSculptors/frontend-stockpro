@@ -5,13 +5,13 @@ import { ModalContext } from "@/context/ModalContext";
 import { CategoryContext } from "@/context/CategoryContext";
 import { BrandContext } from "@/context/BrandContext";
 
-import {useQueryClient, useMutation, useQuery} from "@tanstack/react-query";
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 import { createProductAPI } from "@/api/Products";
 import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 
-import {getAllCategoriesAPI} from "@/api/Category";
-import {getAllBrandsAPI} from "@/api/Brand";
+import { getAllCategoriesAPI } from "@/api/Category";
+import { getAllBrandsAPI } from "@/api/Brand";
 
 function CreateProductDialog() {
   const { setOpen } = useContext(ModalContext);
@@ -21,7 +21,7 @@ function CreateProductDialog() {
   const addProductMutation = useMutation({
     mutationFn: createProductAPI,
     onSuccess: () => {
-      queryClient.invalidateQueries(["product"]);
+      queryClient.invalidateQueries(["products"]);
       setOpen(false);
       ToasterSucess("Producto creado exitosamente");
     },
@@ -47,11 +47,12 @@ function CreateProductDialog() {
     },
   });
 
-  const onSubmit = (formData: any) => {
-    console.log("formData", formData);
+  const handleSubmit = (formData: any) => {
     addProductMutation.mutate({
       ...formData,
-      isActive: true,
+      is_active: true,
+      stock: 0,
+      sale_price: Number(formData.sale_price)
     });
   };
 
@@ -61,36 +62,37 @@ function CreateProductDialog() {
 
   const measureTypes = [
     {
-      value: 'KG',
-      label: 'Kilogramos',
+      value: "KG",
+      label: "Kilogramos",
     },
     {
-      value: 'UNITS',
-      label: 'Unidades',
+      value: "UNITS",
+      label: "Unidades",
     },
     {
-      value: 'LITERS',
-      label: 'Litros',
+      value: "LITERS",
+      label: "Litros",
     },
     {
-      value: 'POUNDS',
-      label: 'Libras',
-    }]
+      value: "POUNDS",
+      label: "Libras",
+    },
+  ];
 
   return (
-    <Form title="Añadir Producto" onSubmit={onSubmit}>
+    <Form title="Añadir Producto" onSubmit={handleSubmit}>
       <div className="my-[10px] grid grid-cols-2 gap-4">
         <Form.InputRequired
-            name="name_product"
-            label="Nombre"
-            placeholder="Ingresa el nombre"
-            type="text"
+          name="name_product"
+          label="Nombre"
+          placeholder="Ingresa el nombre"
+          type="text"
         />
         <Form.ListBox
-            name="measure_unit"
-            placeholder="Seleccione la unidad de medida"
-            label="Unidad de medida"
-            options={measureTypes}
+          name="measure_unit"
+          placeholder="Seleccione la unidad de medida"
+          label="Unidad de medida"
+          options={measureTypes}
         />
         <Form.InputRequired
           name="sale_price"
@@ -99,16 +101,16 @@ function CreateProductDialog() {
           type="number"
         />
         <Form.ListBox
-            name="brand_id"
-            placeholder="Seleccione la marca"
-            label="Marca"
-            options={brands}
+          name="brand_id"
+          placeholder="Seleccione la marca"
+          label="Marca"
+          optionsId={brands}
         />
         <Form.ListBox
-            name="category_id"
-            placeholder="Seleccione la categoria"
-            label="Categoria"
-            options={category}
+          name="category_id"
+          placeholder="Seleccione la categoria"
+          label="Categoria"
+          optionsId={category}
         />
         <Form.InputRequired
           name="description"

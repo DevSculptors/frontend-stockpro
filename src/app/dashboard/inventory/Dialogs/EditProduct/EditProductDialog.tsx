@@ -21,7 +21,7 @@ function EditProductDialog() {
     const updateProductMutation = useMutation({
         mutationFn: updateProductAPI,
         onSuccess: () => {
-            queryClient.invalidateQueries(["product"]);
+            queryClient.invalidateQueries(["products"]);
             ToasterEdit("Producto editado correctamente");
             setOpen(false);
         },

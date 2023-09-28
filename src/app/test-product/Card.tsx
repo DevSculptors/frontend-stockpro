@@ -37,8 +37,8 @@ function Card(props: Props) {
       {
        currentItems.map((item: any) => {
          return (
-            <div className={styles.productCard} key={item.id} onClick={}>
-              <h2 className={}></h2>
+            <div className={styles.productCard} key={item.id} >
+              <h2 >Hola</h2>
               <img src={item.url} alt={item.title} />
             </div>
          );
