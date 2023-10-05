@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import ReactPaginate from "react-paginate";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProductsAPI } from "@/api/Products";
@@ -7,10 +7,51 @@ import { ProductContext } from "@/context/ProductContext";
 import { Product } from "@/interfaces/Product";
 import { ModalContext } from "@/context/ModalContext";
 import { Card } from "@/components/Catalog/Card";
-
 import styles from "./styles.module.scss";
 
 import { GridLoader } from "react-spinners";
+import DataTable from "@/components/DataTable/DataTable";
+import { GridColDef } from "@mui/x-data-grid";
+import { getUnitLabel, formatPrice } from "@/helpers/Utils";
+
+const columns: GridColDef[] = [
+  {
+    field: "name_product",
+    headerName: "Nomnre",
+    width: 200,
+    type: "string",
+  },
+  {
+    field: "description",
+    headerName: "Descripción",
+    width: 300,
+    type: "string",
+  },
+  {
+    field: "sale_price",
+    headerName: "Precio Ven",
+    width: 100,
+    type: "string",
+  },
+  {
+    field: "measure_unit",
+    headerName: "Unidades",
+    width: 100,
+    type: "string",
+  },
+  {
+    field: "stock",
+    headerName: "Stock",
+    width: 100,
+    type: "number",
+  },
+  {
+    field: "is_active",
+    headerName: "Activo",
+    width: 180,
+    type: "boolean",
+  },
+];
 
 function Inventory() {
   const { setOpen, setId } = useContext(ModalContext);
@@ -23,6 +64,7 @@ function Inventory() {
       setProducts(data);
     },
   });
+
   const handleClick = (id: string) => {
     const product = products?.find((product) => product.id === id);
     if (product) {
@@ -33,6 +75,17 @@ function Inventory() {
       setId("editProduct");
     }
   };
+
+  const rows =
+    products?.map((product: Product) => ({
+      id: product.id,
+      name_product: product.name_product,
+      description: product.description,
+      measure_unit: getUnitLabel(product.measure_unit),
+      sale_price: formatPrice(product.sale_price),
+      stock: product.stock,
+      is_active: product.is_active,
+    })) || [];
 
   // Pagination
   const [itemOffset, setItemOffset] = useState(0);
@@ -49,41 +102,30 @@ function Inventory() {
 
     setItemOffset(newOffset);
   };
-  const measureTypes = [
-    {
-      value: "KG",
-      label: "Kilogramos",
-    },
-    {
-      value: "UNITS",
-      label: "Unidades",
-    },
-    {
-      value: "LITERS",
-      label: "Litros",
-    },
-    {
-      value: "POUNDS",
-      label: "Libras",
-    },
-  ];
 
-  const getUnitLabel = (value: string) => {
-    const found = measureTypes.find((type) => type.value === value);
-    return found ? found.label : "Unknown";
-  };
+  //Modo table
+  const [modeTable, setModeTable] = useState(false);
+
   return (
     <div className={styles.container}>
       {isLoading ? (
         <div className={styles.loading}>
           <GridLoader color="#1E9189" loading={isLoading} size={180} />
-
         </div>
       ) : (
         <div>
           <div className={styles.containerTittle}>
             <p className={styles.tittleList}>Lista Productos</p>
-
+            <div>
+              <button
+                className={styles.buttonTable}
+                onClick={() => {
+                  setModeTable((prevMode) => !prevMode); // Alternar el valor actual
+                }}
+              >
+                {modeTable ? "Modo Tarjeta" : "Modo Tabla"}
+              </button>
+            </div>
             <div>
               <button
                 className={styles.buttonCreateUser}
@@ -98,36 +140,52 @@ function Inventory() {
               </button>
             </div>
           </div>
-          <div className="my-[10px] grid grid-cols-3 gap-3">
-            {currentItems?.map((product: Product) => (
-              <Card
-                key={product.id}
-                index={product.id}
-                name={product.name_product}
-                description={product.description}
-                units={product.stock + " " + getUnitLabel(product.measure_unit)}
-                price={product.sale_price}
-                category={product.category.name}
-                brand={product.brand.name}
-                isActive={product.is_active}
-                handleClick={(params) => handleClick(params)}
+          {modeTable ? (
+            <div className="py-3 mx-2">
+              <DataTable
+                slug="products"
+                columns={columns}
+                rows={rows}
+                pagination={10}
+                handleRow={(params) => handleClick(params)}
               />
-            ))}
-          </div>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={2}
-            pageCount={pageCount}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            containerClassName={styles.pagination}
-            pageLinkClassName={styles.page_num}
-            previousClassName={styles.page_num}
-            nextClassName={styles.page_num}
-            activeClassName={styles.active}
-          />
+            </div>
+          ) : (
+            <div>
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))]  gap-4">
+                {currentItems?.map((product: Product) => (
+                  <Card
+                    key={product.id}
+                    index={product.id}
+                    name={product.name_product}
+                    description={product.description}
+                    units={
+                      product.stock + " " + getUnitLabel(product.measure_unit)
+                    }
+                    price={product.sale_price}
+                    category={product.category.name}
+                    brand={product.brand.name}
+                    isActive={product.is_active}
+                    handleClick={(params) => handleClick(params)}
+                  />
+                ))}
+              </div>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={2}
+                pageCount={pageCount}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                containerClassName={styles.pagination}
+                pageLinkClassName={styles.page_num}
+                previousClassName={styles.page_num}
+                nextClassName={styles.page_num}
+                activeClassName={styles.active}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -29,12 +29,14 @@ import { UserContext } from "@/context/UserContext";
 import { CategoryContext } from "@/context/CategoryContext";
 import { BrandContext } from "@/context/BrandContext";
 import { ProductContext } from "@/context/ProductContext";
+import { InventoryContext } from "@/context/InventoryContext";
 
 import { Client } from "@/interfaces/Client";
 import { Category } from "@/interfaces/Category";
 import { Brand } from "@/interfaces/Brand";
 import { User } from "@/interfaces/User";
-import {Product} from "@/interfaces/Product";
+import { Product } from "@/interfaces/Product";
+import { Inventory } from "@/interfaces/Inventory";
 
 import { menuData } from "@/helpers/Headers";
 
@@ -66,6 +68,9 @@ function DashboardLayout({ children }: Props) {
 
   const [selectedProduct, setSelectedProduct] = useState<Product>();
   const [products, setProducts] = useState<Product[] | undefined>([]);
+
+  const [selectedInventory, setSelectedInventory] = useState<Inventory>();
+  const [inventory, setInventory] = useState<Inventory[] | undefined>([]);
 
   const userContext = useMemo(
     () => ({
@@ -107,14 +112,24 @@ function DashboardLayout({ children }: Props) {
     [selectedBrand, brands]
   );
   const productContext = useMemo(
-      () => ({
-          selectedProduct,
-          setSelectedProduct,
-          products,
-          setProducts,
-        }),
-      [selectedProduct, products]
-    );
+    () => ({
+      selectedProduct,
+      setSelectedProduct,
+      products,
+      setProducts,
+    }),
+    [selectedProduct, products]
+  );
+
+  const inventoryContext = useMemo(
+    () => ({
+      selectedInventory,
+      setSelectedInventory,
+      inventory,
+      setInventory,
+    }),
+    [selectedInventory, inventory]
+  );
 
   const modalContext = useMemo(
     () => ({
@@ -128,7 +143,6 @@ function DashboardLayout({ children }: Props) {
 
   function SelectModal() {
     switch (id) {
-
       case "addUser":
         return <CreateUserDialog />;
 
@@ -153,11 +167,11 @@ function DashboardLayout({ children }: Props) {
       case "editBrand":
         return <EditBrandDialog />;
 
-        case "editProduct":
-            return <EditProductDialog />;
+      case "editProduct":
+        return <EditProductDialog />;
 
-        case "addProduct":
-            return <CreateProductDialog />;
+      case "addProduct":
+        return <CreateProductDialog />;
 
       default:
         break;
@@ -166,26 +180,28 @@ function DashboardLayout({ children }: Props) {
 
   return (
     <div className={styles.main}>
-      <NavBar {...NavBarData}/>
+      <NavBar {...NavBarData} />
       <div className={styles.container}>
         <div className={styles.menuContainer}>
-          <SideBar {...menuData}/>
+          <SideBar {...menuData} />
         </div>
         <div className={styles.contentContainer}>
           <UserContext.Provider value={userContext}>
             <ClientContext.Provider value={clientContext}>
-                <ProductContext.Provider value={productContext}>
-                    <CategoryContext.Provider value={categoryContext}>
-                        <BrandContext.Provider value={brandContext}>
-                            <ModalContext.Provider value={modalContext}>
-                                <ModalBase isOpen={open} id={id}>
-                                    {SelectModal()}
-                                </ModalBase>
-                                <main className={styles.layout__main}>{children}</main>
-                            </ModalContext.Provider>
-                        </BrandContext.Provider>
-                    </CategoryContext.Provider>
-                </ProductContext.Provider>
+              <ProductContext.Provider value={productContext}>
+                <InventoryContext.Provider value={inventoryContext}>
+                  <CategoryContext.Provider value={categoryContext}>
+                    <BrandContext.Provider value={brandContext}>
+                      <ModalContext.Provider value={modalContext}>
+                        <ModalBase isOpen={open} id={id}>
+                          {SelectModal()}
+                        </ModalBase>
+                        <main className={styles.layout__main}>{children}</main>
+                      </ModalContext.Provider>
+                    </BrandContext.Provider>
+                  </CategoryContext.Provider>
+                </InventoryContext.Provider>
+              </ProductContext.Provider>
             </ClientContext.Provider>
           </UserContext.Provider>
         </div>

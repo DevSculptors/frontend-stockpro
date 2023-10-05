@@ -12,6 +12,7 @@ import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 
 import { getAllCategoriesAPI } from "@/api/Category";
 import { getAllBrandsAPI } from "@/api/Brand";
+import { data } from "cypress/types/jquery";
 
 function CreateProductDialog() {
   const { setOpen } = useContext(ModalContext);
@@ -46,6 +47,8 @@ function CreateProductDialog() {
       setBrands(data);
     },
   });
+
+  
 
 
   const handleSubmit = (formData: any) => {
