@@ -3,7 +3,7 @@ import { FormContext } from "..";
 import styles from "./styles.module.scss";
 
 interface InputProps {
-  type?: "text" | "password" | "number" | "email";
+  type?: "text" | "password" | "number" | "email" | "date";
   name: string;
   label: string;
   placeholder?: string;

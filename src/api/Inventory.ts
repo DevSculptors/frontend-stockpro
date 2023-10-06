@@ -1,10 +1,28 @@
 import axios from "./config";
 
-import { Inventory} from "@/interfaces/Inventory";
+import { Inventory, InventoryCreate} from "@/interfaces/Inventory";
 import Cookies from "js-cookie";
 
 export const getAllInventory = async () => {
   const response = await axios.get<Inventory[]>("/inventory", {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
+  return response.data;
+}
+
+export const getInventoryById = async (id: number) => {
+  const response = await axios.get<Inventory>(`/inventory/${id}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
+  return response.data;
+}
+
+export const createInventory = async (data: InventoryCreate) => {
+  const response = await axios.post<Inventory>("/inventory", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("token")}`,
     },

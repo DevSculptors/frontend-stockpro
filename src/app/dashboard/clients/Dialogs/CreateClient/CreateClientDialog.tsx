@@ -1,5 +1,4 @@
 import { Form } from "@/components/Form";
-import styles from "./style.module.css";
 
 import React, { useContext } from "react";
 import { ModalContext } from "@/context/ModalContext";
@@ -25,7 +24,7 @@ function CreateClientDialog() {
       setOpen(false);
     },
     onError: (error: any) => {
-     // Esto se puede mejorar
+     
       error.response.data.forEach((error: any) => {
         ToasterError(error.message);
       });

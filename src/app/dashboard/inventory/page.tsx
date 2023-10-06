@@ -12,19 +12,26 @@ import styles from "./styles.module.scss";
 import { GridLoader } from "react-spinners";
 import DataTable from "@/components/DataTable/DataTable";
 import { GridColDef } from "@mui/x-data-grid";
+
 import { getUnitLabel, formatPrice } from "@/helpers/Utils";
 
 const columns: GridColDef[] = [
   {
     field: "name_product",
-    headerName: "Nomnre",
+    headerName: "Nombre",
+    width: 250,
+    type: "string",
+  },
+  {
+    field: "brand",
+    headerName: "Marca",
     width: 200,
     type: "string",
   },
   {
-    field: "description",
-    headerName: "Descripción",
-    width: 300,
+    field: "category",
+    headerName: "Categoria",
+    width: 200,
     type: "string",
   },
   {
@@ -42,13 +49,13 @@ const columns: GridColDef[] = [
   {
     field: "stock",
     headerName: "Stock",
-    width: 100,
+    width: 80,
     type: "number",
   },
   {
     field: "is_active",
     headerName: "Activo",
-    width: 180,
+    width: 100,
     type: "boolean",
   },
 ];
@@ -80,7 +87,8 @@ function Inventory() {
     products?.map((product: Product) => ({
       id: product.id,
       name_product: product.name_product,
-      description: product.description,
+      brand: product.brand.name,
+      category: product.category.name,
       measure_unit: getUnitLabel(product.measure_unit),
       sale_price: formatPrice(product.sale_price),
       stock: product.stock,

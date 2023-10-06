@@ -1,4 +1,3 @@
-import {Brand} from "./Brand";
 
 export interface Product {
     id: string;
@@ -30,6 +29,4 @@ export interface UpdateProduct{
     brand_id: string;
     category_id: string;
 }
-
-
 

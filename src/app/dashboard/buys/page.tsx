@@ -4,12 +4,13 @@ import { getAllInventory } from "@/api/Inventory";
 import { useQuery } from "@tanstack/react-query";
 import { GridLoader } from "react-spinners";
 import DataTable from "@/components/DataTable/DataTable";
-import { GridColDef,  GridValueGetterParams } from "@mui/x-data-grid";
+import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { useContext } from "react";
-import { ModalContext } from "@/context/ModalContext";
 import { InventoryContext } from "@/context/InventoryContext";
 
 import { formatDate } from "@/helpers/Utils";
+import { useRouter } from "next/navigation";
+
 
 import styles from "./style.module.scss";
 
@@ -33,33 +34,34 @@ const columns: GridColDef[] = [
     type: "number",
   },
   {
-    field: 'acciones',
-    headerName: 'Acciones',
+    field: "acciones",
+    headerName: "Acciones",
     width: 150,
     renderCell: () => (
-      <button onClick={() => handleButtonClick()}>Ver detalles</button>
+      <div>
+        <button
+          className={styles.buttonCreate}
+        >
+          Ver detalles
+        </button>
+      </div>
     ),
   },
 ];
 
-const handleButtonClick = () => {
-  // Maneja la lógica cuando se hace clic en el botón, por ejemplo, mostrar detalles para la fila con el ID correspondiente
-  console.log('Botón clickeado para la fila con el ID:');
-};
-
 function BuyPage() {
-  const { setOpen, setId } = useContext(ModalContext);
+
+  const router = useRouter();
+ 
   const { setSelectedInventory, setInventory, inventory } =
     useContext(InventoryContext);
 
-  const { data, isLoading } = useQuery(["inventory"], getAllInventory, {
+  const { isLoading } = useQuery(["inventory"], getAllInventory, {
     onSuccess: (data) => {
       setInventory(data);
     },
   });
-
-
-
+  
 
   const rows =
     inventory?.map((inventory: Inventory) => ({
@@ -69,9 +71,13 @@ function BuyPage() {
       num_product: inventory.purchase_detail.length,
     })) || [];
 
-
   const handleRow = (row: any) => {
     console.log(row);
+    // const invent = inventory?.find((inventory) => inventory.id === row.id);
+    // if (invent) {
+    //   setSelectedInventory(invent);
+    // }
+
   };
 
   return (
@@ -88,13 +94,10 @@ function BuyPage() {
               <button
                 className={styles.buttonCreate}
                 onClick={() => {
-                  if (setId) {
-                    setId("addInventory");
-                    setOpen(true);
-                  }
+                  router.push("/dashboard/buys/create");
                 }}
               >
-                Agregar
+                Agregar Compra
               </button>
             </div>
           </div>
