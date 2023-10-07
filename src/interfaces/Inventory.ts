@@ -1,16 +1,16 @@
 
 //Crear Inventary
 export interface InventoryCreate {
-  date_purchase: string;
-  person_id: string;
+  date_purchase?: Date;
+  person_id?: string;
   user_id: string;
   purchase_detail: PurchasedetailCreate[];
 }
 
 export interface PurchasedetailCreate {
-  quantity: string;
-  due_date: string;
-  purchase_unit_price: string;
+  quantity: number;
+  due_date: Date;
+  purchase_unit_price: number;
   product_id: string;
 }
 

@@ -13,9 +13,10 @@ import { GridLoader } from "react-spinners";
 
 function CreateBuyDialog() {
 
-  const {setProductsBuy} = useContext(InventoryContext);
+  const {setProductsBuy, productsBuy} = useContext(InventoryContext);
 
   const [selectedProduct, setSelectedProduct] = useState<Product>();
+
   const [productBuy, setproductBuy] = useState<ProductBuyInventory>();
 
   const [inputDisabled, setInputDisabled] = useState(false);
@@ -51,6 +52,13 @@ function CreateBuyDialog() {
   };
 
   const addProduct = (product: Product) => {
+    const isProductAlreadyAdded = productsBuy?.some(
+      (productBuy) => productBuy.product.id === product.id
+    );
+    if (isProductAlreadyAdded) {
+      ToasterError("El producto ya se encuentra agregado");
+      return;
+    }
     setProductName(product.name_product);
     setInputDisabled(true);
     setSelectedProduct(product);
@@ -64,8 +72,8 @@ function CreateBuyDialog() {
         id: selectedProduct.id,
         product: selectedProduct,
       }));
+
       setProductsBuy((prevValues: any) => [...prevValues, productBuy]);
-      // console.log(productBuy);
       setOpen(false);
       ToasterSucess("Producto agregado correctamente");      
     } else {

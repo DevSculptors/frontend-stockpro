@@ -16,6 +16,7 @@ function Logout() {
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("user_id");
     router.push("/");
   }, [router, logout]);
   ToasterSucess("Cierre de sesión exitoso");

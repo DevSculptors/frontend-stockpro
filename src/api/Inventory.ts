@@ -21,7 +21,7 @@ export const getInventoryById = async (id: number) => {
   return response.data;
 }
 
-export const createInventory = async (data: InventoryCreate) => {
+export const createInventoryAPI = async (data: InventoryCreate) => {
   const response = await axios.post<Inventory>("/inventory", data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("token")}`,

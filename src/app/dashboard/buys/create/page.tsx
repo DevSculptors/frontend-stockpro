@@ -1,8 +1,8 @@
 "use client";
-import React, { useContext, useState, useEffect } from "react";
+import React, { FormEvent, useContext, useState, useEffect } from "react";
 import { InventoryContext } from "@/context/InventoryContext";
-import { useQuery } from "@tanstack/react-query";
-import { createInventory } from "@/api/Inventory";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createInventoryAPI } from "@/api/Inventory";
 import { InventoryCreate } from "@/interfaces/Inventory";
 import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 import { ModalContext } from "@/context/ModalContext";
@@ -19,7 +19,25 @@ import { getAllPersons } from "@/api/Clients";
 import { formatPrice } from "@/helpers/Utils";
 import { BsFillTrashFill } from "react-icons/bs";
 
+import { useRouter } from "next/navigation";
+
 function CreateBuyInventory() {
+  const router = useRouter();
+
+  const { setOpen, setId } = useContext(ModalContext);
+  const { setProductsBuy, productsBuy } = useContext(InventoryContext);
+
+  const { clients, setClients } = useContext(ClientContext);
+
+  const [createInventoryBuyFields, setCreateInventoryBuyFields] =
+    useState<InventoryCreate>();
+
+  const { isLoading } = useQuery(["client"], getAllPersons, {
+    onSuccess: (data) => {
+      setClients(data);
+    },
+  });
+
   const columns: GridColDef[] = [
     {
       field: "name_product",
@@ -64,6 +82,7 @@ function CreateBuyInventory() {
       renderCell: (params) => (
         <div className="flex justify-center align">
           <button
+            type="button"
             className={styles.buttonCancel}
             onClick={() => handleDelete(params.row.id)}
           >
@@ -75,42 +94,61 @@ function CreateBuyInventory() {
     },
   ];
 
-  const handleDelete = (id: string) => {
-    console.log(id);
-  };
+  const queryClient = useQueryClient();
 
-  const handleSubmit = () => {
-    console.log("submit");
-  };
-
-  const { setOpen, setId } = useContext(ModalContext);
-  const { productsBuy } = useContext(InventoryContext);
-
-  const { clients, setClients } = useContext(ClientContext);
-
-  const { isLoading } = useQuery(["client"], getAllPersons, {
-    onSuccess: (data) => {
-      setClients(data);
+  const addBuyInventory = useMutation({
+    mutationFn: createInventoryAPI,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["inventory"]);
+      ToasterSucess("Compra registrada correctamente");
+      router.push("/dashboard/buys");
+    },
+    onError: (error: any) => {
+      console.log(error);
     },
   });
 
-  // Avisar que hay cambios sin guardar, si el usuario intenta salir de la página
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
+  const handleDelete = (id: string) => {
+    console.log("deleteRow");
+    const updatedProductsBuy = productsBuy?.filter((product) => {
+      return product.product.id !== id;
+    });
+    setProductsBuy(updatedProductsBuy);
+  };
 
-      event.returnValue = "";
+  const purchase_details =
+    productsBuy?.map((product: any) => ({
+      product_id: product.product.id,
+      quantity: Number(product.quantity),
+      due_date: new Date(product.due_date),
+      purchase_unit_price: Number(product.purchase_unit_price),
+    })) || [];
 
-      const confirmationMessage =
-        "Tiene cambios sin guardar. Estás seguro que quieres irte?";
-      event.returnValue = confirmationMessage;
-      return confirmationMessage;
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  const user_id = sessionStorage.getItem("user_id") || "";
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("submit");
+    console.log(createInventoryBuyFields);
+    console.log(purchase_details);
+
+    addBuyInventory.mutate({
+      ...createInventoryBuyFields,
+      user_id: user_id,
+      purchase_detail: purchase_details,
+    });
+  };
+
+  const handleChange = ({ target: { name, value } }: any) => {
+    // El problema esta aca
+    const transformedValue = name === "purchase_date" ? new Date(value) : value;
+    console.log(transformedValue);
+    
+    setCreateInventoryBuyFields((prevValues: any) => ({
+      ...prevValues,
+      [name]: transformedValue,
+    }));
+  };
 
   const rows =
     productsBuy?.map((product) => ({
@@ -125,7 +163,7 @@ function CreateBuyInventory() {
 
   return (
     <div className={styles.container}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <div className={styles.containerTittle}>
             <p className={styles.tittleList}>Registrar Compra</p>
@@ -139,7 +177,7 @@ function CreateBuyInventory() {
                 type="date"
                 id="date_purchase"
                 name="date_purchase"
-                // onChange={handleChange}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -148,7 +186,7 @@ function CreateBuyInventory() {
               <select
                 name="person_id"
                 id="person_id"
-                //  onChange={handleChange}
+                onChange={handleChange}
                 required
               >
                 <option hidden>Seleccione el Proveedor</option>
@@ -174,7 +212,7 @@ function CreateBuyInventory() {
               Agregar Producto
             </button>
             <button
-            type="button"
+              type="button"
               className={`${styles.submitButton} ml-4`}
               onClick={() => {
                 if (setId) {
@@ -203,10 +241,7 @@ function CreateBuyInventory() {
               <h3>Total de productos: 14</h3>
             </div>
             <div>
-              <button
-                className={styles.buttonCreate}
-                onClick={() => handleSubmit()}
-              >
+              <button type="submit" className={styles.buttonCreate}>
                 Registrar Compra
               </button>
             </div>
