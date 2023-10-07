@@ -7,11 +7,22 @@ export interface InventoryCreate {
   purchase_detail: PurchasedetailCreate[];
 }
 
-interface PurchasedetailCreate {
+export interface PurchasedetailCreate {
   quantity: string;
   due_date: string;
   purchase_unit_price: string;
   product_id: string;
+}
+
+
+// Modal de compra de inventario
+export interface ProductBuyInventory {
+  id: string;
+  quantity: number;
+  due_date: Date;
+  purchase_unit_price: number;
+  product: Product;
+  productSearch: string;
 }
 
 
@@ -37,8 +48,8 @@ interface Product {
   name_product: string;
   description: string;
   measure_unit: string;
-  sale_price: string;
-  stock: string;
+  sale_price: number;
+  stock: number;
   brand: Brand;
   category: Brand;
 }

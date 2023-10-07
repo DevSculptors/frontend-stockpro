@@ -1,15 +1,21 @@
 import React,{createContext} from "react";
 
-import { Inventory } from "@/interfaces/Inventory";
+import { Inventory, ProductBuyInventory } from "@/interfaces/Inventory";
 import { Product } from "@/interfaces/Product";
 
 type InventoryContextType = {
   selectedInventory: Inventory | undefined;
   setSelectedInventory: React.Dispatch<React.SetStateAction<Inventory | undefined>>;
+  
   inventory: Inventory[] | undefined;
   setInventory: React.Dispatch<React.SetStateAction<Inventory[] | undefined>>;
-  productsBuy: Product[] | undefined;
-  setProductsBuy: React.Dispatch<React.SetStateAction<Product[] | undefined>>;
+
+  productsBuy: ProductBuyInventory[] | undefined;
+  setProductsBuy: React.Dispatch<React.SetStateAction<ProductBuyInventory[] | undefined>>;
+
+  selectProductBuy: ProductBuyInventory | undefined;
+  setSelectProductBuy: React.Dispatch<React.SetStateAction<ProductBuyInventory | undefined>>;
+
 };
 
 const inventoryContextState = {
@@ -17,8 +23,12 @@ const inventoryContextState = {
   setSelectedInventory: () => {},
   inventory: undefined,
   setInventory: () => {},
+
   productsBuy: undefined,
   setProductsBuy: () => {},
+
+  selectProductBuy: undefined,
+  setSelectProductBuy: () => {},
 };
 
 export const InventoryContext =

@@ -38,7 +38,7 @@ import { Category } from "@/interfaces/Category";
 import { Brand } from "@/interfaces/Brand";
 import { User } from "@/interfaces/User";
 import { Product } from "@/interfaces/Product";
-import { Inventory } from "@/interfaces/Inventory";
+import { Inventory, ProductBuyInventory } from "@/interfaces/Inventory";
 
 import { menuData } from "@/helpers/Headers";
 
@@ -74,7 +74,13 @@ function DashboardLayout({ children }: Props) {
   const [selectedInventory, setSelectedInventory] = useState<Inventory>();
   const [inventory, setInventory] = useState<Inventory[] | undefined>([]);
 
-  const [productsBuy, setProductsBuy] = useState<Product[] | undefined>([]);
+  const [productsBuy, setProductsBuy] = useState<
+    ProductBuyInventory[] | undefined
+  >([]);
+
+  const [selectProductBuy, setSelectProductBuy] = useState<
+    ProductBuyInventory | undefined
+  >();
 
   const userContext = useMemo(
     () => ({
@@ -131,10 +137,14 @@ function DashboardLayout({ children }: Props) {
       setSelectedInventory,
       inventory,
       setInventory,
+
       productsBuy,
       setProductsBuy,
+
+      selectProductBuy,
+      setSelectProductBuy,
     }),
-    [selectedInventory, inventory, productsBuy]
+    [selectedInventory, inventory, productsBuy, selectProductBuy]
   );
 
   const modalContext = useMemo(
@@ -178,7 +188,7 @@ function DashboardLayout({ children }: Props) {
 
       case "addProduct":
         return <CreateProductDialog />;
-        
+
       case "addBuy":
         return <CreateBuyDialog />;
 

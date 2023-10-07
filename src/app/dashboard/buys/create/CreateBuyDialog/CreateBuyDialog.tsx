@@ -1,12 +1,9 @@
 "use client";
-import React, { useContext, useState, ChangeEvent } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { InventoryContext } from "@/context/InventoryContext";
-import { useQuery } from "@tanstack/react-query";
-import { createInventory } from "@/api/Inventory";
-import { InventoryCreate } from "@/interfaces/Inventory";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { ProductBuyInventory } from "@/interfaces/Inventory";
 import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
-import SearchBar from "@/components/SearchBar/SearchBar";
-import { ProductContext } from "@/context/ProductContext";
 import { getAllProductsAPI } from "@/api/Products";
 import { Product } from "@/interfaces/Product";
 import { ModalContext } from "@/context/ModalContext";
@@ -15,13 +12,17 @@ import styles from "../style.module.scss";
 import { GridLoader } from "react-spinners";
 
 function CreateBuyDialog() {
-  const [productName, setProductName] = useState("");
-  const [inputDisabled, setInputDisabled] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState("");
 
-  const { setOpen, setId } = useContext(ModalContext);
-  // Hay que arreglar este Context
-  const { setProductsBuy, productsBuy } = useContext(InventoryContext);
+  const {setProductsBuy} = useContext(InventoryContext);
+
+  const [selectedProduct, setSelectedProduct] = useState<Product>();
+  const [productBuy, setproductBuy] = useState<ProductBuyInventory>();
+
+  const [inputDisabled, setInputDisabled] = useState(false);
+
+  const [productName, setProductName] = useState("");
+
+  const { setOpen } = useContext(ModalContext);
 
   const { data: products, isLoading } = useQuery(
     ["products"],
@@ -37,21 +38,39 @@ function CreateBuyDialog() {
         .slice(0, 4)) ||
     [];
 
-  const handleProductNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setProductName(e.target.value);
+  const handleChange = ({ target: { name, value } }: any) => {
+    if (name === "productSearch") {
+      setProductName(value);
+      setSelectedProduct(undefined);
+    }
+    setproductBuy((prevValues: any) => ({
+      ...prevValues,
+      [name]: value,
+      product: selectedProduct,
+    }));
   };
 
   const addProduct = (product: Product) => {
-    console.log("addProduct");
-    // console.log(product);
     setProductName(product.name_product);
     setInputDisabled(true);
-    setSelectedProduct(product.id);
+    setSelectedProduct(product);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit");
+    if (selectedProduct) {
+      setproductBuy((prevValues: any) => ({
+        ...prevValues,
+        id: selectedProduct.id,
+        product: selectedProduct,
+      }));
+      setProductsBuy((prevValues: any) => [...prevValues, productBuy]);
+      // console.log(productBuy);
+      setOpen(false);
+      ToasterSucess("Producto agregado correctamente");      
+    } else {
+      ToasterError("Debe seleccionar un producto");
+    }
   };
 
   const onCancel = () => {
@@ -69,7 +88,7 @@ function CreateBuyDialog() {
           <div className={styles.containerTittle}>
             <p className={styles.tittleList}>Agregar Producto a la Compra</p>
           </div>
-          <div className={styles.inputContainer}>
+          <div className={styles.inputConainerTest}>
             <label htmlFor="productSearch" className={styles.label}>
               Buscar Producto
             </label>
@@ -79,20 +98,11 @@ function CreateBuyDialog() {
               name="productSearch"
               placeholder="Buscar..."
               value={productName}
-              onChange={handleProductNameChange}
+              onChange={handleChange}
               disabled={inputDisabled}
+              autoComplete="off"
+              required
             />
-            <button
-              type="button"
-              className={styles.cancelButton}
-              onClick={() => {
-                setInputDisabled(false);
-                setProductName("");
-                setSelectedProduct("");
-              }}
-            >
-              X
-            </button>
           </div>
           <div className={styles.containerSearch}>
             <ul>
@@ -101,7 +111,9 @@ function CreateBuyDialog() {
                   <li
                     key={product.id}
                     className={
-                      selectedProduct && selectedProduct === product.id ? styles.hidden : ""
+                      selectedProduct && selectedProduct.id === product.id
+                        ? styles.hidden
+                        : ""
                     }
                   >
                     <button type="button" onClick={() => addProduct(product)}>
@@ -110,6 +122,43 @@ function CreateBuyDialog() {
                   </li>
                 ))}
             </ul>
+          </div>
+          <div className={styles.inputConainerTest}>
+            <label htmlFor="quantity" className={styles.label}>
+              Cantidad
+            </label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              placeholder="Ingrese la cantidad de productos"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={styles.inputConainerTest}>
+            <label htmlFor="due_date" className={styles.label}>
+              Fecha vencimiento
+            </label>
+            <input
+              type="date"
+              id="due_date"
+              name="due_date"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={styles.inputConainerTest}>
+            <label htmlFor="purchase_unit_price" className={styles.label}>
+              Valor de compra
+            </label>
+            <input
+              type="number"
+              id="purchase_unit_price"
+              name="purchase_unit_price"
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="my-[10px]">
             <button className={styles.submitButton}>Agregar Producto</button>
