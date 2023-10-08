@@ -6,6 +6,7 @@ import { createInventoryAPI } from "@/api/Inventory";
 import { InventoryCreate } from "@/interfaces/Inventory";
 import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 import { ModalContext } from "@/context/ModalContext";
+import { Loader } from '@/components/Loader'
 
 import styles from "./style.module.scss";
 
@@ -18,11 +19,16 @@ import { getAllPersons } from "@/api/Clients";
 
 import { formatPrice } from "@/helpers/Utils";
 import { BsFillTrashFill } from "react-icons/bs";
+import {AiOutlineArrowLeft} from "react-icons/ai";
 
 import { useRouter } from "next/navigation";
 
+import { useLoading } from "@/hook/useLoading"
+
 function CreateBuyInventory() {
   const router = useRouter();
+
+  const {finishLoading,isLoading:loadingHook,startLoading}= useLoading()
 
   const { setOpen, setId } = useContext(ModalContext);
   const { setProductsBuy, productsBuy } = useContext(InventoryContext);
@@ -94,6 +100,7 @@ function CreateBuyInventory() {
     },
   ];
 
+
   const queryClient = useQueryClient();
 
   const addBuyInventory = useMutation({
@@ -109,7 +116,6 @@ function CreateBuyInventory() {
   });
 
   const handleDelete = (id: string) => {
-    console.log("deleteRow");
     const updatedProductsBuy = productsBuy?.filter((product) => {
       return product.product.id !== id;
     });
@@ -124,24 +130,29 @@ function CreateBuyInventory() {
       purchase_unit_price: Number(product.purchase_unit_price),
     })) || [];
 
-  const user_id = sessionStorage.getItem("user_id") || "";
+  
+  const [user_id, setUser_id] = useState("");
+  
+  useEffect(() => {
+    const storedUserId = sessionStorage.getItem("user_id");
+    if (storedUserId) {
+      setUser_id(storedUserId);
+    }
+  }, [])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submit");
-    console.log(createInventoryBuyFields);
-    console.log(purchase_details);
-
+    startLoading()
     addBuyInventory.mutate({
       ...createInventoryBuyFields,
       user_id: user_id,
       purchase_detail: purchase_details,
     });
+    finishLoading()
   };
 
   const handleChange = ({ target: { name, value } }: any) => {
-    // El problema esta aca
-    const transformedValue = name === "purchase_date" ? new Date(value) : value;
+    const transformedValue = name === "date_purchase" ? new Date(value) : value;
     console.log(transformedValue);
     
     setCreateInventoryBuyFields((prevValues: any) => ({
@@ -167,6 +178,18 @@ function CreateBuyInventory() {
         <div>
           <div className={styles.containerTittle}>
             <p className={styles.tittleList}>Registrar Compra</p>
+            <div>
+              <button
+              type="button"
+                className={styles.submitButton}
+                onClick={() => {
+                  router.push("/dashboard/buys");
+                }}
+              >
+                <AiOutlineArrowLeft/>
+                Atras
+              </button>
+            </div>
           </div>
           <div className="my-[10px] grid grid-cols-2 gap-4">
             <div className={`${styles.inputConainerTest} mr-4`}>
@@ -241,8 +264,9 @@ function CreateBuyInventory() {
               <h3>Total de productos: 14</h3>
             </div>
             <div>
-              <button type="submit" className={styles.buttonCreate}>
-                Registrar Compra
+              <button type="submit" className={styles.buttonCreate}
+              disabled={loadingHook}>
+              {loadingHook ? <Loader /> : "Registrar Compra"}
               </button>
             </div>
           </div>

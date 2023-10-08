@@ -24,8 +24,7 @@ export function useAuthFetch() {
     formData,
     options,
   }: AuthFetchProps) => {
-    console.log("useAuthFetch Login");
-
+  
     try {
       const { data } = await axios.post(`${endpoint}`, formData, options);
 
