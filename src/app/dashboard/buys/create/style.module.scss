@@ -4,6 +4,19 @@
   justify-content: center;
 }
 
+.label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 10px; /* Espacio entre label e input */
+}
+
+.text{
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: 10px; /* Espacio entre label e input */
+  color: #16161D;
+}
+
 .container {
   margin-bottom: 1rem;
   background: #fefefe;

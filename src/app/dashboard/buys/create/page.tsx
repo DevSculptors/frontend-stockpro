@@ -6,11 +6,10 @@ import { createInventoryAPI } from "@/api/Inventory";
 import { InventoryCreate } from "@/interfaces/Inventory";
 import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 import { ModalContext } from "@/context/ModalContext";
-import { Loader } from '@/components/Loader'
+import { Loader } from "@/components/Loader";
 
 import styles from "./style.module.scss";
 
-import { GridLoader } from "react-spinners";
 import DataTable from "@/components/DataTable/DataTable";
 import { GridColDef } from "@mui/x-data-grid";
 
@@ -19,16 +18,16 @@ import { getAllPersons } from "@/api/Clients";
 
 import { formatPrice } from "@/helpers/Utils";
 import { BsFillTrashFill } from "react-icons/bs";
-import {AiOutlineArrowLeft} from "react-icons/ai";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { useRouter } from "next/navigation";
 
-import { useLoading } from "@/hook/useLoading"
+import { useLoading } from "@/hook/useLoading";
 
 function CreateBuyInventory() {
   const router = useRouter();
 
-  const {finishLoading,isLoading:loadingHook,startLoading}= useLoading()
+  const { finishLoading, isLoading: loadingHook, startLoading } = useLoading();
 
   const { setOpen, setId } = useContext(ModalContext);
   const { setProductsBuy, productsBuy } = useContext(InventoryContext);
@@ -100,7 +99,6 @@ function CreateBuyInventory() {
     },
   ];
 
-
   const queryClient = useQueryClient();
 
   const addBuyInventory = useMutation({
@@ -111,6 +109,7 @@ function CreateBuyInventory() {
       router.push("/dashboard/buys");
     },
     onError: (error: any) => {
+      ToasterError("Error al registrar la compra");
       console.log(error);
     },
   });
@@ -122,6 +121,17 @@ function CreateBuyInventory() {
     setProductsBuy(updatedProductsBuy);
   };
 
+  const totalProducts = productsBuy?.reduce((acc, product) => {
+    return acc + Number(product.quantity);
+  }, 0);
+
+  const totalPrice =
+    productsBuy?.reduce((acc, product) => {
+      return (
+        acc + Number(product.purchase_unit_price) * Number(product.quantity)
+      );
+    }, 0) || 0;
+
   const purchase_details =
     productsBuy?.map((product: any) => ({
       product_id: product.product.id,
@@ -130,31 +140,47 @@ function CreateBuyInventory() {
       purchase_unit_price: Number(product.purchase_unit_price),
     })) || [];
 
-  
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+  //     event.preventDefault();
+
+  //     event.returnValue = "";
+
+  //     const confirmationMessage =
+  //       "Tiene cambios sin guardar. Estás seguro que quieres irte?";
+  //     event.returnValue = confirmationMessage;
+  //     return confirmationMessage;
+  //   };
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
+
   const [user_id, setUser_id] = useState("");
-  
+
   useEffect(() => {
     const storedUserId = sessionStorage.getItem("user_id");
     if (storedUserId) {
       setUser_id(storedUserId);
     }
-  }, [])
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    startLoading()
+    startLoading();
     addBuyInventory.mutate({
       ...createInventoryBuyFields,
       user_id: user_id,
       purchase_detail: purchase_details,
     });
-    finishLoading()
+    finishLoading();
   };
 
   const handleChange = ({ target: { name, value } }: any) => {
     const transformedValue = name === "date_purchase" ? new Date(value) : value;
     console.log(transformedValue);
-    
+
     setCreateInventoryBuyFields((prevValues: any) => ({
       ...prevValues,
       [name]: transformedValue,
@@ -180,13 +206,13 @@ function CreateBuyInventory() {
             <p className={styles.tittleList}>Registrar Compra</p>
             <div>
               <button
-              type="button"
+                type="button"
                 className={styles.submitButton}
                 onClick={() => {
                   router.push("/dashboard/buys");
                 }}
               >
-                <AiOutlineArrowLeft/>
+                <AiOutlineArrowLeft />
                 Atras
               </button>
             </div>
@@ -259,14 +285,23 @@ function CreateBuyInventory() {
                 handleRow={() => {}}
               />
             </div>
-            <div>
-              <h1>Total de la compra: $5000</h1>
-              <h3>Total de productos: 14</h3>
+            <div className="my-[10px] grid grid-cols-2 gap-4">
+              <div className={`${styles.inputConainerTest} mr-4`}>
+                <h3 className={styles.label}>Total de la compra:</h3>
+                <p className={styles.text}> {formatPrice(totalPrice)}</p>
+              </div>
+              <div className={`${styles.inputConainerTest} mr-4`}>
+                <h3 className={styles.label}>Total de productos:</h3>
+                <p className={styles.text}> {totalProducts}</p>
+              </div>
             </div>
             <div>
-              <button type="submit" className={styles.buttonCreate}
-              disabled={loadingHook}>
-              {loadingHook ? <Loader /> : "Registrar Compra"}
+              <button
+                type="submit"
+                className={styles.buttonCreate}
+                disabled={loadingHook}
+              >
+                {loadingHook ? <Loader /> : "Registrar Compra"}
               </button>
             </div>
           </div>
