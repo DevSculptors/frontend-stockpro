@@ -1,0 +1,184 @@
+.loading {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  margin-bottom: 1rem;
+  background: #fefefe;
+  padding: 2rem;
+  border: 3px solid #fff;
+  border-radius: 10px;
+  .containerTittle {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    .tittleList {
+      font-style: normal;
+      color: #16161d;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 140%;
+      white-space: nowrap;
+    }
+  }
+  .inputConainerTest {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 0.6rem 1rem;
+      border: 1px solid rgba(102, 102, 102, 0.35);
+      font-size: 14px;
+      border-radius: 12px;
+      transition-duration: 0.3s;
+      outline: 0.5px solid transparent;
+      flex: 1;
+
+      &:focus {
+        outline: 1.5px solid #1e9189;
+      }
+    }
+  }
+    
+
+  .listBox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-radius: 10px;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    select {
+      padding: 0.6rem 1rem;
+      border: 0.5px solid rgba(102, 102, 102, 0.35);
+      font-size: 14px;
+      border-radius: 12px;
+      transition-duration: 0.3s;
+      outline: 0.5px solid transparent;
+
+      &:focus {
+        outline: 1.5px solid #1e9189;
+      }
+    }
+  }
+
+}
+
+.containerSearch {
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    border-radius: 12px;
+
+    li {
+      margin: 0;
+      text-align: center;
+      align-items: center;
+      padding: 0;
+      border-radius: 12px;
+
+      &:hover {
+        background-color: #f5f5f5;
+        outline: 1.5px solid #1e9189;
+      }
+
+      button {
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        border: none;
+        background-color: #fff;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+    }
+  }
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+
+  label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  input {
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    font-size: 14px;
+    border-radius: 12px;
+    transition-duration: 0.3s;
+    outline: 0.5px solid transparent;
+    flex: 1;
+
+    &:focus {
+      outline: 1.5px solid #1e9189;
+    }
+  }
+}
+
+.buttonCreate {
+  margin-top: 1rem;
+  width: 100%;
+  background: #1e9189;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: .4rem 0;
+  border: 1px solid transparent;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #147567;
+  }
+}
+.hidden {
+  display: none;
+}
+
+.cancelButton {
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  padding: .4rem 0;
+  border: 1px solid transparent;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(210, 0, 26, 0.55);
+  color: white;
+
+  &:hover {
+    background-color: rgba(210, 0, 26, 0.75);
+    color: #fff;
+    border: 1px solid rgba(210, 0, 26, 0.75);
+  }
+}

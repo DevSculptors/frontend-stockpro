@@ -40,6 +40,10 @@ import { User } from "@/interfaces/User";
 import { Product } from "@/interfaces/Product";
 import { Inventory, ProductBuyInventory } from "@/interfaces/Inventory";
 
+import { SaleContext } from "@/context/SaleContext";
+import { Sale} from "@/interfaces/Sale";
+
+
 import { menuData } from "@/helpers/Headers";
 
 const NavBarData = {
@@ -81,6 +85,9 @@ function DashboardLayout({ children }: Props) {
   const [selectProductBuy, setSelectProductBuy] = useState<
     ProductBuyInventory | undefined
   >();
+
+  const [selectedSale, setSelectedSale] = useState<Sale>();
+  const [sales, setSales] = useState<Sale[] | undefined>([]);
 
   const userContext = useMemo(
     () => ({
@@ -157,6 +164,16 @@ function DashboardLayout({ children }: Props) {
     [open, id]
   );
 
+  const saleContext = useMemo(
+        () => ({
+            selectedSale,
+            setSelectedSale,
+            sales,
+            setSales,
+        }),
+        [selectedSale, sales]
+    );
+
   function SelectModal() {
     switch (id) {
       case "addUser":
@@ -209,16 +226,18 @@ function DashboardLayout({ children }: Props) {
             <ClientContext.Provider value={clientContext}>
               <ProductContext.Provider value={productContext}>
                 <InventoryContext.Provider value={inventoryContext}>
-                  <CategoryContext.Provider value={categoryContext}>
-                    <BrandContext.Provider value={brandContext}>
-                      <ModalContext.Provider value={modalContext}>
-                        <ModalBase isOpen={open} id={id}>
-                          {SelectModal()}
-                        </ModalBase>
-                        <main className={styles.layout__main}>{children}</main>
-                      </ModalContext.Provider>
-                    </BrandContext.Provider>
-                  </CategoryContext.Provider>
+                    <SaleContext.Provider value={saleContext}>
+                        <CategoryContext.Provider value={categoryContext}>
+                            <BrandContext.Provider value={brandContext}>
+                                <ModalContext.Provider value={modalContext}>
+                                    <ModalBase isOpen={open} id={id}>
+                                        {SelectModal()}
+                                    </ModalBase>
+                                    <main className={styles.layout__main}>{children}</main>
+                                </ModalContext.Provider>
+                            </BrandContext.Provider>
+                        </CategoryContext.Provider>
+                    </SaleContext.Provider>
                 </InventoryContext.Provider>
               </ProductContext.Provider>
             </ClientContext.Provider>
