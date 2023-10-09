@@ -1,8 +1,6 @@
 "use client";
-import { Table } from "@/components/Table";
 import styles from "./style.module.scss";
-import React, { useContext, useState } from "react";
-import ReactPaginate from "react-paginate";
+import React, { useContext } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { ModalContext } from "@/context/ModalContext";

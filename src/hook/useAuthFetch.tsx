@@ -24,8 +24,7 @@ export function useAuthFetch() {
     formData,
     options,
   }: AuthFetchProps) => {
-    console.log("useAuthFetch Login");
-
+  
     try {
       const { data } = await axios.post(`${endpoint}`, formData, options);
 
@@ -39,6 +38,7 @@ export function useAuthFetch() {
 
       // Guardar datos del usuario en el sessionStorage
       sessionStorage.setItem("userData", JSON.stringify(data.userFound));
+      sessionStorage.setItem("user_id", data.userFound.id);
       sessionStorage.setItem("username", data.userFound.username);
       sessionStorage.setItem("role", data.userFound.roleUser);
 

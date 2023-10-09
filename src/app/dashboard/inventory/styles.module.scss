@@ -40,7 +40,20 @@ $background-color_1: #1e9189;
     align-items: center;
     justify-content: center;
   }
+  .buttonTable{
+    background: #ff8042;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 0.6rem 0.4rem;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
+
+
 
 .pagination {
   list-style: none;

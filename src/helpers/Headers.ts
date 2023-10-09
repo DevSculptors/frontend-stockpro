@@ -1,18 +1,15 @@
-
 import { MdDashboard } from "react-icons/md";
 import { LuMousePointerClick } from "react-icons/lu";
 import { BsBox } from "react-icons/bs";
 import { BsFillBarChartFill } from "react-icons/bs";
-import { TiContacts } from "react-icons/ti";
 import { FiUsers } from "react-icons/fi";
 import { FiTag } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
-import { BiCart } from "react-icons/bi";
-import { BiFileBlank } from "react-icons/bi";
 import { CiLogout } from "react-icons/ci";
-import {AiOutlineUser} from "react-icons/ai";
-import {FaClipboardList} from "react-icons/fa";
-import {HiOutlineUserCircle} from "react-icons/hi";
+import { AiOutlineUser } from "react-icons/ai";
+import { FaClipboardList } from "react-icons/fa";
+import { HiOutlineUserCircle } from "react-icons/hi";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export const menuData = {
   datakey: "admin",
@@ -82,11 +79,18 @@ export const menuData = {
           icon: BsBox,
         },
         {
+          id: 6,
+          title: "Compras",
+          url: "/dashboard/buys",
+          icon: AiOutlineShoppingCart,
+        },
+        {
           id: 5,
           title: "Ventas",
           url: "/dashboard/sales",
           icon: FaClipboardList,
         },
+       
       ],
     },
     {
@@ -107,5 +111,5 @@ export const menuData = {
         },
       ],
     },
-  ]
-};  
+  ],
+};

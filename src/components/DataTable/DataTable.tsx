@@ -85,7 +85,7 @@ const DataTable = (props: Props) => {
        
         pageSizeOptions={[5,10,25,50]}
         disableRowSelectionOnClick={true}
-        disableColumnFilter
+        // disableColumnFilter
         // disableDensitySelector
         // disableColumnSelector
         onRowClick={(params) => props.handleRow(params.row.id)}

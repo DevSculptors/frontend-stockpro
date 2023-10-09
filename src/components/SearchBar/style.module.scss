@@ -1,0 +1,39 @@
+.inputContainer {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+
+  gap: 4px;
+
+  label {
+      font-size: 18px;
+      font-weight: 600;
+      margin-right: 10px; /* Espacio entre label e input */
+  }
+
+  input {
+      padding: .6rem 1rem;
+      border: 1px solid rgba(102, 102, 102, 0.35);
+      font-size: 14px;
+      border-radius: 12px;
+      transition-duration: .3s;
+      outline: .5px solid transparent;
+      flex: 1; /* Ocupa el espacio restante */
+
+      &:focus {
+          outline: 1.5px solid #1E9189;
+      }
+  }
+}
+
+.buttonCreate{
+  background: #1E9189;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: .6rem 0.4rem;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

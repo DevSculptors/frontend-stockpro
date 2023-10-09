@@ -18,6 +18,7 @@ export const createBrandAPI = async (brand: Brand) => {
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
   });
+  
   return response.data;
 };
 export const updateBrandAPI = async (brand: Brand) => {
