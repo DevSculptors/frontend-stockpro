@@ -51,13 +51,15 @@ const columns: GridColDef[] = [
   },
 ];
 
-function ShowInventory({ id }: { id: string }) {
+
+const ShowInventory = () => {
+  
   const { selectedInventory } = useContext(InventoryContext);
 
   const router = useRouter();
 
   const date = selectedInventory?.date_purchase || "";
-  const totalBuy= selectedInventory?.total_price || 0;
+  const totalBuy = selectedInventory?.total_price || 0;
 
   const rows =
     selectedInventory?.purchase_detail.map((item) => ({
@@ -126,6 +128,6 @@ function ShowInventory({ id }: { id: string }) {
       </div>
     </div>
   );
-}
+};
 
 export default ShowInventory;
