@@ -24,33 +24,33 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
 function Cash() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const { setProductsBuy, productsBuy } = useContext(SaleContext);
-  const [inputDisabled, setInputDisabled] = useState(false);
-  const [productName, setProductName] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<Product>();
+  // const { setProductsBuy, productsBuy } = useContext(SaleContext);
+  // const [inputDisabled, setInputDisabled] = useState(false);
+  // const [productName, setProductName] = useState("");
+  // const [selectedProduct, setSelectedProduct] = useState<Product>();
   const { setClients, clients } = useContext(ClientContext);
-  const { products, setProducts } = useContext(ProductContext);
+  // const { products, setProducts } = useContext(ProductContext);
 
-  const [createSaleBuyFields, setCreateSaleBuyFields] = useState<SaleCreate>();
-  const [productBuy, setproductBuy] = useState<ProductBuySale>();
+  // const [createSaleBuyFields, setCreateSaleBuyFields] = useState<SaleCreate>();
+  // const [productBuy, setproductBuy] = useState<ProductBuySale>();
 
-  const [user_id, setUser_id] = useState("");
+  // const [user_id, setUser_id] = useState("");
 
 
-  useEffect(() => {
-    const storedUserId = sessionStorage.getItem("user_id");
-    if (storedUserId) {
-      setUser_id(storedUserId);
-    }
-  }, [])
+  // useEffect(() => {
+  //   const storedUserId = sessionStorage.getItem("user_id");
+  //   if (storedUserId) {
+  //     setUser_id(storedUserId);
+  //   }
+  // }, [])
 
-  const {} = useQuery(["product"], getAllProductsAPI, {
-    onSuccess: (data) => {
-      setProducts(data);
-    },
-  });
+  // const {} = useQuery(["product"], getAllProductsAPI, {
+  //   onSuccess: (data) => {
+  //     setProducts(data);
+  //   },
+  // });
 
   const { isLoading: isLoading } = useQuery(["clients"], getAllPersons, {
     onSuccess: (data) => {
@@ -58,129 +58,129 @@ function Cash() {
     },
   });
 
-  const columns: GridColDef[] = [
-    {
-      field: "name_product",
-      headerName: "Nombre",
-      width: 300,
-      type: "string",
-    },
-    {
-      field: "brand",
-      headerName: "Marca",
-      width: 150,
-      type: "string",
-    },
-    {
-      field: "category",
-      headerName: "Categoria",
-      width: 150,
-      type: "string",
-    },
-    {
-      field: "amount_product",
-      headerName: "Cantidad",
-      width: 100,
-      type: "number",
-    },
-    {
-      field: "sale_price",
-      headerName: "Precio venta",
-      width: 200,
-      type: "string",
-    },
-    {
-      field: "acciones",
-      headerName: "Acciones",
-      width: 150,
-      renderCell: (params) => (
-          <div className="flex justify-center align">
-            <button
-                type="button"
-                className={styles.buttonCancel}
-                onClick={() => handleDelete(params.row.id)}
-            > Eliminar 
-              <BsFillTrashFill />
-            </button>
-          </div>
-      ),
-    },
-  ];
+  // const columns: GridColDef[] = [
+  //   {
+  //     field: "name_product",
+  //     headerName: "Nombre",
+  //     width: 300,
+  //     type: "string",
+  //   },
+  //   {
+  //     field: "brand",
+  //     headerName: "Marca",
+  //     width: 150,
+  //     type: "string",
+  //   },
+  //   {
+  //     field: "category",
+  //     headerName: "Categoria",
+  //     width: 150,
+  //     type: "string",
+  //   },
+  //   {
+  //     field: "amount_product",
+  //     headerName: "Cantidad",
+  //     width: 100,
+  //     type: "number",
+  //   },
+  //   {
+  //     field: "sale_price",
+  //     headerName: "Precio venta",
+  //     width: 200,
+  //     type: "string",
+  //   },
+  //   {
+  //     field: "acciones",
+  //     headerName: "Acciones",
+  //     width: 150,
+  //     renderCell: (params) => (
+  //         <div className="flex justify-center align">
+  //           <button
+  //               type="button"
+  //               className={styles.buttonCancel}
+  //               onClick={() => handleDelete(params.row.id)}
+  //           > Eliminar 
+  //             <BsFillTrashFill />
+  //           </button>
+  //         </div>
+  //     ),
+  //   },
+  // ];
 
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
-  const addBuySale = useMutation({
-    mutationFn: createSaleAPI,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["sales"]);
-      ToasterSucess("Venta registrada correctamente");
-      router.push("/cashier/sale");
-    },
-    onError: (error: any) => {
-      console.log(error);
-    },
-  });
+  // const addBuySale = useMutation({
+  //   mutationFn: createSaleAPI,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["sales"]);
+  //     ToasterSucess("Venta registrada correctamente");
+  //     router.push("/cashier/sale");
+  //   },
+  //   onError: (error: any) => {
+  //     console.log(error);
+  //   },
+  // });
 
-  const handleDelete = (id: string) => {
-    const updatedProductsBuy = productsBuy?.filter((product) => {
-      return product.product.id !== id;
-    });
-    setProductsBuy(updatedProductsBuy);
-  };
+  // const handleDelete = (id: string) => {
+  //   const updatedProductsBuy = productsBuy?.filter((product) => {
+  //     return product.product.id !== id;
+  //   });
+  //   setProductsBuy(updatedProductsBuy);
+  // };
 
-  const sale_details =
-      productsBuy?.map((product: any) => ({
-        id: product.product.id,
-        amount_product: Number(product.quantity),
-      })) || [];
+  // const sale_details =
+  //     productsBuy?.map((product: any) => ({
+  //       id: product.product.id,
+  //       amount_product: Number(product.quantity),
+  //     })) || [];
 
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    //Crear venta
-  };
+  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   //Crear venta
+  // };
 
-  const handleChange = ({ target: { name, value } }: any) => {
-    console.log("Fecha " + new Date());
-    setCreateSaleBuyFields((prevValues: any) => ({
-      ...prevValues,
-    }));
-  };
+  // const handleChange = ({ target: { name, value } }: any) => {
+  //   console.log("Fecha " + new Date());
+  //   setCreateSaleBuyFields((prevValues: any) => ({
+  //     ...prevValues,
+  //   }));
+  // };
 
-  const rows =
-      productsBuy?.map((product) => ({
-        id: product.product.id,
-        name_product: product.product.name_product,
-        brand: product.product.brand.name,
-        category: product.product.category.name,
-        amount_product: product.amount_product,
-        sale_price: formatPrice(product.product.sale_price),
-      })) || [];
+  // const rows =
+  //     productsBuy?.map((product) => ({
+  //       id: product.product.id,
+  //       name_product: product.product.name_product,
+  //       brand: product.product.brand.name,
+  //       category: product.product.category.name,
+  //       amount_product: product.amount_product,
+  //       sale_price: formatPrice(product.product.sale_price),
+  //     })) || [];
 
-  const handleChangeSearch = ({ target: { name, value } }: any) => {
-    if (name === "productSearch") {
-      setProductName(value);
-      setSelectedProduct(undefined);
-    }
-    setproductBuy((prevValues: any) => ({
-      ...prevValues,
-      [name]: value,
-      product: selectedProduct,
-    }));
+  // const handleChangeSearch = ({ target: { name, value } }: any) => {
+  //   if (name === "productSearch") {
+  //     setProductName(value);
+  //     setSelectedProduct(undefined);
+  //   }
+  //   setproductBuy((prevValues: any) => ({
+  //     ...prevValues,
+  //     [name]: value,
+  //     product: selectedProduct,
+  //   }));
 
-  };
-  const addProduct = (id: string) => {
-    //Agregar el producto a la tabla
-  };
-  const handleSelectProduct = () => {
+  // };
+  // const addProduct = (id: string) => {
+  //   //Agregar el producto a la tabla
+  // };
+  // const handleSelectProduct = () => {
 
-  };
+  // };
 
-  const onCancel = () => {
-      removeInputs();
-  };
-  const removeInputs = () => {
-  };
+  // const onCancel = () => {
+  //     removeInputs();
+  // };
+  // const removeInputs = () => {
+  // };
   return (
       <div className={styles.container}>
         {isLoading ? (
