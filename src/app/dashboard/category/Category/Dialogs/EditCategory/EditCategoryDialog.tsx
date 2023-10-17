@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useState, useRef, useEffect } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import styles from "./styles.module.scss";
 
@@ -31,6 +31,14 @@ function EditCategoryDialog() {
   const { setOpen } = useContext(ModalContext);
 
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
+    const ref = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.style.height = "auto";
+            ref.current.style.height = `${ref.current.scrollHeight +6}px`;
+        }
+    });
   
 
   const handleChange = ({ target: { name, value } }: any) => {
@@ -42,6 +50,17 @@ function EditCategoryDialog() {
       [name]: value,
     }));
   };
+    const handleChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (ref.current) {
+            ref.current.style.height = "auto";
+            ref.current.style.height = `${event.target.scrollHeight - 16}px`;
+        }
+        const { value } = event.target;
+        setSelectedCategory((prevValues: any) => ({
+            ...prevValues,
+            ['description']: value,
+        }));
+    };
 
   const onSubmit = async (e:  FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -80,13 +99,12 @@ function EditCategoryDialog() {
             <label htmlFor="description" className={styles.label}>
                 Descripción
             </label>
-            <input
-                type="text"
+            <textarea
                 id="description"
                 name="description"
-                placeholder="Ingrese descripción de la marca"
+                onInput={handleChangeTextArea}
                 value={selectedCategory?.description}
-                onChange={handleChange}
+                ref={ref}
                 required
             />
         </div>

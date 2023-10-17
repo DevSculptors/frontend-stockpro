@@ -118,11 +118,10 @@ function CreateProductDialog() {
           optionsId={category}
 
         />
-        <Form.InputRequired
+        <Form.TextArea
           name="description"
           label="Descripción"
           placeholder="Ingresa la descripción"
-          type="text"
         />
       </div>
       <div className="my-[10px] grid grid-cols-2 gap-4">

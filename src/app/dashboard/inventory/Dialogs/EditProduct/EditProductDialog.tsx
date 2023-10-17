@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useState, useRef, useEffect } from "react";
 import {useQueryClient, useMutation, useQuery} from "@tanstack/react-query";
 import styles from "./styles.module.scss";
 
@@ -37,6 +37,14 @@ function EditProductDialog() {
 
     const { setBrands, brands } = useContext(BrandContext);
     const { setCategories, category } = useContext(CategoryContext);
+    const ref = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.style.height = "auto";
+            ref.current.style.height = `${ref.current.scrollHeight +6}px`;
+        }
+    });
 
     const {} = useQuery(["category"], getAllCategoriesAPI, {
         onSuccess: (data) => {
@@ -74,6 +82,17 @@ function EditProductDialog() {
         setSelectedProduct((prevValues: any) => ({
             ...prevValues,
             [name]: value,
+        }));
+    };
+    const handleChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (ref.current) {
+            ref.current.style.height = "auto";
+            ref.current.style.height = `${event.target.scrollHeight - 16}px`;
+        }
+        const { value } = event.target;
+        setSelectedProduct((prevValues: any) => ({
+            ...prevValues,
+            ['description']: value,
         }));
     };
 
@@ -140,19 +159,6 @@ function EditProductDialog() {
                         ))}
                     </select>
                 </div>
-                <div className={styles.inputContainer}>
-                    <label htmlFor="sale_price" className={styles.label}>
-                        Precio de venta
-                    </label>
-                    <input
-                        type="number"
-                        id="sale_price"
-                        name="sale_price"
-                        placeholder="Ingrese el precio de venta"
-                        value={selectedProduct?.sale_price}
-                        onChange={handleChange}
-                        required
-                    /></div>
                 <div className={styles.listBox}>
                     <label htmlFor="is_active">Estado Producto</label>
                     <select name="is_active" id="is_active" onChange={handleChange}
@@ -188,17 +194,19 @@ function EditProductDialog() {
                         ))}
                     </select>
                 </div>
+
+            </div>
+            <div className="my-[10px] grid grid-cols-1 gap-4">
                 <div className={styles.inputContainer}>
                     <label htmlFor="description" className={styles.label}>
                         Descripción
                     </label>
-                    <input
-                        type="text"
+                    <textarea
                         id="description"
                         name="description"
-                        placeholder="Ingrese la descripción"
+                        onInput={handleChangeTextArea}
                         value={selectedProduct?.description}
-                        onChange={handleChange}
+                        ref={ref}
                         required
                     /></div>
             </div>

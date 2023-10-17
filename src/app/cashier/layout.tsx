@@ -6,18 +6,19 @@ import SideBar from "@/components/SideBar/SideBar";
 import { menuData } from "@/helpers/HeaderCashier";
 import { ModalContext } from "@/context/ModalContext";
 import { Product } from "@/interfaces/Product";
-import { Sale, ProductBuySale} from "@/interfaces/Sale";
+import { Sale, ProductDetailSale} from "@/interfaces/Sale";
 import { ProductContext } from "@/context/ProductContext";
 import { SaleContext } from "@/context/SaleContext";
 import DetailsProductDialog from "./products/Dialogs/DetailsProduct/DetailsProductDialog";
+import OpenTurn from "./OpenTurn";
 import ModalBase from "@/app/components/Modal/Modal";
 import { Client } from "@/interfaces/Client";
 import { ClientContext } from "@/context/ClientContext";
 
 const NavBarData = {
-  logoHref: "/dashboard",
-  settingsHref: "/dashboard/settings",
-  notificationsHref: "/dashboard",
+  logoHref: "/cashier",
+  settingsHref: "/cashier/settings",
+  notificationsHref: "/cashier",
 };
 
 
@@ -37,6 +38,9 @@ function CashierLayout({ children }: Props) {
 
   const [selectedClient, setSelectedClient] = useState<Client>();
   const [clients, setClients] = useState<Client[] | undefined>([]);
+
+  const [productsSale, setProductsSale] = useState<ProductDetailSale[] | undefined>([]);
+  const [selectProductSale, setSelectProductSale] = useState<ProductDetailSale | undefined>();
 
   const modalContext = useMemo(
       () => ({
@@ -73,14 +77,20 @@ function CashierLayout({ children }: Props) {
             setSelectedSale,
             sales,
             setSales,
+            productsSale,
+            setProductsSale,
+            selectProductSale,
+            setSelectProductSale,
         }),
-        [selectedSale, sales]
+        [selectedSale, sales, productsSale, selectProductSale]
     );
 
   function SelectModal() {
     switch (id) {
       case "detailsProduct":
         return <DetailsProductDialog />;
+        case "openTurn":
+            return <OpenTurn />;
 
       default:
         break;
