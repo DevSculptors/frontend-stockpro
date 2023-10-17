@@ -1,7 +1,6 @@
 import React,{createContext} from "react";
 
-import { Sale, ProductBuySale} from "@/interfaces/Sale";
-import { Product } from "@/interfaces/Product";
+import { Sale, ProductDetailSale} from "@/interfaces/Sale";
 
 
 type SaleContextType = {
@@ -10,6 +9,12 @@ type SaleContextType = {
 
   sales: Sale[] | undefined;
   setSales: React.Dispatch<React.SetStateAction<Sale[] | undefined>>;
+
+  productsSale: ProductDetailSale[] | undefined;
+  setProductsSale: React.Dispatch<React.SetStateAction<ProductDetailSale[] | undefined>>;
+
+  selectProductSale: ProductDetailSale | undefined;
+  setSelectProductSale: React.Dispatch<React.SetStateAction<ProductDetailSale | undefined>>;
 };
 
 const saleContextState = {
@@ -17,8 +22,10 @@ const saleContextState = {
   setSelectedSale: () => {},
   sales: undefined,
   setSales: () => {},
-  productsBuy: undefined,
-  setProductsBuy: () => {},
+  productsSale: undefined,
+  setProductsSale: () => {},
+  selectProductSale: undefined,
+  setSelectProductSale: () => {},
 };
 
 export const SaleContext =

@@ -32,6 +32,7 @@ import { CategoryContext } from "@/context/CategoryContext";
 import { BrandContext } from "@/context/BrandContext";
 import { ProductContext } from "@/context/ProductContext";
 import { InventoryContext } from "@/context/InventoryContext";
+import { Sale, ProductDetailSale} from "@/interfaces/Sale";
 
 import { Client } from "@/interfaces/Client";
 import { Category } from "@/interfaces/Category";
@@ -39,9 +40,7 @@ import { Brand } from "@/interfaces/Brand";
 import { User } from "@/interfaces/User";
 import { Product } from "@/interfaces/Product";
 import { Inventory, ProductBuyInventory } from "@/interfaces/Inventory";
-
 import { SaleContext } from "@/context/SaleContext";
-import { Sale} from "@/interfaces/Sale";
 
 
 import { menuData } from "@/helpers/Headers";
@@ -88,6 +87,9 @@ function DashboardLayout({ children }: Props) {
 
   const [selectedSale, setSelectedSale] = useState<Sale>();
   const [sales, setSales] = useState<Sale[] | undefined>([]);
+
+  const [productsSale, setProductsSale] = useState<ProductDetailSale[] | undefined>([]);
+  const [selectProductSale, setSelectProductSale] = useState<ProductDetailSale | undefined>();
 
   const userContext = useMemo(
     () => ({
@@ -170,8 +172,12 @@ function DashboardLayout({ children }: Props) {
             setSelectedSale,
             sales,
             setSales,
+            productsSale,
+            setProductsSale,
+            selectProductSale,
+            setSelectProductSale,
         }),
-        [selectedSale, sales]
+        [selectedSale, sales, productsSale, selectProductSale]
     );
 
   function SelectModal() {

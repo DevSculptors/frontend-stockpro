@@ -48,11 +48,10 @@ function CreateBrandDialog() {
                     placeholder="Ingresa el nombre"
                     type="text"
                 />
-                <Form.InputRequired
+                <Form.TextArea
                     name="description"
                     label="Descripción"
                     placeholder="Ingresa la descripción"
-                    type="text"
                 />
                 <Form.SubmitButton buttonText="Aceptar" />
                 <Form.CancelButton buttonText="Cancelar" onClick={onCancel} />

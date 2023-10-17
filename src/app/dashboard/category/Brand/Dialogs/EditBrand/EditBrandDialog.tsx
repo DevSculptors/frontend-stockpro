@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useState, useRef, useEffect } from "react";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import styles from "./styles.module.scss";
 
@@ -31,9 +31,17 @@ function EditBrandDialog() {
   const { setOpen } = useContext(ModalContext);
 
   const { selectedBrand, setSelectedBrand } = useContext(BrandContext);
-  
+  const ref = useRef<HTMLTextAreaElement>(null);
 
-  const handleChange = ({ target: { name, value } }: any) => {
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.style.height = "auto";
+            ref.current.style.height = `${ref.current.scrollHeight }px`;
+        }
+    });
+
+
+    const handleChange = ({ target: { name, value } }: any) => {
       if (name=="is_active"){
           value=="true"?value=true:value=false;
       }
@@ -42,7 +50,17 @@ function EditBrandDialog() {
       [name]: value,
     }));
   };
-
+    const handleChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        if (ref.current) {
+            ref.current.style.height = "auto";
+            ref.current.style.height = `${event.target.scrollHeight +6}px`;
+        }
+        const { value } = event.target;
+        setSelectedBrand((prevValues: any) => ({
+            ...prevValues,
+            ['description']: value,
+        }));
+    };
   const onSubmit = async (e:  FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateBrandMutation.mutate(selectedBrand as Brand)
@@ -80,13 +98,12 @@ function EditBrandDialog() {
             <label htmlFor="description" className={styles.label}>
                 Descripción
             </label>
-            <input
-                type="text"
+            <textarea
                 id="description"
                 name="description"
-                placeholder="Ingrese descripción de marca"
+                onInput={handleChangeTextArea}
                 value={selectedBrand?.description}
-                onChange={handleChange}
+                ref={ref}
                 required
             />
         </div>

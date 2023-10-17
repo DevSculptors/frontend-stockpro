@@ -35,24 +35,6 @@ export const menuData = {
         },
         {
           id: 2,
-          title: "Reportes",
-          url: "/cashier/stats",
-          icon: BsFillBarChartFill,
-        },
-        {
-          id: 3,
-          title: "Abrir caja",
-          url: "/cashier/openPOS",
-          icon: FaLockOpen,
-        },
-        {
-          id: 4,
-          title: "Cerrar caja",
-          url: "/cashier/closePOS",
-          icon: FaLock,
-        },
-        {
-          id: 5,
           title: "Productos",
           url: "/cashier/products",
           icon: BsBox,

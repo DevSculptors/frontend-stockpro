@@ -59,18 +59,18 @@ interface Person {
 }
 
 export interface SaleCreate {
-  date_sale: Date;
+  date_sale?: Date;
   price_sale: number;
   id_client?: string;
   id_user: string;
-  productsSale: Products[];
+  products: ProductsSale[];
 }
-interface Products{
+interface ProductsSale{
   id: string;
   amount_product: number;
 }
 
-export interface ProductBuySale {
+export interface ProductDetailSale {
   id: string;
   amount_product: number;
   product: Product;
