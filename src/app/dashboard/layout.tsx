@@ -23,6 +23,8 @@ import EditBrandDialog from "./category/Brand/Dialogs/EditBrand/EditBrandDialog"
 import EditProductDialog from "./inventory/Dialogs/EditProduct/EditProductDialog";
 import CreateProductDialog from "./inventory/Dialogs/CreateProduct/CreateProductDialog";
 
+import CreateCashRegisterDialog from "./cashRegister/Dialogs/CreateCashRegister/CreateCashRegisterDialog";
+
 import CreateBuyDialog from "./buys/create/CreateBuyDialog/CreateBuyDialog";
 
 import { ClientContext } from "@/context/ClientContext";
@@ -32,7 +34,9 @@ import { CategoryContext } from "@/context/CategoryContext";
 import { BrandContext } from "@/context/BrandContext";
 import { ProductContext } from "@/context/ProductContext";
 import { InventoryContext } from "@/context/InventoryContext";
+import { CashRegisterContext } from "@/context/CashRegisterContext";
 import { Sale, ProductDetailSale} from "@/interfaces/Sale";
+import { CashRegister} from "@/interfaces/CashRegister";
 
 import { Client } from "@/interfaces/Client";
 import { Category } from "@/interfaces/Category";
@@ -73,6 +77,9 @@ function DashboardLayout({ children }: Props) {
 
   const [selectedProduct, setSelectedProduct] = useState<Product>();
   const [products, setProducts] = useState<Product[] | undefined>([]);
+
+  const [selectedCashRegister, setSelectedCashRegister] = useState<CashRegister>();
+  const [cashRegisters, setCashRegisters] = useState<CashRegister[] | undefined>([]);
 
   const [selectedInventory, setSelectedInventory] = useState<Inventory>();
   const [inventory, setInventory] = useState<Inventory[] | undefined>([]);
@@ -138,6 +145,16 @@ function DashboardLayout({ children }: Props) {
       setProducts,
     }),
     [selectedProduct, products]
+  );
+
+  const cashRegisterContext = useMemo(
+      () => ({
+          selectedCashRegister,
+          setSelectedCashRegister,
+          cashRegisters,
+          setCashRegisters,
+        }),
+      [selectedCashRegister, cashRegisters]
   );
 
   const inventoryContext = useMemo(
@@ -215,6 +232,9 @@ function DashboardLayout({ children }: Props) {
       case "addBuy":
         return <CreateBuyDialog />;
 
+        case "addCashRegister":
+            return <CreateCashRegisterDialog />;
+
       default:
         break;
     }
@@ -230,22 +250,24 @@ function DashboardLayout({ children }: Props) {
         <div className={styles.contentContainer}>
           <UserContext.Provider value={userContext}>
             <ClientContext.Provider value={clientContext}>
-              <ProductContext.Provider value={productContext}>
-                <InventoryContext.Provider value={inventoryContext}>
-                    <SaleContext.Provider value={saleContext}>
-                        <CategoryContext.Provider value={categoryContext}>
-                            <BrandContext.Provider value={brandContext}>
-                                <ModalContext.Provider value={modalContext}>
-                                    <ModalBase isOpen={open} id={id}>
-                                        {SelectModal()}
-                                    </ModalBase>
-                                    <main className={styles.layout__main}>{children}</main>
-                                </ModalContext.Provider>
-                            </BrandContext.Provider>
-                        </CategoryContext.Provider>
-                    </SaleContext.Provider>
-                </InventoryContext.Provider>
-              </ProductContext.Provider>
+                <CashRegisterContext.Provider value={cashRegisterContext}>
+                    <ProductContext.Provider value={productContext}>
+                        <InventoryContext.Provider value={inventoryContext}>
+                            <SaleContext.Provider value={saleContext}>
+                                <CategoryContext.Provider value={categoryContext}>
+                                    <BrandContext.Provider value={brandContext}>
+                                        <ModalContext.Provider value={modalContext}>
+                                            <ModalBase isOpen={open} id={id}>
+                                                {SelectModal()}
+                                            </ModalBase>
+                                            <main className={styles.layout__main}>{children}</main>
+                                        </ModalContext.Provider>
+                                    </BrandContext.Provider>
+                                </CategoryContext.Provider>
+                            </SaleContext.Provider>
+                        </InventoryContext.Provider>
+                    </ProductContext.Provider>
+                </CashRegisterContext.Provider>
             </ClientContext.Provider>
           </UserContext.Provider>
         </div>

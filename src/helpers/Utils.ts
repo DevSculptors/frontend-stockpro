@@ -51,3 +51,15 @@ export function formatDate(fechaStr:string): string {
 
   return fechaCompra.toLocaleDateString("es-CO", options);
 }
+
+export function formatTimeDate(fechaStr:string): string {
+  const fechaCompra = new Date(fechaStr);
+  const options: Intl.DateTimeFormatOptions = {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  return fechaCompra.toLocaleDateString("es-CO", options);
+}

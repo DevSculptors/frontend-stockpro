@@ -21,9 +21,11 @@ import { Product } from "@/interfaces/Product";
 import { Client } from "@/interfaces/Client";
 import { formatPrice, formatDate } from "@/helpers/Utils";
 import { BsFillTrashFill } from "react-icons/bs";
+import DetailsSale from "./Dialogs/DetailsSaleDialog";
+import Modal from 'react-modal';
 
 function Cash() {
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputDisabled, setInputDisabled] = useState(false);
   const [productName, setProductName] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product>();
@@ -36,12 +38,18 @@ function Cash() {
   const [productSale, setProductSale] = useState<ProductDetailSale>();
 
   const [user_id, setUser_id] = useState("");
-
+  const [id_turn, setId_Turn] = useState("");
+  const [error, setError] = useState('');
+  const [amount, setAmount] = useState(1);
 
   useEffect(() => {
     const storedUserId = sessionStorage.getItem("user_id");
+    const storedTunrId = sessionStorage.getItem("id_turn");
     if (storedUserId) {
       setUser_id(storedUserId);
+    }
+    if (storedTunrId) {
+      setId_Turn(storedTunrId);
     }
   }, [])
 
@@ -57,7 +65,9 @@ function Cash() {
     },
   });
 
+
   const defaultClient = clients?.find(client => client.name === 'Varios');
+  const clientName = defaultClient?.name;
 
   const columns: GridColDef[] = [
     {
@@ -116,6 +126,7 @@ function Cash() {
     onSuccess: () => {
       queryClient.invalidateQueries(["sales"]);
       ToasterSucess("Venta registrada correctamente");
+      handleCleanInputs();
     },
     onError: (error: any) => {
       ToasterError("Error al registrar la venta");
@@ -134,7 +145,7 @@ function Cash() {
         id: product.product.id,
         amount_product: Number(product.amount_product),
       })) || [];
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitCreateSale = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addSale.mutate({
       id_client:defaultClient?.id,
@@ -142,8 +153,9 @@ function Cash() {
       date_sale: new Date(),
       products: products_details,
       price_sale:totalPrice,
+      id_turn: id_turn,
     });
-    handleCleanInputs();
+
   };
   const handleCleanInputs =() =>{
     removeInputs();
@@ -175,7 +187,7 @@ function Cash() {
         brand: product.product.brand.name,
         category: product.product.category.name,
         amount_product: product.amount_product,
-        sale_price: formatPrice(product.product.sale_price),
+        sale_price: formatPrice(product.product.sale_price * product.amount_product),
       })) || [];
 
   const handleChangeSearch = ({ target: { name, value } }: any) => {
@@ -190,6 +202,7 @@ function Cash() {
     }));
 
   };
+
   const addProduct = (product: Product) => {
     const isProductAlreadyAdded = productsSale?.some(
       (productsSale) => productsSale.product.id === product.id
@@ -202,7 +215,8 @@ function Cash() {
     setInputDisabled(true);
     setSelectedProduct(product);
   };
-  const handleSelectProduct = () => {
+  const handleSelectProduct = (event: any) => {
+    event.preventDefault();
     if (selectedProduct) {
       setProductSale((prevValues: any) => ({
         ...prevValues,
@@ -241,24 +255,27 @@ function Cash() {
           </div>
         ) : (
             <div className={styles.container}>
-              <form onSubmit={handleSubmit}>
+
               <div className={styles.containerTittle}>
                     <p className={styles.tittleList}>Registrar Venta</p>
                 <div className={styles.listBox}>
-                  <label htmlFor="id_client">Categoria</label>
-                  <select name="id_client" id="id_client" onChange={handleChange}
-                          value={defaultClient?.id}
+                  <label htmlFor="id_client">Cliente</label>
+                  <select
+                      name="id_client"
+                      id="id_client"
+                      onChange={handleChange}
+                      value={defaultClient?.id}
                   >
                     {clients?.map((type) => (
                         <option key={type.id} value={type.id}>
-                          {type.name}{type.last_name}
+                          {type.name}
                         </option>
                     ))}
                   </select>
                 </div>
                   </div>
-                  <div className="my-[10px] grid grid-cols-4 gap-4">
-                    <div>
+                  <form onSubmit={handleSelectProduct} className="my-[10px] grid grid-cols-4 gap-4">
+                    <div id="selectProduct">
                       <div className={styles.inputConainerTest}>
                         <label htmlFor="productSearch" className={styles.label}>
                           Buscar Producto
@@ -272,6 +289,7 @@ function Cash() {
                             onChange={handleChangeSearch}
                             disabled={inputDisabled}
                             autoComplete="off"
+                            required
                         />
                       </div>
                       <div className={styles.containerSearch}>
@@ -304,15 +322,17 @@ function Cash() {
                           name="amount_product"
                           placeholder="Ingrese cantidad"
                           onChange={handleChangeSearch}
-                          max={selectedProduct?.stock || 5}
+                          max={selectedProduct?.stock || 1}
                           min="1"
+                          required
                       />
                     </div>
+                    {error && <p className={styles.error}>{error}</p>}
                     <div className="my-[10px]">
                       <button
-                          onClick={handleSelectProduct}
+                          //onClick={handleSelectProduct}
                           className={styles.buttonCreate}
-                          type="button">
+                          type="submit">
                         Agregar
                       </button>
                     </div>
@@ -324,9 +344,11 @@ function Cash() {
                         Cancelar
                       </button>
                     </div>
-                  </div>
+
+                  </form>
                 {productsSale && productsSale.length > 0 ? (
                     <div>
+                      <form onSubmit={handleSubmitCreateSale}>
                       <div>
                         <DataTable
                             slug="buys"
@@ -347,13 +369,28 @@ function Cash() {
                         </div>
                       </div>
                       <div>
-                        <button type="submit" className={styles.buttonCreate}>
+                        <button type="submit"
+                                className={styles.buttonCreate}>
                           Registrar Compra
                         </button>
                       </div>
+                        {isModalOpen==true?(
+                            <div id="detailSale">
+                              {/*<DetailsSale
+                                isOpen={isModalOpen}
+                                setIsOpen={setIsModalOpen}
+                                invoiceInfo={{
+                                  clientName,
+                                  totalPrice,
+                                }}
+                                items={productsSale}
+                            />*/}
+                            </div>
+                        ):null
+                        }
+                      </form>
                     </div>
                 ) : null}
-              </form>
             </div>
             )}
         </div>

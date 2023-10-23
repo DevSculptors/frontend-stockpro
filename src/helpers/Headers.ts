@@ -10,6 +10,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { FaClipboardList } from "react-icons/fa";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaCashRegister } from "react-icons/fa6";
 
 export const menuData = {
   datakey: "admin",
@@ -79,16 +80,22 @@ export const menuData = {
           icon: BsBox,
         },
         {
-          id: 6,
+          id: 5,
           title: "Compras",
           url: "/dashboard/buys",
           icon: AiOutlineShoppingCart,
         },
         {
-          id: 5,
+          id: 6,
           title: "Ventas",
           url: "/dashboard/sales",
           icon: FaClipboardList,
+        },
+        {
+          id: 7,
+          title: "Registradoras",
+          url: "/dashboard/cashRegister",
+          icon: FaCashRegister,
         },
        
       ],
