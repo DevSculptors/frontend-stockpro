@@ -54,7 +54,7 @@ export const menuData = {
         {
           id: 2,
           title: "Salir",
-          url: "/logout",
+          url: "/cashier/logoutCashier",
           icon: CiLogout,
         },
       ],

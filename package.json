@@ -45,7 +45,10 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/js-cookie": "^3.0.3",
+    "@types/jspdf": "^2.0.0",
     "@types/react-modal": "^3.16.0",
-    "cypress": "^13.1.0"
+    "cypress": "^13.1.0",
+    "html-to-image": "^1.11.11",
+    "jspdf": "^2.5.1"
   }
 }

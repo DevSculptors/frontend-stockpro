@@ -25,30 +25,6 @@
       white-space: nowrap;
     }
   }
-  .inputConainerTest {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    label {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    input {
-      padding: 0.6rem 1rem;
-      border: 1px solid rgba(102, 102, 102, 0.35);
-      font-size: 14px;
-      border-radius: 12px;
-      transition-duration: 0.3s;
-      outline: 0.5px solid transparent;
-      flex: 1;
-
-      &:focus {
-        outline: 1.5px solid #1e9189;
-      }
-    }
-  }
     
 
   .listBox {
@@ -182,3 +158,28 @@
     border: 1px solid rgba(210, 0, 26, 0.75);
   }
 }
+.inputConainerTest {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    font-size: 14px;
+    border-radius: 12px;
+    transition-duration: 0.3s;
+    outline: 0.5px solid transparent;
+    flex: 1; /* Ocupa el espacio restante */
+
+    &:focus {
+      outline: 1.5px solid #1e9189;
+    }
+  }
+}
+

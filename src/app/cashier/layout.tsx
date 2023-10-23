@@ -5,12 +5,17 @@ import styles from "./style.module.scss";
 import SideBar from "@/components/SideBar/SideBar";
 import { menuData } from "@/helpers/HeaderCashier";
 import { ModalContext } from "@/context/ModalContext";
+import { CashRegisterContext } from "@/context/CashRegisterContext";
 import { Product } from "@/interfaces/Product";
+import { CashRegister } from "@/interfaces/CashRegister";
 import { Sale, ProductDetailSale} from "@/interfaces/Sale";
 import { ProductContext } from "@/context/ProductContext";
 import { SaleContext } from "@/context/SaleContext";
 import DetailsProductDialog from "./products/Dialogs/DetailsProduct/DetailsProductDialog";
+import DetailsSaleDialog from "./cash/Dialogs/DetailsSaleDialog";
 import OpenTurn from "./OpenTurn";
+import CloseTurn from "./logoutCashier/CloseTurn";
+import DetailsSale from "./cash/Dialogs/DetailsSaleDialog";
 import ModalBase from "@/app/components/Modal/Modal";
 import { Client } from "@/interfaces/Client";
 import { ClientContext } from "@/context/ClientContext";
@@ -42,6 +47,9 @@ function CashierLayout({ children }: Props) {
   const [productsSale, setProductsSale] = useState<ProductDetailSale[] | undefined>([]);
   const [selectProductSale, setSelectProductSale] = useState<ProductDetailSale | undefined>();
 
+  const [selectedCashRegister, setSelectedCashRegister] = useState<CashRegister>();
+  const [cashRegisters, setCashRegisters] = useState<CashRegister[] | undefined>([]);
+
   const modalContext = useMemo(
       () => ({
         open,
@@ -70,6 +78,15 @@ function CashierLayout({ children }: Props) {
         }),
         [selectedClient, clients]
   );
+  const cashRegisterContext = useMemo(
+      () => ({
+          selectedCashRegister,
+          setSelectedCashRegister,
+          cashRegisters,
+          setCashRegisters,
+      }),
+      [selectedCashRegister, cashRegisters]
+    );
 
     const saleContext = useMemo(
         () => ({
@@ -89,6 +106,8 @@ function CashierLayout({ children }: Props) {
     switch (id) {
       case "detailsProduct":
         return <DetailsProductDialog />;
+        case "closeTurn":
+            return <CloseTurn />;
         case "openTurn":
             return <OpenTurn />;
 
@@ -107,14 +126,16 @@ function CashierLayout({ children }: Props) {
           <div className={styles.contentContainer}>
             <ProductContext.Provider value={productContext}>
                 <ClientContext.Provider value={clientContext}>
-                    <SaleContext.Provider value={saleContext}>
-                        <ModalContext.Provider value={modalContext}>
-                            <ModalBase isOpen={open} id={id}>
-                                {SelectModal()}
-                            </ModalBase>
-                            <main className={styles.layout__main}>{children}</main>
-                        </ModalContext.Provider>
-                    </SaleContext.Provider>
+                    <CashRegisterContext.Provider value={cashRegisterContext}>
+                        <SaleContext.Provider value={saleContext}>
+                            <ModalContext.Provider value={modalContext}>
+                                <ModalBase isOpen={open} id={id}>
+                                    {SelectModal()}
+                                </ModalBase>
+                                <main className={styles.layout__main}>{children}</main>
+                            </ModalContext.Provider>
+                        </SaleContext.Provider>
+                    </CashRegisterContext.Provider>
                 </ClientContext.Provider>
             </ProductContext.Provider>
           </div>

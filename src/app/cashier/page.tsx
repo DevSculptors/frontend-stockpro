@@ -1,16 +1,22 @@
 "use client"
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ModalContext } from "@/context/ModalContext";
 import User from "./user/page";
 
 function Cashier() {
   const { setOpen, setId } = useContext(ModalContext);
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
-    if (setId) {
-      setOpen(true);
-      setId("openTurn");
+    const modalShown = sessionStorage.getItem('modalShown');
+    if(!modalShown && setId){
+        setOpen(true);
+        setId("openTurn");
+        setShowModal(true);
+        sessionStorage.setItem('modalShown', 'true');
     }
   }, [])
+
   return (
     <User/>
   )

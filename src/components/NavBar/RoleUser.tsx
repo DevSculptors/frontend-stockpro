@@ -17,17 +17,26 @@ export default function RoleUser() {
 
   const [formattedUsername, setFormattedUsername] = useState<string>("");
   const [formattedRole, setFormattedRole] = useState<string>("");
+  const [role, setRol] = useState("");
 
   useEffect(() => {
     const username = sessionStorage.getItem("username");
     const role = sessionStorage.getItem("role");
-  
+    if(role){
+      setRol(role);
+    }
     const formattedUsername = capitalizeFirstLetter(username);
     const formattedRole = capitalizeFirstLetter(role);
     setFormattedRole(formattedRole);
     setFormattedUsername(formattedUsername);
 
   },[]);
+
+  const handleLogOut = () => {
+    if(role=='cashier'){
+      router.push("/cashier/logoutCashier");
+    }else router.push("/logout")
+  };
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -87,9 +96,7 @@ export default function RoleUser() {
                 {({ active }) => (
                   <button
                     type="button"
-                    onClick={() => {
-                      router.push("/logout");
-                    }}
+                    onClick={handleLogOut}
                     className={classNames(
                       active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                       "block w-full px-4 py-2 text-left text-sm"

@@ -5,8 +5,29 @@ export interface Sale {
   person: Person2;
   user: User;
   oders: Orders[];
+  turn: Turn;
 }
-
+export interface SaleTurn {
+  id: string;
+  date_sale: string;
+  price_sale: number;
+  oders: Orders[];
+}
+export interface Turn {
+  id: string;
+  date_time_start: Date;
+  base_cash: number;
+  date_time_end: Date;
+  final_cash: number;
+  is_active: boolean;
+  user: UserTurn;
+}
+export interface UserTurn{
+  id: string;
+  username: string;
+  email: string;
+  roleUser: string;
+};
 export interface Orders {
   id: string;
   price: string;
@@ -63,6 +84,7 @@ export interface SaleCreate {
   price_sale: number;
   id_client?: string;
   id_user: string;
+  id_turn: string;
   products: ProductsSale[];
 }
 interface ProductsSale{
