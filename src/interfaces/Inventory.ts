@@ -10,6 +10,7 @@ export interface PurchasedetailCreate {
   quantity: number;
   due_date: Date;
   purchase_unit_price: number;
+  sale_unit_price: number;
   product_id: string;
 }
 
@@ -19,6 +20,7 @@ export interface ProductBuyInventory {
   quantity: number;
   due_date: Date;
   purchase_unit_price: number;
+  sale_unit_price: number,
   product: Product;
   productSearch: string;
 }
@@ -38,6 +40,7 @@ export interface Purchasedetail {
   quantity: number;
   due_date: string;
   purchase_unit_price: string;
+  sale_unit_price: string;
   product: Product;
 }
 

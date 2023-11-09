@@ -43,6 +43,9 @@ function CreateBuyInventory() {
     },
   });
 
+  
+  
+
   const columns: GridColDef[] = [
     {
       field: "name_product",
@@ -76,7 +79,13 @@ function CreateBuyInventory() {
     },
     {
       field: "purchase_unit_price",
-      headerName: "Costo Unitario",
+      headerName: "Valor Compra",
+      width: 200,
+      type: "string",
+    },
+    {
+      field: "sale_unit_price",
+      headerName: "Valor Venta",
       width: 200,
       type: "string",
     },
@@ -138,6 +147,7 @@ function CreateBuyInventory() {
       quantity: Number(product.quantity),
       due_date: new Date(product.due_date),
       purchase_unit_price: Number(product.purchase_unit_price),
+      sale_unit_price: Number(product.sale_unit_price),
     })) || [];
 
   // useEffect(() => {
@@ -179,8 +189,7 @@ function CreateBuyInventory() {
 
   const handleChange = ({ target: { name, value } }: any) => {
     const transformedValue = name === "date_purchase" ? new Date(value) : value;
-    console.log(transformedValue);
-
+    
     setCreateInventoryBuyFields((prevValues: any) => ({
       ...prevValues,
       [name]: transformedValue,
@@ -196,6 +205,7 @@ function CreateBuyInventory() {
       quantity: product.quantity,
       due_date: product.due_date,
       purchase_unit_price: formatPrice(product.purchase_unit_price),
+      sale_unit_price: formatPrice(product.sale_unit_price)
     })) || [];
 
   return (

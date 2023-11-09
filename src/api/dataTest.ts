@@ -196,7 +196,7 @@ export const chartBoxConversion = {
   dataKey: "ratio",
   percentage: 12,
   chartData: [
-    { name: "Sun", ratio: 400 },
+    { name: "Sun", ratio: 10 },
     { name: "Mon", ratio: 600 },
     { name: "Tue", ratio: 500 },
     { name: "Wed", ratio: 700 },
@@ -208,12 +208,12 @@ export const chartBoxConversion = {
 
 export const chartBoxProduct = {
   color: "skyblue",
-  title: "Productos Totales",
+  title: "Productos Vendidos en el mes",
   number: "238",
   dataKey: "products",
   percentage: 21,
   chartData: [
-    { name: "Sun", products: 400 },
+    { name: "Sun", products: 30 },
     { name: "Mon", products: 600 },
     { name: "Tue", products: 500 },
     { name: "Wed", products: 700 },
@@ -225,7 +225,7 @@ export const chartBoxProduct = {
 
 export const chartBoxUser = {
   color: "#8884d8",
-  title: "Usuarios Totales",
+  title: "Compras  Totales en el mes",
   number: "11.238",
   dataKey: "users",
   percentage: 45,

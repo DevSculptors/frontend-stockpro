@@ -49,6 +49,12 @@ const columns: GridColDef[] = [
     width: 200,
     type: "string",
   },
+  {
+    field: "sale_unit_price",
+    headerName: "Precio de compra",
+    width: 200,
+    type: "string",
+  },
 ];
 
 
@@ -70,6 +76,7 @@ const ShowInventory = () => {
       quantity: item.quantity,
       due_date: formatDate(item.due_date),
       purchase_unit_price: formatPrice(Number(item.purchase_unit_price)),
+      sale_unit_price: formatPrice(Number(item.sale_unit_price)),
     })) || [];
 
   const totalQuantity = rows.reduce((total, row) => total + row.quantity, 0);

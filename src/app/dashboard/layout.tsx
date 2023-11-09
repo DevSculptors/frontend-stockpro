@@ -50,9 +50,8 @@ import { SaleContext } from "@/context/SaleContext";
 import { menuData } from "@/helpers/Headers";
 
 const NavBarData = {
-  logoHref: "/dashboard",
-  settingsHref: "/dashboard/settings",
-  notificationsHref: "/dashboard",
+  logoHref: "/dashboard",  
+  notificationsHref: "/user-guide",
 };
 
 interface Props {
