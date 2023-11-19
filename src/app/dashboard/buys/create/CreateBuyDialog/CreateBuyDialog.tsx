@@ -62,6 +62,8 @@ function CreateBuyDialog() {
     if (selectedProduct) {
       if (priceBuy > 0 && ganancy > 0) {
         valuePriceSale = priceBuy * (1 + ganancy / 100);
+        console.log(valuePriceSale);
+
         setPriceSale(Number(valuePriceSale.toFixed(2)));
         console.log("entro");
 
