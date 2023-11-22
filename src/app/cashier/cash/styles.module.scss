@@ -137,7 +137,26 @@
 .hidden {
   display: none;
 }
+.submitButton {
+  margin-top: 1rem;
+  width: 100%;
+  background: rgba(0, 106, 255, 0.80);
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  padding: .4rem 0;
+  border: 1px solid transparent;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  &:hover {
+    background-color: rgba(0, 106, 255, 0.90);
+    color: #fff;
+    border: 1px solid rgba(0, 106, 255, 0.90);
+  }
+}
 .cancelButton {
   margin-top: 1rem;
   width: 100%;

@@ -2,21 +2,21 @@
 import { useEffect, useContext } from "react";
 import { ModalContext } from "@/context/ModalContext";
 
-function Logout() {
+function Withdrawl() {
 
   const { setOpen, setId } = useContext(ModalContext);
 
   useEffect(() => {
-    handleLogout();
+    handleDialog();
   }, []);
 
-  const handleLogout = () => {
+  const handleDialog = () => {
     if(setId){
       setOpen(true);
-      setId("closeTurn");
+      setId("addWithdrawl");
     }
   }
-  return <div>Logout...</div>;
+  return <div>Retiro...</div>;
 }
 
-export default Logout;
+export default Withdrawl;

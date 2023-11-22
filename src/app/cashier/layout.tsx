@@ -12,10 +12,9 @@ import { Sale, ProductDetailSale} from "@/interfaces/Sale";
 import { ProductContext } from "@/context/ProductContext";
 import { SaleContext } from "@/context/SaleContext";
 import DetailsProductDialog from "./products/Dialogs/DetailsProduct/DetailsProductDialog";
-import DetailsSaleDialog from "./cash/Dialogs/DetailsSaleDialog";
 import OpenTurn from "./OpenTurn";
 import CloseTurn from "./logoutCashier/CloseTurn";
-import DetailsSale from "./cash/Dialogs/DetailsSaleDialog";
+import CreateWithdrawl from "./withdrawl/CreateWithdrawl";
 import ModalBase from "@/app/components/Modal/Modal";
 import { Client } from "@/interfaces/Client";
 import { ClientContext } from "@/context/ClientContext";
@@ -110,7 +109,8 @@ function CashierLayout({ children }: Props) {
             return <CloseTurn />;
         case "openTurn":
             return <OpenTurn />;
-
+        case "addWithdrawl":
+            return <CreateWithdrawl />;
       default:
         break;
     }

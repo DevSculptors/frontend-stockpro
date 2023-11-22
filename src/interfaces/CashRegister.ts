@@ -27,6 +27,12 @@ export interface Withdrawal {
     withdrawal_date: Date;
     value: number;
 }
+export interface WithdrawalResponse{
+    id: string;
+    id_turn: string;
+    withdrawal_date: Date;
+    value: number;
+}
 
 export type CreateCashRegister = Omit<UpdateCashRegister, "id">;
 
@@ -43,7 +49,22 @@ export interface OpenTurn {
 }
 export interface CloseTurn {
     id_turn: string;
-    data_time_end: Date;
-    base_cash: number;
     id_cash: string;
+    data_time_end: Date;
+    final_cash: number;
+    admin_email: string;
+    password: string;
+    value: number;
+    description: string;
+
+}
+export interface InfoTurn {
+    id: string;
+    date_time_start: Date;
+    base_cash: number;
+    date_time_end: Date;
+    final_cash: number;
+    is_active: boolean;
+    id_user : string;
+    id_cash_register : string;
 }

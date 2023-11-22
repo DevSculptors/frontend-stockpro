@@ -20,6 +20,7 @@ function OpenTurn() {
     const queryClient = useQueryClient();
     const { setSelectedCashRegister, setCashRegisters, cashRegisters } = useContext(CashRegisterContext);
     const [user_id, setUser_id] = useState("");
+    let cashId="undifined";
 
     useEffect(() => {
         const storedUserId = sessionStorage.getItem("user_id");
@@ -45,32 +46,49 @@ function OpenTurn() {
         onError: (error: any) => {
             error.response.data.forEach((error: any) => {
                 ToasterError(error.message);
+                router.push("/logout");
             });
         },
     });
 
     const onSubmit = (formData: any) => {
-        openTurnMutation.mutate({
-           ...formData,
-            date_time_start: new Date(),
-            id_user: user_id,
-            base_cash: Number(formData.base_cash),
-        });
-        sessionStorage.setItem('id_cash', formData.id_cash);
-        setOpen(false);
+        if(cashId !== "undifined") {
+            openTurnMutation.mutate({
+                ...formData,
+                id_cash: cashId,
+                date_time_start: new Date(),
+                id_user: user_id,
+                base_cash: Number(formData.base_cash),
+            });
+            sessionStorage.setItem('id_cash', cashId);
+            setOpen(false);
+        }
     };
     const onCancel = () => {
         router.push("/logout");
     };
+    const handleChange = (event:any) => {
+        const newValue = event.target.value;
+        cashId=newValue
+    };
     return (
         <Form title="Abrir Turno" onSubmit={onSubmit}>
             <div className="my-[10px]">
-                <Form.ListBox
-                    name="id_cash"
-                    label="Caja Registradora"
-                    placeholder="Selecciona la caja registradora"
-                    optionsId={cashRegisters}
-                />
+                <select className={styles.selectStyle}
+                    name="id_client"
+                    onChange={handleChange}
+                    required
+                        defaultValue=""
+                >
+                    <option value="" hidden>
+                        Seleccione una caja registradora
+                    </option>
+                    {cashRegisters?.map((type) => (
+                        <option key={type.id} value={type.id}>
+                            {type.name}
+                        </option>
+                    ))}
+                </select>
                 <Form.InputRequired
                     name="base_cash"
                     label="Dinero base Caja"
