@@ -1,7 +1,5 @@
 import styles from "./style.module.scss";
 
-import { topDealUsers } from "@/api/dataTest";
-
 type Props = {
   title: string;
   dataKey: string;

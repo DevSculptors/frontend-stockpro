@@ -1,17 +1,19 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import styles from "./style.module.scss";
 
-const data = [
-  { name: "Mobile", value: 400, color: "#0088FE" },
-  { name: "Desktop", value: 300, color: "#00C49F" },
-  { name: "Laptop", value: 300, color: "#FFBB28" },
-  { name: "Tablet", value: 200, color: "#FF8042" },
-];
+type Props = {
+  tittle: string;
+  chartData: {
+    name: string;
+    value: number;
+    color: string;
+  }[];
+};
+const PieChartBox = (props:Props) => {
 
-const PieChartBox = () => {
   return (
     <div className={styles.pieChartBox}>
-      <h1>Top Productos</h1>
+      <h1>{props.tittle}</h1>
       <div className={styles.chart}>
         <ResponsiveContainer width="99%" height={300}>
           <PieChart>
@@ -19,13 +21,13 @@ const PieChartBox = () => {
               contentStyle={{ background: "white", borderRadius: "5px" }}
             />
             <Pie
-              data={data}
+              data={props.chartData}
               innerRadius={"70%"}
               outerRadius={"90%"}
               paddingAngle={5}
               dataKey="value"
             >
-              {data.map((item) => (
+              {props.chartData.map((item) => (
                 <Cell key={item.name} fill={item.color} />
               ))}
             </Pie>
@@ -33,7 +35,7 @@ const PieChartBox = () => {
         </ResponsiveContainer>
       </div>
       <div className={styles.options}>
-        {data.map((item) => (
+        {props.chartData.map((item) => (
           <div className={styles.option} key={item.name}>
             <div className={styles.title}>
               <div className={styles.dot} style={{ backgroundColor: item.color }} />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { InventoryContext } from "@/context/InventoryContext";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { ProductBuyInventory } from "@/interfaces/Inventory";
@@ -57,7 +57,7 @@ function CreateBuyDialog() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    let valuePriceSale = 0
+    let valuePriceSale = 0;
     e.preventDefault();
     if (selectedProduct) {
       if (priceBuy > 0 && ganancy > 0) {
@@ -66,7 +66,6 @@ function CreateBuyDialog() {
 
         setPriceSale(Number(valuePriceSale.toFixed(2)));
         console.log("entro");
-
       } else {
         setPriceSale(priceBuy);
       }
@@ -75,7 +74,7 @@ function CreateBuyDialog() {
         ...prevValues,
         id: selectedProduct.id,
         product: selectedProduct,
-        sale_unit_price: priceSale,
+        sale_unit_price: calculatePriceSale(),
       }));
 
       setProductsBuy((prevValues: any) => [...prevValues, productBuy]);
@@ -86,11 +85,22 @@ function CreateBuyDialog() {
     }
   };
 
-  const calculatePriceSale = () => {
+  const calculatePriceSale = useCallback(() => {
     const valuePriceSale = priceBuy * (1 + ganancy / 100);
     setPriceSale(Number(valuePriceSale.toFixed(2)));
     return valuePriceSale.toFixed(2);
-  }
+  }, [priceBuy, ganancy, setPriceSale]);
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setproductBuy((prevValues: any) => ({
+        ...prevValues,
+        id: selectedProduct.id,
+        product: selectedProduct,
+        sale_unit_price: calculatePriceSale(),
+      }));
+    }
+  }, [calculatePriceSale, selectedProduct]);
 
   const onCancel = () => {
     setOpen(false);
@@ -166,6 +176,7 @@ function CreateBuyDialog() {
               type="number"
               id="quantity"
               name="quantity"
+              min={0}
               placeholder="Ingrese la cantidad de productos"
               onChange={handleChange}
               required
@@ -191,6 +202,7 @@ function CreateBuyDialog() {
               type="number"
               id="purchase_unit_price"
               name="purchase_unit_price"
+              min={0}
               onChange={handleChange}
               required
             />
@@ -207,7 +219,6 @@ function CreateBuyDialog() {
               required
             />
           </div>
-         
           <div className="my-[10px]">
             <button className={styles.submitButton}>Agregar Producto</button>
             <button

@@ -43,9 +43,6 @@ function CreateBuyInventory() {
     },
   });
 
-  
-  
-
   const columns: GridColDef[] = [
     {
       field: "name_product",
@@ -189,7 +186,7 @@ function CreateBuyInventory() {
 
   const handleChange = ({ target: { name, value } }: any) => {
     const transformedValue = name === "date_purchase" ? new Date(value) : value;
-    
+
     setCreateInventoryBuyFields((prevValues: any) => ({
       ...prevValues,
       [name]: transformedValue,
@@ -205,7 +202,7 @@ function CreateBuyInventory() {
       quantity: product.quantity,
       due_date: product.due_date,
       purchase_unit_price: formatPrice(product.purchase_unit_price),
-      sale_unit_price: formatPrice(product.sale_unit_price)
+      sale_unit_price: formatPrice(product.sale_unit_price),
     })) || [];
 
   return (

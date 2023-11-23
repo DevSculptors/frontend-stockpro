@@ -51,7 +51,7 @@ const columns: GridColDef[] = [
   },
   {
     field: "sale_unit_price",
-    headerName: "Precio de compra",
+    headerName: "Precio de Venta",
     width: 200,
     type: "string",
   },
@@ -59,7 +59,6 @@ const columns: GridColDef[] = [
 
 
 const ShowInventory = () => {
-  
   const { selectedInventory } = useContext(InventoryContext);
 
   const router = useRouter();

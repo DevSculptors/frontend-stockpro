@@ -7,71 +7,173 @@ function page() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>User Guide</h1>
+        <h1 className={styles.title}>Manual de Administrado</h1>
         <p className={styles.description}>
-          This is a guide for the user of this website
+          Manual de Usuario de la Aplicación StockPro 1.0
         </p>
       </header>
       <main id="page-content" className={styles.section_wrap}>
         <article className={styles.article}>
           <div className={styles.content}>
             <h1 className={styles.headline}>
-              Mazy cupcakes are thought of simply as multimedia
+              Funcionalidades Principales de la Aplicación
             </h1>
-            <p>
-              In recent years, a medicine sees a clam as an untouched crab.
-              Nowhere is it disputed that the discovery is a chair. What we know
-              for sure is whether or not their front was, in this moment, a
-              sideways record.
-            </p>
+            <h4>
+              En este apartado se explicarán las funcionalidades principales de
+              la aplicación, las cuales son
+            </h4>
+            <ul>
+              <li>Gestión de Ventas</li>
+              <li>Gestión de Compras</li>
+              <li>Gestión de Usuarios</li>
+              <li>Gestión de Clientes</li>
+              <li>Gestión de Inventarios</li>
+            </ul>
           </div>
-
           <figure className={styles.image_wrap}>
-            <img
-              src="https://images.unsplash.com/photo-1570806516998-c4c167ee2f55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyODM0MTk1Mg&ixlib=rb-1.2.1&q=80&w=800"
-              alt="It's a cupcake and it looks delicious"
-            />
-          </figure>
-        </article>
-
-        <article className={styles.article}>
-        <div className={styles.content}>
-            <h1 className={styles.headline}>
-              Cats could be said to resemble waxing wrinkles
-            </h1>
-            <p>
-              an undeniable fact, really; the obese possibility reveals itself
-              as an unpaced search to those who look. In recent years, the
-              grimmer command reveals itself as a blurry clipper to those who
-              look. This is not to discredit the idea that a journey is a
-              stubborn meeting.
-            </p>
-          </div>
-
-          <figure  className={styles.image_wrap}>
-            <img
-              src="https://images.unsplash.com/photo-1487300001871-12053913095d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyODM0MjIxNA&ixlib=rb-1.2.1&q=80&w=800"
-              alt="Sleeping cat on a comfy looking blanket"
-            />
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/7sJed-TBbh8"
+              title="video General de StockPro"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
           </figure>
         </article>
 
         <article className={styles.article}>
           <div className={styles.content}>
-            <h1 className={styles.headline}>A pajama is the taurus of a sponge</h1>
+            <h1 className={styles.headline}>Administrar el Dashboard</h1>
             <p>
-              We can assume that any instance of an appeal can be construed as a
-              paler pink. This is not to discredit the idea that a mist is a
-              chinese from the right perspective. However, a detail is a
-              representative from the right perspective.
+              En este apartado se explica como administrar el dashboard de la
+              aplicacion y la explicacion de los principales reportes que se
+              entregan en el dashboard
             </p>
           </div>
 
-          <figure  className={styles.image_wrap}>
-            <img
-              src="https://images.unsplash.com/photo-1583512603784-a8e3ea8355b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyODM0MjI0OQ&ixlib=rb-1.2.1&q=80&w=800"
-              alt="A dog sitting behind a banana wearing banana pajamas"
-            />
+          <figure className={styles.image_wrap}>
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/44ldbxlj8JA"
+              title="Dashboard y perfil"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </figure>
+        </article>
+        <article className={styles.article}>
+          <div className={styles.content}>
+            <h1 className={styles.headline}>Gestion de Usuarios</h1>
+            <p>
+              En esta parte se realiza la explicacion de como gestionar los
+              usuarios de la aplicacion, como crearlos, modificarlos y ponerlos
+              en estado inactivo, ademas se muestran los 2 tipos de usuarios que
+              tenemos en la aplicacion (Administrador y Cajero)
+            </p>
+          </div>
+
+          <figure className={styles.image_wrap}>
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/eisKXx28hY4"
+              title="Usuarios"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </figure>
+        </article>
+        <article className={styles.article}>
+          <div className={styles.content}>
+            <h1 className={styles.headline}>
+              Gestion de Clientes, Categorias y Marcas
+            </h1>
+            <p>
+              En esta parte se realiza la explicacion de como gestionar los
+              clientes, categorias y marcas de la aplicacion, como crearlos,
+              modificarlos y ponerlos en estado inactivo, ademas se muestran las
+              principales funciones que se pueden realizar con estos elementos
+              de la aplicacion.
+            </p>
+          </div>
+
+          <figure className={styles.image_wrap}>
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/Sz9Loz9wNiA"
+              title="Clientes,Marcas y Categorias"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </figure>
+        </article>
+
+        <article className={styles.article}>
+          <div className={styles.content}>
+            <h1 className={styles.headline}>Gestion de Inventario</h1>
+            <p>
+              Es este apartado veremos la gestion de Inventarios, en donde se
+              encuentran todos los productos que estan registrados en la
+              aplicacion ademas de eso se podra agregar, modificar y desactivar
+              un producto ademas de eso se podra realizar una busqueda de un
+              producto por su nombre o por su codigo de barras
+            </p>
+          </div>
+          <figure className={styles.image_wrap}>
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/a5Dmnzygb2Q"
+              title="Inventario"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </figure>
+        </article>
+
+        <article className={styles.article}>
+          <div className={styles.content}>
+            <h1 className={styles.headline}>Gestion de Compras</h1>
+            <p>
+              En este apartado se muestra como se realiza una compra, los
+              detalles de esa compra, y el total de compras que se han hecho
+              ademas de la fecha de la compra y el proveedor que realizo la
+              compra.
+            </p>
+          </div>
+          <figure className={styles.image_wrap}>
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/_qWQQt3-9fE"
+              title="Gestion de Compras"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </figure>
+        </article>
+
+        <article className={styles.article}>
+          <div className={styles.content}>
+            <h1 className={styles.headline}>
+              Gestion de Ventas y Registradoras
+            </h1>
+            <p>
+              En esta parte se realiza la explicacion de como gestionar las
+              ventas y las registradoras de la aplicacion, como crearlas,
+              modificarlas en la parte de registradoras y cuantas ventas se han
+              realizado en la aplicacion, ademas se muestran las principales
+              funciones que se pueden realizar con estos elementos de la
+              aplicacion. Tambien se muestran los turnos que se registran en las
+              cajas, y base la fecha de abrir la caja y cerrar la caja y la
+              cantidad de ventas que se realizaron en ese turno.
+            </p>
+          </div>
+          <figure className={styles.image_wrap}>
+            <iframe
+              width="1280"
+              height="720"
+              src="https://www.youtube.com/embed/WbSquAu2gkc"
+              title="Ventas y Registradoras"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
           </figure>
         </article>
       </main>
