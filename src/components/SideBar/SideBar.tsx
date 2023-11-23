@@ -1,94 +1,53 @@
-'use client';
-import styles from './style.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import { MdDashboard } from 'react-icons/md';
-import { LuMousePointerClick } from "react-icons/lu";
-import { BsBox } from 'react-icons/bs';
-import {BsFillBarChartFill} from 'react-icons/bs';
-import { TiContacts } from "react-icons/ti";
-import { MdKeyboardArrowRight,MdKeyboardArrowLeft } from 'react-icons/md';
-import { useSidebarContext } from '@/context/SidebarContext';
-
-import { usePathname } from 'next/navigation';
-
-const sidebarItems = [{
-  name: "Dashboard",
-  href: "/dashboard",
-  icon: MdDashboard,
-},
-{
-  name: "Estadisticas",
-  href: "/dashboard/stats",
-  icon: BsFillBarChartFill,
-},
-{
-  name: "Inventario Plus",
-  href: "/dashboard/inventory_plus",
-  icon: LuMousePointerClick,
-},
-{
-  name: "Usuarios",
-  href: "/dashboard/users",
-  icon: TiContacts,
-},
-{
-  name: "Inventario",
-  href: "/dashboard/inventory",
-  icon: BsBox,
-},
-];
+"use client";
+import styles from "./style.module.scss";
+import Link from "next/link";
 
 
+import { usePathname } from "next/navigation";
 
-export default function SideBar() {
+interface MenuItem {
+  id: number;
+  title: string;
+  listItems: ListItem[];
+}
+
+interface ListItem {
+  id: number;
+  title: string;
+  url: string;
+  icon: any;
+}
+
+interface Props {
+  datakey: string;
+  menu: MenuItem[];
+}
+
+const Side = (props: Props) => {
 
   const pathname = usePathname();
-  
 
-  const { isCollapsed, toggleSidebarcollapse } = useSidebarContext();
-
-  console.log(isCollapsed);
-  
-  
   return (
-    <div className={styles.sidebar__wrapper}>
-      <button className={styles.btn}
-      onClick={toggleSidebarcollapse}>
-        {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
-      </button>
-      <aside className={styles.sidebar}  data-collapse={isCollapsed}>
-        <div className={styles.sidebar__top}>
-          <Image
-            src="/logo.png"
-            alt="Logo"
-            width={80}
-            height={80}
-            className={styles.sidebar__logo}
-          />
-          <p className={styles.sidebar__logo_name}>Stock-Pro</p>
-        </div>
-        <ul className={styles.sidebar__list}>
-          {sidebarItems.map(({ name, href, icon: Icon }) => (
-            <li className={styles.sidebar__item} key={name}>
-              <Link
-                className={ pathname === href ? styles.
-                sidebar__link_active : styles.sidebar__link 
-                }
-                href={href}
-                >    
-                <div className={styles.sidebar__icon}>
-                  <Icon />
-                </div>
-                <span className={styles.sidebar__name}>
-                  {name}
-                </span>
-              </Link>
-            </li>
+    <div className={styles.menu}>
+      {props.menu.map((item) => (
+        <div className={styles.item} key={item.id}>
+          <span className={styles.title}>{item.title}</span>
+          {item.listItems.map((listItem) => (
+            <Link href={listItem.url} className={
+              pathname === listItem.url
+                ? styles.listItem_active
+                : styles.listItem
+            } key={listItem.id}>
+              <div>
+                <listItem.icon />
+              </div>
+              <span className={styles.listItemTitle}>{listItem.title}</span>
+            </Link>
           ))}
-          
-        </ul>
-      </aside>
+        </div>
+      ))}
     </div>
   );
-}
+};
+
+export default Side;

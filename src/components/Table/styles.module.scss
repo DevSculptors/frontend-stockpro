@@ -1,0 +1,23 @@
+.table {
+  margin-top: 1.2rem;
+  background: #fefefe;
+  padding: 2rem;
+  border: 3px solid #fff;
+  border-radius: 10px;
+  color: var(--grey-300, #A8A8BD);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  width: 100%;
+
+  th, td{
+    border: 1px #C5C5D3;
+    padding: 8px;
+    border-bottom: 1px solid #C5C5D3;
+    text-align: left;
+  }
+  tr:hover {
+    background-color: rgba(30, 145, 137, 0.10);
+  }
+}

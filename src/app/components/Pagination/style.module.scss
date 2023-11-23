@@ -1,0 +1,49 @@
+$color_1: #eee;
+$color_2: #fff;
+$background-color_1: #5ab1bb;
+
+.images {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem;
+	margin: 100px auto;
+	width: 60%;
+	min-height: 70vh;
+}
+.image {
+	width: 30%;
+	height: 30%;
+	color: $color_1;
+	border-radius: 3px 3px 3px #9e9e9e;
+	overflow: hidden;
+	img {
+		display: block;
+		width: 100%;
+	}
+}
+
+.pagination {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5rem;
+	font-size: 1.2rem;
+	gap: 5px;
+	.page_num {
+		padding: 8px 15px;
+		cursor: pointer;
+		border-radius: 3px;
+		font-weight: 400;
+		&:hover {
+			background-color: $background-color_1;
+			color: $color_2;
+		}
+	}
+	.active {
+		background-color: $background-color_1;
+		color: $color_2;
+		border-radius: 3px;
+	}
+}

@@ -27,9 +27,10 @@ export default function ForgetPasswordPage() {
         description="Ingresa tu correo electrónico para recuperar tu contraseña"
       >
       <div className='my-[10px] flex flex-col gap-4'>
-        <Form.Input 
+        <Form.InputRequired
         label="Correo electrónico"
         name="email"
+        type="email"
         placeholder="Ingresa tu correo electrónico..."
         />
       </div>

@@ -6,17 +6,20 @@ import { useLoading } from "@/hook/useLoading"
 function LoginPage() {
 
   const {finishLoading,isLoading,startLoading}= useLoading()
-  
+
   const {authRouter} = useAuthFetch()
 
   const loginSubmit = async (formData: any) => {
+
     startLoading()
     await authRouter({
       endpoint: "login",
       formData,
       redirectRoute: "/dashboard",
     });
+
     finishLoading()
+
   }
 
   return (
@@ -27,23 +30,24 @@ function LoginPage() {
     description="Ingresa tus datos para iniciar sesión"
    >
     <div className='my-[10px] flex flex-col gap-4'>
-      <Form.Input
-        name="username"
+      <Form.InputRequired
+        name="email"
         label="Correo electrónico"
+        type="email"
         placeholder="Ingresa tu correo electrónico..."
       />
-      <Form.Input
+      <Form.InputRequired
             placeholder='Ingresa tu contraseña...'
             label='Contraseña'
             name='password'
             type='password'
           />
     </div>
-    <Form.SubmitButton 
+    <Form.SubmitButton
     buttonText="Iniciar sesión"
     isLoading={isLoading}
     />
-    <Form.Footer 
+    <Form.Footer
     description="Te olvidaste de tu contraseña?"
     link="/login/forget-password"
     textLink="Recupérala"

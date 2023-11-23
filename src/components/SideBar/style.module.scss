@@ -1,0 +1,64 @@
+@import '../../styles/responsive.scss';
+@import '../../styles/variables.scss';
+
+
+.listItem_active {
+  background-color: $soft-bg;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 0.8rem;
+  color: #fff;
+
+  @include lg {
+    display: flex;
+    .listItemTitle {
+      display: none;
+    }
+  }
+}
+
+.menu {
+  padding: 1rem;
+  background-color: $main-bg;
+  color: $main-color;
+  border-radius: 0.8rem;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    .title {
+      font-size: 12px;
+      font-weight: 200;
+      color: $soft-color;
+      text-transform: uppercase;
+
+      @include lg {
+        display: none;
+      }
+    }
+
+    .listItem {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background-color: $background-color_2;
+      border-radius: 0.8rem;
+      color: #000;
+
+      &:hover {
+        background-color: $soft-bg;
+      }
+
+      .listItemTitle {
+        @include lg {
+          display: none;
+        }
+      }
+    }
+  }
+}

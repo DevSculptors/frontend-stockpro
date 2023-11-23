@@ -1,12 +1,17 @@
 import Image from "next/image";
-import styles from "./login.module.css";
+import styles from "./login.module.scss";
 
-export default function LogoLogin({width=200, height=200}: IProps) {
-
+export default function LogoLogin({ width = 800, height = 800 }: IProps) {
   return (
     <div className={styles.logo}>
-      <Image src="/logo.jpeg"
-       alt="logo" width={width} height={height}/>
+      <Image
+        src="/logo.jpeg"
+        alt="logo"
+        style={{ width: "auto", height: "auto" }}
+        width={width}
+        height={height}
+        priority={true}
+      />
     </div>
   );
 }
@@ -14,5 +19,4 @@ export default function LogoLogin({width=200, height=200}: IProps) {
 interface IProps {
   width?: number;
   height?: number;
-
 }

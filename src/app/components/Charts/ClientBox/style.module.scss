@@ -1,0 +1,93 @@
+@import "../../../../styles//responsive.scss";
+
+.chartBox {
+  display: flex;
+  height: 100%;
+
+  .centerText {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  @include sm {
+    flex-direction: column;
+  }
+
+  .boxInfo {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include sm {
+      gap: 20px;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      @include xxl {
+        font-size: 14px;
+      }
+    }
+
+    h1 {
+      @include xxl {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .chartInfo {
+    flex: 2;
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-between;
+
+    .chart {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centra horizontalmente */
+      justify-content: center; /* Mueve el contenido hacia la parte inferior */
+
+      h1 {
+        font-size: 20px; /* Tamaño de la fuente */
+        margin: 0; /* Elimina el margen por defecto */
+        font-weight: bold;
+      }
+
+      h3 {
+        margin-top: 5px; /* Ajusta el margen superior del h3 */
+      }
+    }
+
+    .texts {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+
+      .percentage {
+        font-weight: bold;
+        font-size: 20px;
+
+        @include xxl {
+          font-size: 16px;
+        }
+      }
+
+      .duration {
+        font-size: 14px;
+      }
+    }
+  }
+}

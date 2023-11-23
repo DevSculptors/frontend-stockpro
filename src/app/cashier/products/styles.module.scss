@@ -1,0 +1,81 @@
+$color_1: #eee;
+$color_2: #fff;
+$background-color_1: #1e9189;
+
+
+.loading{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+
+.container {
+  margin-bottom: 1rem;
+  background: #fefefe;
+  padding: 1.2rem;
+  border: 3px solid #fff;
+  border-radius: 10px;
+}
+.containerTittle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .tittleList {
+    font-style: normal;
+    color: #16161d;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 140%;
+    white-space: nowrap;
+  }
+  .buttonCreateUser {
+    background: #1e9189;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 0.6rem 0.4rem;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .buttonTable{
+    background: #ff8042;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    padding: 0.6rem 0.4rem;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  gap: 5px;
+  .page_num {
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+    &:hover {
+      background-color: $background-color_1;
+      color: $color_2;
+    }
+  }
+  .active {
+    background-color: $background-color_1;
+    color: $color_2;
+    border-radius: 3px;
+  }
+}

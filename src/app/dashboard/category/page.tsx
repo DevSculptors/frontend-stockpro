@@ -1,8 +1,11 @@
+import CategoryPage from "./Category/page";
+import BrandPage from "./Brand/page";
 
 function Category() {
   return (
     <div>
-      <h1>Category</h1>
+        <CategoryPage/>
+        <BrandPage/>
     </div>
   );
 }

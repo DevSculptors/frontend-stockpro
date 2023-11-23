@@ -1,0 +1,98 @@
+.containerTittle{
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  .tittleList{
+    font-style: normal;
+    color: #16161D;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 140%;
+    white-space: nowrap;
+  }
+}
+.pagination{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  gap: 5px;
+
+  .pagination .page_num{
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: 400;
+
+  }
+  .pagination .page_num:hover{
+    background-color: #5ab1bb;
+    color: #fff;
+  }
+  .pagination .active{
+    background-color: #5ab1bb;
+    color: #fff;
+    border-radius: 3px;
+  }
+}
+
+
+.productCard{
+  margin: 16px;
+  background-color: #fff;
+  padding: 16px 16px 16px 16px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 24px;
+  width: 320px;
+  border: 1px solid var(--carbon-200, #CCC);
+  cursor: pointer;
+
+
+  .nameCard{
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 100%;
+    letter-spacing: 0.6px;
+    color: black;
+    margin-bottom: 0.8rem ;
+  }
+  .infoCard{
+    font-size: 1rem;
+    font-style: normal;
+    line-height: 100%;
+    letter-spacing: 0.6px;
+    color: black;
+    margin-top: 0.6rem ;
+  }
+  .descriptionCard{
+    color: var(--carbon-500, #828282);
+    font-size: 1rem;
+    font-style: normal;
+    line-height: 1; 
+  }
+  .divider{
+    margin: 16px 0;
+    height: 1px;
+    background-color: #ccc;
+  }
+  .categoryInfo{
+    display: flex;
+    font-size: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    .categoryIcon{
+      display: flex;
+      align-items: center;
+    }
+    .icons{
+      margin-right: 1rem;
+    }
+  }
+}

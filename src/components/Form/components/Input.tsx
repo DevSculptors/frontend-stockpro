@@ -12,10 +12,12 @@ interface InputProps {
 }
 
 export function Input ({ label, name, placeholder, type }: InputProps) {
+  
   const { formValues, setFormValues } = useContext(FormContext)!
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
+
     setFormValues(prevValues => ({
       ...prevValues,
       [name]: value

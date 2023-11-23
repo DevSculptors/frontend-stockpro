@@ -1,9 +1,12 @@
-import { useNotificationContext } from "@/context/NotificationContext";
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
+
+import axios from "@/api/config";
 
 import { useRouter } from "next/navigation";
 
-import { API_URL } from "@/api/config";
+import Cookies from "js-cookie";
+
+import { ToasterSucess, ToasterError } from "../helpers/useToaster";
 
 interface AuthFetchProps {
   endpoint: string;
@@ -13,7 +16,6 @@ interface AuthFetchProps {
 }
 
 export function useAuthFetch() {
-  const { showNotification } = useNotificationContext();
   const router = useRouter();
 
   const authRouter = async ({
@@ -22,29 +24,31 @@ export function useAuthFetch() {
     formData,
     options,
   }: AuthFetchProps) => {
-    console.log("useAuthFetch Login");
+  
     try {
-      console.log(formData);
-      
-      const { data } = await axios.post(`${API_URL}/${endpoint}`, formData, options);
-      
-      console.log(data);
+      const { data } = await axios.post(`${endpoint}`, formData, options);
 
-      showNotification({
-        open: true,
-        msj: data.message,
-        status: "success",
+      Cookies.set("token", data.token, {
+        path: "/",
+        expires: 1,
       });
+
+      console.log("data", data);
+      
+
+      // Guardar datos del usuario en el sessionStorage
+      sessionStorage.setItem("userData", JSON.stringify(data.userFound));
+      sessionStorage.setItem("user_id", data.userFound.id);
+      sessionStorage.setItem("username", data.userFound.username);
+      sessionStorage.setItem("role", data.userFound.roleUser);
+
+      ToasterSucess("Inicio de sesión exitoso");
 
       if (redirectRoute) {
         router.push(redirectRoute);
       }
     } catch (error: any) {
-      showNotification({
-        open: true,
-        status: "error",
-        msj: error.response.data.message as string,
-      });
+      ToasterError(error.response.data.message);
     }
   };
   return { authRouter };
