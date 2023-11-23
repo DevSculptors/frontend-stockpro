@@ -35,3 +35,8 @@ export const reportMostClientAPI= async () => {
   return response.data;
 }
 
+export const reportTopCategoriesByWeekAPI= async () => {
+  const response = await axios.get('/sales/topCategoriesByWeek');
+  return response.data;
+}
+

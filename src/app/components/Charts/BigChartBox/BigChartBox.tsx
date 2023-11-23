@@ -12,13 +12,13 @@ import styles from "./style.module.scss";
 type Props = {
   title: string;
   dataKey: string;
-  color1: string;
-  color2: string;
-  color3: string;
+  colors: string[];
   chartData: { name: string }[];
 };
 
-const BigChartBox = (props:Props) => {
+const BigChartBox = (props: Props) => {
+
+  const dataKeys = Object.keys(props.chartData[0]).filter((key) => key !== 'name');
   return (
     <div className={styles.bigChartBox}>
       <h1>{props.title}</h1>
@@ -36,27 +36,16 @@ const BigChartBox = (props:Props) => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="electronic"
-              stackId="1"
-              stroke={props.color1}
-              fill={props.color1}
-            />
-            <Area
-              type="monotone"
-              dataKey="clothes"
-              stackId="1"
-              stroke={props.color2}
-              fill={props.color2}
-            />
-            <Area
-              type="monotone"
-              dataKey="books"
-              stackId="1"
-              stroke={props.color3}
-              fill={props.color3}
-            />
+            {dataKeys.map((key, index) => (
+              <Area
+                key={index}
+                type="monotone"
+                dataKey={key}
+                stackId="1"
+                stroke={props.colors[index]}
+                fill={props.colors[index]}
+              />
+            ))}
           </AreaChart>
         </ResponsiveContainer>
       </div>
