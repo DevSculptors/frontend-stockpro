@@ -8,6 +8,12 @@
   color: $main-text;
 }
 
+.loading{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 .container {
   display: flex;
 }

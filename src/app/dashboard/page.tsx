@@ -17,9 +17,10 @@ import {
   reportTotalProductsWeekAPI,
   reportTotalRevenueAPI,
   reportMostClientAPI,
+  reportTopCategoriesByWeekAPI,
 } from "@/api/Reports";
 
-import { chartBoxUser, bigChart } from "@/api/dataTest";
+import { bigChart } from "@/api/dataTest";
 
 import { formatPrice } from "@/helpers/Utils";
 
@@ -78,44 +79,62 @@ function Dashboard() {
     dataKey: "clientes",
   });
 
-  const { isLoading: isMostClient } = useQuery(
-    ["reportMostClient"],
-    reportMostClientAPI,
-    {
-      onSuccess: (data) => {
-        setChartBoxClients({
-          ...chartBoxClientes,
-          number: data.totalRegisteredClients,
-          text: data.client.name + " " + data.client.last_name,
-        });
+  const [topCategories, setTopCategories] = useState<any>({
+    title: "Analisis de Ingresos",
+    dataKey: "ingresos",
+    colors: ["#8884d8", "#82ca9d", "#ffc658", "#bfdff0"],
+    chartData: [
+      {
+        name: "Sunday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
       },
-    }
-  );
-
-  console.log(chartBoxClientes);
-
-  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
-
-  function transformCategories(originalData: any[]) {
-    return originalData.map((item: any, index: number) => ({
-      name: item.category,
-      value: item.amount,
-      color: colors[index],
-    }));
-  }
-
-  const { isLoading: isCategories } = useQuery(
-    ["reportTopCategories"],
-    reportByTopCategoriesAPI,
-    {
-      onSuccess: (data) => {
-        setReportTopCategories({
-          ...reportTopCategories,
-          chartData: transformCategories(data),
-        });
+      {
+        name: "Monday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
       },
-    }
-  );
+      {
+        name: "Tuesday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
+      },
+      {
+        name: "Wednesday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
+      },
+      {
+        name: "Thursday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
+      },
+      {
+        name: "Friday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
+      },
+      {
+        name: "Saturday",
+        lacteos: 0,
+        "cuidado personal": 0,
+        cereales: 0,
+        "aseo hogar": 0,
+      },
+    ],
+  });
 
   interface DayMappings {
     [key: string]: string;
@@ -156,6 +175,93 @@ function Dashboard() {
     Friday: "V",
     Saturday: "S",
   };
+
+  interface DayData {
+    day: string;
+    values: { category: string; amount: number }[];
+  }
+
+  interface TransformedData {
+    name: string;
+    [key: string]: number | string;
+  }
+
+  function transformDataTopCategories(inputData: DayData[]): TransformedData[] {
+    const chartData: { [key: string]: TransformedData } = {};
+    const categories: string[] = [
+      "aseo hogar",
+      "cereales",
+      "cuidado personal",
+      "lacteos",
+    ];
+
+    inputData.forEach((dayData: DayData) => {
+      const { day, values } = dayData;
+      const transformedDay: TransformedData = { name: dayMappings[day] };
+
+      categories.forEach((category: string) => {
+        const categoryData = values.find(
+          (item: { category: string; amount: number }) =>
+            item.category === category
+        );
+        transformedDay[category] = categoryData ? categoryData.amount : 0;
+      });
+
+      chartData[day] = transformedDay;
+    });
+
+    return Object.values(chartData);
+  }
+
+  const { isLoading: isTopCategories } = useQuery(
+    ["reportTopCategoriesByWeek"],
+    reportTopCategoriesByWeekAPI,
+    {
+      onSuccess: (data) => {
+        setTopCategories((prevTopCategories: any) => ({
+          ...prevTopCategories,
+          chartData: transformDataTopCategories(data),
+        }));
+      },
+    }
+  );
+
+  const { isLoading: isMostClient } = useQuery(
+    ["reportMostClient"],
+    reportMostClientAPI,
+    {
+      onSuccess: (data) => {
+        setChartBoxClients({
+          ...chartBoxClientes,
+          number: data.totalRegisteredClients,
+          text: data.client.name + " " + data.client.last_name,
+        });
+      },
+    }
+  );
+
+  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
+
+  function transformCategories(originalData: any[]) {
+    return originalData.map((item: any, index: number) => ({
+      name: item.category,
+      value: item.amount,
+      color: colors[index],
+    }));
+  }
+
+  const { isLoading: isCategories } = useQuery(
+    ["reportTopCategories"],
+    reportByTopCategoriesAPI,
+    {
+      onSuccess: (data) => {
+        setReportTopCategories({
+          ...reportTopCategories,
+          chartData: transformCategories(data),
+        });
+      },
+    }
+  );
 
   const { isLoading: isTotalRevenue } = useQuery(
     ["reportTotalRevenue"],
@@ -253,12 +359,10 @@ function Dashboard() {
     }
   );
 
-  console.log(reportTopCategories);
-
-
   return (
     <div>
-      {topClients &&
+      {isTopCategories &&
+      topClients &&
       isWeekSale &&
       isCategories &&
       isTotalSales &&
@@ -290,7 +394,7 @@ function Dashboard() {
             <ChartBox {...totalSales} />
           </div>
           <div className={styles.box7}>
-            <BigChartBox {...bigChart} />
+            <BigChartBox {...topCategories} />
           </div>
           <div className={styles.box}>
             <BarChartBox {...reportSales} />
