@@ -43,12 +43,6 @@ export const menuData = {
           url: "/dashboard/inventory_plus",
           icon: LuMousePointerClick,
         },
-        {
-          id: 2,
-          title: "Estadisticas",
-          url: "/dashboard/stats",
-          icon: BsFillBarChartFill,
-        },
       ],
     },
     {
@@ -102,16 +96,11 @@ export const menuData = {
     },
     {
       id: 4,
-      title: "Mantenimiento",
+      title: "Log out",
       listItems: [
+      
         {
           id: 1,
-          title: "Configuracion",
-          url: "/dashboard/settings",
-          icon: FiSettings,
-        },
-        {
-          id: 2,
           title: "Salir",
           url: "/logout",
           icon: CiLogout,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { InventoryContext } from "@/context/InventoryContext";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { ProductBuyInventory } from "@/interfaces/Inventory";
@@ -10,12 +10,16 @@ import { ModalContext } from "@/context/ModalContext";
 
 import styles from "../style.module.scss";
 import { GridLoader } from "react-spinners";
+import { set } from "cypress/types/lodash";
 
 function CreateBuyDialog() {
-
-  const {setProductsBuy, productsBuy} = useContext(InventoryContext);
+  const { setProductsBuy, productsBuy } = useContext(InventoryContext);
 
   const [selectedProduct, setSelectedProduct] = useState<Product>();
+
+  const [priceSale, setPriceSale] = useState<number>(0);
+  const [priceBuy, setPriceBuy] = useState<number>(0);
+  const [ganancy, setGanancy] = useState<number>(0);
 
   const [productBuy, setproductBuy] = useState<ProductBuyInventory>();
 
@@ -39,18 +43,6 @@ function CreateBuyDialog() {
         .slice(0, 4)) ||
     [];
 
-  const handleChange = ({ target: { name, value } }: any) => {
-    if (name === "productSearch") {
-      setProductName(value);
-      setSelectedProduct(undefined);
-    }
-    setproductBuy((prevValues: any) => ({
-      ...prevValues,
-      [name]: value,
-      product: selectedProduct,
-    }));
-  };
-
   const addProduct = (product: Product) => {
     const isProductAlreadyAdded = productsBuy?.some(
       (productBuy) => productBuy.product.id === product.id
@@ -65,24 +57,69 @@ function CreateBuyDialog() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    let valuePriceSale = 0;
     e.preventDefault();
     if (selectedProduct) {
+      if (priceBuy > 0 && ganancy > 0) {
+        valuePriceSale = priceBuy * (1 + ganancy / 100);
+        console.log(valuePriceSale);
+
+        setPriceSale(Number(valuePriceSale.toFixed(2)));
+        console.log("entro");
+      } else {
+        setPriceSale(priceBuy);
+      }
+
       setproductBuy((prevValues: any) => ({
         ...prevValues,
         id: selectedProduct.id,
         product: selectedProduct,
+        sale_unit_price: calculatePriceSale(),
       }));
 
       setProductsBuy((prevValues: any) => [...prevValues, productBuy]);
       setOpen(false);
-      ToasterSucess("Producto agregado correctamente");      
+      ToasterSucess("Producto agregado correctamente");
     } else {
       ToasterError("Debe seleccionar un producto");
     }
   };
 
+  const calculatePriceSale = useCallback(() => {
+    const valuePriceSale = priceBuy * (1 + ganancy / 100);
+    setPriceSale(Number(valuePriceSale.toFixed(2)));
+    return valuePriceSale.toFixed(2);
+  }, [priceBuy, ganancy, setPriceSale]);
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setproductBuy((prevValues: any) => ({
+        ...prevValues,
+        id: selectedProduct.id,
+        product: selectedProduct,
+        sale_unit_price: calculatePriceSale(),
+      }));
+    }
+  }, [calculatePriceSale, selectedProduct]);
+
   const onCancel = () => {
     setOpen(false);
+  };
+
+  const handleChange = ({ target: { name, value } }: any) => {
+    if (name === "purchase_unit_price") {
+      setPriceBuy(value);
+    }
+    if (name === "productSearch") {
+      setProductName(value);
+      setSelectedProduct(undefined);
+    }
+    setproductBuy((prevValues: any) => ({
+      ...prevValues,
+      [name]: value,
+      product: selectedProduct,
+      sale_unit_price: calculatePriceSale(),
+    }));
   };
 
   return (
@@ -139,6 +176,7 @@ function CreateBuyDialog() {
               type="number"
               id="quantity"
               name="quantity"
+              min={0}
               placeholder="Ingrese la cantidad de productos"
               onChange={handleChange}
               required
@@ -164,7 +202,20 @@ function CreateBuyDialog() {
               type="number"
               id="purchase_unit_price"
               name="purchase_unit_price"
+              min={0}
               onChange={handleChange}
+              required
+            />
+          </div>
+          <div className={styles.inputConainerTest}>
+            <label htmlFor="ganancia" className={styles.label}>
+              % de ganancia
+            </label>
+            <input
+              min={0}
+              max={100}
+              type="number"
+              onChange={(e) => setGanancy(Number(e.target.value))}
               required
             />
           </div>

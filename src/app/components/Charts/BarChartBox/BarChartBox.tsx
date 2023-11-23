@@ -22,7 +22,7 @@ const BarChartBox = (props: Props) => {
               cursor={{fill:"none"}}
             />
             <Bar dataKey={props.dataKey} fill={props.color} />
-            <XAxis dataKey="name" tick={{ fontSize: 12, fill: 'black' }} tickLine={false} /> 
+            <XAxis dataKey="name" tick={{ fontSize: 12, fill: 'black' }} tickLine={false} />
           </BarChart>
         </ResponsiveContainer>
       </div>

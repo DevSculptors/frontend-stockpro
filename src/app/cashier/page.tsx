@@ -15,7 +15,7 @@ function Cashier() {
         setShowModal(true);
         sessionStorage.setItem('modalShown', 'true');
     }
-  }, [])
+  }, [setId, setOpen])
 
   return (
     <User/>

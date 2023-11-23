@@ -6,11 +6,11 @@ import { useLoading } from "@/hook/useLoading"
 function LoginPage() {
 
   const {finishLoading,isLoading,startLoading}= useLoading()
-  
+
   const {authRouter} = useAuthFetch()
 
   const loginSubmit = async (formData: any) => {
-    
+
     startLoading()
     await authRouter({
       endpoint: "login",
@@ -43,11 +43,11 @@ function LoginPage() {
             type='password'
           />
     </div>
-    <Form.SubmitButton 
+    <Form.SubmitButton
     buttonText="Iniciar sesión"
     isLoading={isLoading}
     />
-    <Form.Footer 
+    <Form.Footer
     description="Te olvidaste de tu contraseña?"
     link="/login/forget-password"
     textLink="Recupérala"

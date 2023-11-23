@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import { AiOutlineSetting } from "react-icons/ai";
 import { IoNotificationsOutline } from "react-icons/io5";
+import {BiHelpCircle} from "react-icons/bi";
 
 interface Props {
   logoHref: string;
-  settingsHref: string;
   notificationsHref: string;
 }
 
@@ -30,13 +30,11 @@ const Navbar = (props:Props) => {
         </Link>
       </div>
       <div className={styles.icons}>
-        <Link href={props.settingsHref}>
-          <AiOutlineSetting className={styles.icon} />
-        </Link>
+    
         <Link href={props.notificationsHref}>
           <div className={styles.notification}>
-            <IoNotificationsOutline className={styles.icon} />
-            <span>1</span>
+            <BiHelpCircle className={styles.icon} />
+            <span>?</span>
           </div>
         </Link>
         <RoleUser />

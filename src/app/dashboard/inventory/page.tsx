@@ -131,7 +131,7 @@ function Inventory() {
                   setModeTable((prevMode) => !prevMode); // Alternar el valor actual
                 }}
               >
-                {modeTable ? "Modo Tarjeta" : "Modo Tabla"}
+                {modeTable ? "Modo Tabla" : "Modo Tarjeta"}
               </button>
             </div>
             <div>
@@ -149,17 +149,8 @@ function Inventory() {
             </div>
           </div>
           {modeTable ? (
-            <div className="py-3 mx-2">
-              <DataTable
-                slug="products"
-                columns={columns}
-                rows={rows}
-                pagination={10}
-                handleRow={(params) => handleClick(params)}
-              />
-            </div>
-          ) : (
             <div>
+              
               <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))]  gap-4">
                 {currentItems?.map((product: Product) => (
                   <Card
@@ -191,6 +182,16 @@ function Inventory() {
                 previousClassName={styles.page_num}
                 nextClassName={styles.page_num}
                 activeClassName={styles.active}
+              />
+            </div>
+          ) : (
+            <div  className="py-3 mx-2">
+              <DataTable
+                slug="products"
+                columns={columns}
+                rows={rows}
+                pagination={10}
+                handleRow={(params) => handleClick(params)}
               />
             </div>
           )}
