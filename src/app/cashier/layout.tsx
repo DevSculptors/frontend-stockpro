@@ -21,8 +21,7 @@ import { ClientContext } from "@/context/ClientContext";
 
 const NavBarData = {
   logoHref: "/cashier",
-  settingsHref: "/cashier/settings",
-  notificationsHref: "/cashier",
+  notificationsHref: "/cashier-guide",
 };
 
 

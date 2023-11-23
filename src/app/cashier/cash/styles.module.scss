@@ -25,7 +25,6 @@
       white-space: nowrap;
     }
   }
-    
 
   .listBox {
     display: flex;
@@ -51,7 +50,6 @@
       }
     }
   }
-
 }
 
 .containerSearch {
@@ -123,9 +121,9 @@
   color: white;
   text-align: center;
   border-radius: 10px;
-  padding: .4rem 0;
+  padding: 0.4rem 0;
   border: 1px solid transparent;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,21 +138,21 @@
 .submitButton {
   margin-top: 1rem;
   width: 100%;
-  background: rgba(0, 106, 255, 0.80);
+  background: rgba(0, 106, 255, 0.8);
   color: white;
   text-align: center;
   border-radius: 10px;
-  padding: .4rem 0;
+  padding: 0.4rem 0;
   border: 1px solid transparent;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
-    background-color: rgba(0, 106, 255, 0.90);
+    background-color: rgba(0, 106, 255, 0.9);
     color: #fff;
-    border: 1px solid rgba(0, 106, 255, 0.90);
+    border: 1px solid rgba(0, 106, 255, 0.9);
   }
 }
 .cancelButton {
@@ -162,9 +160,9 @@
   width: 100%;
   text-align: center;
   border-radius: 10px;
-  padding: .4rem 0;
+  padding: 0.4rem 0;
   border: 1px solid transparent;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,6 +175,7 @@
     border: 1px solid rgba(210, 0, 26, 0.75);
   }
 }
+
 .inputConainerTest {
   display: flex;
   flex-direction: column;
@@ -194,11 +193,17 @@
     border-radius: 12px;
     transition-duration: 0.3s;
     outline: 0.5px solid transparent;
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1;
+
+    /* Establece un ancho máximo */
+    max-width: 300px; /* Puedes ajustar el tamaño máximo según tus necesidades */
+
+    /* Controla el texto que se sale del límite */
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:focus {
       outline: 1.5px solid #1e9189;
     }
   }
 }
-

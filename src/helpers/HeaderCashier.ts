@@ -53,12 +53,6 @@ export const menuData = {
       listItems: [
         {
           id: 1,
-          title: "Configuracion",
-          url: "/cashier/settings",
-          icon: FiSettings,
-        },
-        {
-          id: 2,
           title: "Salir",
           url: "/cashier/logoutCashier",
           icon: CiLogout,

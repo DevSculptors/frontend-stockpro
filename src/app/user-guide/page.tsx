@@ -22,13 +22,6 @@ function page() {
               En este apartado se explicarán las funcionalidades principales de
               la aplicación, las cuales son
             </h4>
-            <ul>
-              <li>Gestión de Ventas</li>
-              <li>Gestión de Compras</li>
-              <li>Gestión de Usuarios</li>
-              <li>Gestión de Clientes</li>
-              <li>Gestión de Inventarios</li>
-            </ul>
           </div>
           <figure className={styles.image_wrap}>
             <iframe
@@ -170,8 +163,8 @@ function page() {
             <iframe
               width="1280"
               height="720"
-              src="https://www.youtube.com/embed/WbSquAu2gkc"
-              title="Ventas y Registradoras"
+              src="https://www.youtube.com/embed/d5z9S48Y9rY"
+              title="Ventas y Cajas"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             ></iframe>
           </figure>
