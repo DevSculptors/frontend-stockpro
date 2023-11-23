@@ -2,7 +2,7 @@
 import { CashRegister } from "@/interfaces/CashRegister";
 import DataTable from "@/components/DataTable/DataTable";
 import { GridColDef } from "@mui/x-data-grid";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CashRegisterContext } from "@/context/CashRegisterContext";
 
 import styles from "../style.module.scss";
@@ -11,6 +11,10 @@ import { useRouter } from "next/navigation";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 import { formatPrice, formatTimeDate } from "@/helpers/Utils";
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
+import { getWithdrawalsCashRegister} from "@/api/CashRegister";
+import { WithdrawalResponse } from "@/interfaces/CashRegister";
+import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
 
 const columns: GridColDef[] = [
   {
@@ -45,6 +49,26 @@ const columns: GridColDef[] = [
   },
 ];
 
+const columnsWithdrawal: GridColDef[] = [
+  {
+    field: "id_turn",
+    headerName: "Id del Turno",
+    width: 300,
+    type: "string",
+  },
+  {
+    field: "withdrawal_date",
+    headerName: "Fecha de Retiro",
+    width: 200,
+    type: "string",
+  },
+  {
+    field: "value",
+    headerName: "Valor de Retiro",
+    width: 200,
+    type: "string",
+  },
+];
 
 const ShowCashRegister = () => {
   
@@ -54,7 +78,11 @@ const ShowCashRegister = () => {
 
   const name = selectedCashRegister?.name || "";
   const location = selectedCashRegister?.location || "";
+  const [withdrawalsInfo, setWithdrawalsInfo] = useState<WithdrawalResponse[]>();
 
+  useEffect(() => {
+    getWithdrawalMutation.mutate(selectedCashRegister?.id.toString() || "");
+  },[])
   const rows =
     selectedCashRegister?.turns?.map((item) => ({
       id: item.id,
@@ -64,6 +92,27 @@ const ShowCashRegister = () => {
       final_cash: formatPrice(Number(item.final_cash)),
       username: item.user.username,
     })) || [];
+
+  const getWithdrawalMutation= useMutation({
+    mutationFn: getWithdrawalsCashRegister,
+    onSuccess: (result:any) => {
+      if(result.length>0) {
+        setWithdrawalsInfo(result);
+      }
+    },
+    onError: (error: any) => {
+      error.response.data.forEach((error: any) => {
+        ToasterError(error.message);
+      });
+    },
+  });
+  const rowsWithdrawal =
+      withdrawalsInfo?.map((data) => ({
+        id: data.id,
+        id_turn: data.id_turn,
+        withdrawal_date: formatTimeDate(String(data.withdrawal_date)),
+        value: formatPrice(Number(data.value)),
+      })) || [];
 
   return (
     <div className={styles.container}>
@@ -108,6 +157,25 @@ const ShowCashRegister = () => {
           }
         </div>
       </div>
+      {withdrawalsInfo && (
+          <div>
+            <div className={styles.containerTittle}>
+              <p className={styles.tittleList}>Retiros de Caja Registradora</p>
+            </div>
+            <div>
+              <div>
+                <DataTable
+                    slug="withdrawalsCashRegister"
+                    pagination={5}
+                    columns={columnsWithdrawal}
+                    rows={rowsWithdrawal}
+                    handleRow={() => {}}
+                />
+              </div>
+            </div>
+          </div>
+      )
+      }
     </div>
   );
 };
