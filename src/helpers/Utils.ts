@@ -10,6 +10,7 @@ export function formatPrice(price: number): string {
   const formattedPrice = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP", // Código ISO de la moneda (pesos colombianos)
+    maximumFractionDigits: 0, // Maximum allowed decimal places
   }).format(price);
 
   return formattedPrice;
@@ -62,4 +63,24 @@ export function formatTimeDate(fechaStr:string): string {
   };
 
   return fechaCompra.toLocaleDateString("es-CO", options);
+}
+export function formatDatetoString(date:string): string {
+  const fechaCompra = new Date(date);
+  const options: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  };
+  const formattedDateString = new Intl.DateTimeFormat('es-CO', options).format(fechaCompra);
+  return formattedDateString;
+}
+export function formatTimetoString(date:string): string {
+  const fechaCompra = new Date(date);
+  const options2: Intl.DateTimeFormatOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  };
+  const formattedTimeString = new Intl.DateTimeFormat('es-CO', options2).format(fechaCompra);
+  return formattedTimeString;
 }

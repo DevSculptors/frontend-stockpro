@@ -4,13 +4,14 @@ import React, {
   useContext,
   useState,
   useEffect,
-  useRef,
 } from "react";
 import { SaleContext } from "@/context/SaleContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createSaleAPI } from "@/api/Sale";
-import { SaleCreate, ProductDetailSale } from "@/interfaces/Sale";
+import { SaleCreate, ProductDetailSale, Sale } from "@/interfaces/Sale";
 import { ToasterSucess, ToasterError } from "@/helpers/useToaster";
+import ReactDOMServer from 'react-dom/server';
+import { useRouter } from "next/navigation";
 
 import styles from "./styles.module.scss";
 
@@ -27,12 +28,14 @@ import { Product } from "@/interfaces/Product";
 import { Client } from "@/interfaces/Client";
 import { formatPrice, formatDate } from "@/helpers/Utils";
 import { BsFillTrashFill } from "react-icons/bs";
-import DetailsSale from "./Dialogs/DetailsSaleDialog";
 import Modal from "react-modal";
 
 function Cash() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  let isPrint:boolean=false;
+  const router = useRouter();
+
   const [inputDisabled, setInputDisabled] = useState(false);
+  const [printSelect, setPrintSelect] = useState(0);
   const [productName, setProductName] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product>();
   const { setClients, clients } = useContext(ClientContext);
@@ -40,12 +43,14 @@ function Cash() {
   const [inputAmount, setInputAmount] = useState("");
 
   const [createSaleFields, setCreateSaleFields] = useState<SaleCreate>();
-  const { setProductsSale, productsSale } = useContext(SaleContext);
+  const {selectedSale, setSelectedSale, setSales, sales, setProductsSale, productsSale } = useContext(SaleContext);
   const [productSale, setProductSale] = useState<ProductDetailSale>();
 
   const [user_id, setUser_id] = useState("");
   const [id_turn, setId_Turn] = useState("");
   const [error, setError] = useState("");
+  const [nameClient, setNameClient] = useState("");
+  const [clientDef, setClientDef] = useState<Client>();
   const [amount, setAmount] = useState(1);
 
   useEffect(() => {
@@ -65,14 +70,16 @@ function Cash() {
     },
   });
 
-  const { isLoading } = useQuery(["clients"], getAllPersons, {
+  let tiempos = null;
+
+  const {isLoading} = useQuery(["clients"], getAllPersons, {
     onSuccess: (data) => {
       setClients(data);
+      tiempos=clients?.find((client) => client.name === "Varios");
+      setClientDef(clients?.find((client) => client.name === "Varios"));
+      setNameClient(clientDef?.id || "");
     },
   });
-
-  const defaultClient = clients?.find((client) => client.name === "Varios");
-  const clientName = defaultClient?.name;
 
   const columns: GridColDef[] = [
     {
@@ -129,10 +136,11 @@ function Cash() {
 
   const addSale = useMutation({
     mutationFn: createSaleAPI,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      handleCleanInputs();
       queryClient.invalidateQueries(["sales"]);
       ToasterSucess("Venta registrada correctamente");
-      handleCleanInputs();
+      setSelectedSale(data);
     },
     onError: (error: any) => {
       ToasterError("Error al registrar la venta");
@@ -151,16 +159,30 @@ function Cash() {
       id: product.product.id,
       amount_product: Number(product.amount_product),
     })) || [];
+
   const handleSubmitCreateSale = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addSale.mutate({
-      id_client: defaultClient?.id,
-      id_user: user_id,
-      date_sale: new Date(),
-      products: products_details,
-      price_sale: totalPrice,
-      id_turn: id_turn,
-    });
+    if (nameClient){
+      addSale.mutate({
+        id_client: nameClient,
+        id_user: user_id,
+        date_sale: new Date(),
+        products: products_details,
+        price_sale: totalPrice,
+        id_turn: id_turn,
+      });
+    }else{
+      const defId = clients?.find((client) => client.name === "Varios")?.id;
+      addSale.mutate({
+        id_client: defId,
+        id_user: user_id,
+        date_sale: new Date(),
+        products: products_details,
+        price_sale: totalPrice,
+        id_turn: id_turn,
+      });
+    }
+
   };
   const handleCleanInputs = () => {
     removeInputs();
@@ -180,6 +202,9 @@ function Cash() {
       );
     }, 0) || 0;
   const handleChange = ({ target: { name, value } }: any) => {
+    if (name="id_client"){
+      setNameClient(value);
+    }
     setCreateSaleFields((prevValues: any) => ({
       ...prevValues,
       [name]: value,
@@ -210,13 +235,6 @@ function Cash() {
   };
 
   const addProduct = (product: Product) => {
-    const isProductAlreadyAdded = productsSale?.some(
-      (productsSale) => productsSale.product.id === product.id
-    );
-    if (isProductAlreadyAdded) {
-      ToasterError("El producto ya se encuentra agregado");
-      return;
-    }
     setProductName(product.name_product);
     setInputDisabled(true);
     setSelectedProduct(product);
@@ -246,6 +264,40 @@ function Cash() {
     setSelectedProduct(undefined);
     (document.getElementById("amount_product") as HTMLInputElement).value = "";
   };
+
+  const addSalePrint = useMutation({
+    mutationFn: createSaleAPI,
+    onSuccess: (data) => {
+      setSelectedSale(data);
+      queryClient.invalidateQueries(["sales"]);
+      ToasterSucess("Venta registrada correctamente");
+      handleCleanInputs();
+      router.push(`/cashier/cash/${selectedSale?.id}`);
+    },
+    onError: (error: any) => {
+      ToasterError("Error al registrar la venta");
+      console.log(error);
+    },
+  });
+  const mutationDefault=(id_client:string)=>{
+    addSalePrint.mutate({
+      id_client: id_client,
+      id_user: user_id,
+      date_sale: new Date(),
+      products: products_details,
+      price_sale: totalPrice,
+      id_turn: id_turn,
+    });
+  }
+  const printInvoice = () => {
+    if(nameClient){
+        mutationDefault(nameClient)
+    }else {
+      const defId = clients?.find((client) => client.name === "Varios")?.id;
+      mutationDefault(defId || "")
+    }
+    //setPrintSelect(0);
+  };
   const filteredProducts =
     (products &&
       products
@@ -263,17 +315,17 @@ function Cash() {
           <div className={styles.containerTittle}>
             <p className={styles.tittleList}>Registrar Venta</p>
             <div className={styles.listBox}>
-              <label htmlFor="id_client">Cliente</label>
+              <label htmlFor="labelClient">Cliente</label>
               <select
-                name="id_client"
-                id="id_client"
-                onChange={handleChange}
-                value={defaultClient?.id}
+                  name="id_client"
+                  onChange={handleChange}
+                  value={nameClient || clientDef?.id}
               >
+
                 {clients?.map((type) => (
-                  <option key={type.id} value={type.id}>
-                    {type.name}
-                  </option>
+                    <option key={type.id} value={type.id}>
+                      {type.name} {type.last_name}
+                    </option>
                 ))}
               </select>
             </div>
@@ -383,20 +435,10 @@ function Cash() {
                   <button type="submit" className={styles.buttonCreate}>
                     Registrar Compra
                   </button>
+                  <button onClick={printInvoice} type="button" className={styles.submitButton}>
+                    Imprimir Factura
+                  </button>
                 </div>
-                {isModalOpen == true ? (
-                  <div id="detailSale">
-                    {/*<DetailsSale
-                                isOpen={isModalOpen}
-                                setIsOpen={setIsModalOpen}
-                                invoiceInfo={{
-                                  clientName,
-                                  totalPrice,
-                                }}
-                                items={productsSale}
-                            />*/}
-                  </div>
-                ) : null}
               </form>
             </div>
           ) : null}

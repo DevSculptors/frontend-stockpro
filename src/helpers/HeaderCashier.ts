@@ -6,7 +6,7 @@ import { FaClipboardList } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa6";
 import { FaLock } from "react-icons/fa6";
 import { BsBox } from "react-icons/bs";
-
+import { BiMoneyWithdraw } from "react-icons/bi";
 
 export const menuData = {
   datakey: "cashier",
@@ -38,6 +38,12 @@ export const menuData = {
           title: "Productos",
           url: "/cashier/products",
           icon: BsBox,
+        },
+        {
+          id: 3,
+          title: "Retiro",
+          url: "/cashier/withdrawl",
+          icon: BiMoneyWithdraw,
         },
       ],
     },

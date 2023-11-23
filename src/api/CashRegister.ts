@@ -1,6 +1,6 @@
 import axios from "./config";
 
-import { CashRegister, CreateCashRegister, OpenTurn, CloseTurn, UpdateCashRegister} from "@/interfaces/CashRegister";
+import { WithdrawalResponse,InfoTurn,CashRegister, CreateCashRegister, OpenTurn, CloseTurn, UpdateCashRegister, Withdrawal} from "@/interfaces/CashRegister";
 import { SaleTurn } from "@/interfaces/Sale";
 import Cookies from "js-cookie";
 
@@ -12,7 +12,7 @@ export const getAllCashRegisterAPI = async () => {
   });
   return response.data;
 }
-export const getCashRegisterById = async (id: number) => {
+export const getCashRegisterById = async (id: string) => {
   const response = await axios.get<CashRegister>(`/cashRegister/${id}`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("token")}`,
@@ -20,7 +20,28 @@ export const getCashRegisterById = async (id: number) => {
   });
   return response.data;
 }
+export const getInfoTurn = async (id: string) => {
+  const response = await axios.get<InfoTurn>(`/cashRegister/turn/${id}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
+  return response.data;
+}
+export const saveWithdrawalAPI = async (data: Withdrawal) => {
 
+  const response = await axios.post<Withdrawal>(`/cashRegister/turn/${data.id}`,data, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
+  return response.data;
+}
+export const saveWithdrawl = async (data: Withdrawal) => {
+  console.log(data)
+  const response = await axios.post<WithdrawalResponse>(`/cashRegister/turn/${data.id}`, );
+  return response.data;
+}
 export const createCashRegisterAPI = async (cashRegister: CreateCashRegister) => {
   const response = await axios.post<CreateCashRegister>("/cashRegister", cashRegister, {
     headers: {
@@ -54,12 +75,19 @@ export const closeTurnAPI = async (closeTurn: CloseTurn) => {
   });
   return response.data;
 }
-export const getSalesAPI = async (id_turn: string) => {
-  const response = await axios.get<SaleTurn[]>(`/cashRegister/turn/sales/${id_turn}`, {
+export const getSalesAPI = async (id: string) => {
+  const response = await axios.get<SaleTurn[]>(`/cashRegister/turn/sales/${id}`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("token")}`,
     },
   });
-  console.log("data"+response.data);
+  return response.data;
+}
+export const getWithdrawals = async (id: string) => {
+  const response = await axios.get<WithdrawalResponse[]>(`/cashRegister/turn/withdrawal/${id}`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
   return response.data;
 }
