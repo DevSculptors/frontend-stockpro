@@ -91,3 +91,11 @@ export const getWithdrawals = async (id: string) => {
   });
   return response.data;
 }
+export const getWithdrawalsCashRegister = async (id: string) => {
+  const response = await axios.get<WithdrawalResponse[]>(`/cashRegister/${id}/withdrawals`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get("token")}`,
+    },
+  });
+  return response.data;
+}
